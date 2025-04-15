@@ -152,6 +152,8 @@ local infinite = {
 	atlas = "atlasdeck",
 	apply = function(self)
 		G.GAME.modifiers.cry_highlight_limit = self.config.cry_highlight_limit
+		G.GAME.starting_params.play_limit = self.config.cry_highlight_limit
+		G.GAME.starting_params.discard_limit = self.config.cry_highlight_limit
 	end,
 	unlocked = false,
 	check_for_unlock = function(self, args)
