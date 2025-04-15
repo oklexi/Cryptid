@@ -1040,18 +1040,14 @@ local stickyhand = { --+1 card selection limit
 	redeem = function(self, card)
 		G.hand.config.highlighted_limit = G.hand.config.highlighted_limit
 			+ (card and card.ability.extra or self.config.extra)
-		G.GAME.starting_params.play_limit = G.GAME.starting_params.play_limit
-			+ (card and card.ability.extra or self.config.extra)
-		G.GAME.starting_params.discard_limit = G.GAME.starting_params.discard_limit
-			+ (card and card.ability.extra or self.config.extra)
+		SMODS.change_play_limit(card.ability.extra or self.config.extra)
+		SMODS.change_discard_limit(card.ability.extra or self.config.extra)
 	end,
 	unredeem = function(self, card)
 		G.hand.config.highlighted_limit = G.hand.config.highlighted_limit
 			- (card and card.ability.extra or self.config.extra)
-		G.GAME.starting_params.play_limit = G.GAME.starting_params.play_limit
-			- (card and card.ability.extra or self.config.extra)
-		G.GAME.starting_params.discard_limit = G.GAME.starting_params.discard_limit
-			- (card and card.ability.extra or self.config.extra)
+		SMODS.change_play_limit(-(card.ability.extra or self.config.extra))
+		SMODS.change_discard_limit(-(card.ability.extra or self.config.extra))
 		if G.hand.config.highlighted_limit < 5 then
 			G.hand.config.highlighted_limit = 5
 		end
@@ -1091,18 +1087,14 @@ local grapplinghook = { --+1 card selection limit (replace me when "extra functi
 	redeem = function(self, card)
 		G.hand.config.highlighted_limit = G.hand.config.highlighted_limit
 			+ (card and card.ability.extra or self.config.extra)
-		G.GAME.starting_params.play_limit = G.GAME.starting_params.play_limit
-			+ (card and card.ability.extra or self.config.extra)
-		G.GAME.starting_params.discard_limit = G.GAME.starting_params.discard_limit
-			+ (card and card.ability.extra or self.config.extra)
+		SMODS.change_play_limit(card.ability.extra or self.config.extra)
+		SMODS.change_discard_limit(card.ability.extra or self.config.extra)
 	end,
 	unredeem = function(self, card)
 		G.hand.config.highlighted_limit = G.hand.config.highlighted_limit
 			- (card and card.ability.extra or self.config.extra)
-		G.GAME.starting_params.play_limit = G.GAME.starting_params.play_limit
-			- (card and card.ability.extra or self.config.extra)
-		G.GAME.starting_params.discard_limit = G.GAME.starting_params.discard_limit
-			- (card and card.ability.extra or self.config.extra)
+		SMODS.change_play_limit(-(card.ability.extra or self.config.extra))
+		SMODS.change_discard_limit(-(card.ability.extra or self.config.extra))
 		if G.hand.config.highlighted_limit < 5 then
 			G.hand.config.highlighted_limit = 5
 		end
@@ -1144,18 +1136,14 @@ local hyperspacetether = { --+2 card selection limit + other stuff
 	redeem = function(self, card)
 		G.hand.config.highlighted_limit = G.hand.config.highlighted_limit
 			+ (card and card.ability.extra or self.config.extra)
-		G.GAME.starting_params.play_limit = G.GAME.starting_params.play_limit
-			+ (card and card.ability.extra or self.config.extra)
-		G.GAME.starting_params.discard_limit = G.GAME.starting_params.discard_limit
-			+ (card and card.ability.extra or self.config.extra)
+		SMODS.change_play_limit(card.ability.extra or self.config.extra)
+		SMODS.change_discard_limit(card.ability.extra or self.config.extra)
 	end,
 	unredeem = function(self, card)
 		G.hand.config.highlighted_limit = G.hand.config.highlighted_limit
 			- (card and card.ability.extra or self.config.extra)
-		G.GAME.starting_params.play_limit = G.GAME.starting_params.play_limit
-			- (card and card.ability.extra or self.config.extra)
-		G.GAME.starting_params.discard_limit = G.GAME.starting_params.discard_limit
-			- (card and card.ability.extra or self.config.extra)
+		SMODS.change_play_limit(-(card.ability.extra or self.config.extra))
+		SMODS.change_discard_limit(-(card.ability.extra or self.config.extra))
 		if G.hand.config.highlighted_limit < 5 then
 			G.hand.config.highlighted_limit = 5
 		end

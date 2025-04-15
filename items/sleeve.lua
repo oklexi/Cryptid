@@ -42,8 +42,8 @@ if CardSleeves then
 		trigger_effect = function(self, args) end,
 		apply = function(self)
 			G.moddifiers.cry_highlight_limit = self.config.hand_size
-			G.GAME.starting_params.play_limit = self.config.cry_highlight_limit
-			G.GAME.starting_params.discard_limit = self.config.cry_highlight_limit
+			SMODS.change_play_limit = self.config.cry_highlight_limit
+			SMODS.change_discard_limit = self.config.cry_highlight_limit
 		end,
 	})
 
