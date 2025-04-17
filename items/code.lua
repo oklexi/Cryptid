@@ -2351,21 +2351,6 @@ local delete = {
 		end
 		c:start_dissolve()
 	end,
-	init = function(self)
-		-- dumb hook because i don't feel like aggressively patching get_pack to do stuff
-		-- very inefficient
-		-- maybe smods should overwrite the function and make it more targetable?
-		local getpackref = get_pack
-		function get_pack(_key, _type)
-			local temp_banned = copy_table(G.GAME.banned_keys)
-			for k, v in pairs(G.GAME.cry_banished_keys) do
-				G.GAME.banned_keys[k] = v
-			end
-			local ret = getpackref(_key, _type)
-			G.GAME.banned_keys = copy_table(temp_banned)
-			return ret
-		end
-	end,
 	-- i was gonna use this function and all but... i don't like the way it does things
 	-- leaving it here so nobody screams at me
 	--[[
@@ -3701,7 +3686,9 @@ local alttab = {
 					play_sound("tarot1")
 					local tag = nil
 					local type = G.GAME.blind:get_type()
-					if type == "Boss" then
+					if next(SMODS.find_card("j_cry_kittyprinter")) then
+						tag = Tag("tag_cry_cat")
+					elseif type == "Boss" then
 						tag = Tag(get_next_tag_key())
 					else
 						tag = Tag(G.GAME.round_resets.blind_tags[type])
