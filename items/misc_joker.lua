@@ -19,6 +19,7 @@ local dropshot = {
 	cost = 8,
 	blueprint_compat = true,
 	perishable_compat = false,
+	demicolon_compat = true,
 	atlas = "atlasone",
 	loc_vars = function(self, info_queue, center)
 		return {
@@ -74,6 +75,13 @@ local dropshot = {
 				Xmult_mod = card.ability.extra.x_mult,
 			}
 		end
+		if context.forcetrigger then
+			return {
+				message = localize({ type = "variable", key = "a_xmult", vars = { card.ability.extra.x_mult } }),
+				Xmult_mod = card.ability.extra.x_mult,
+			}
+		end
+				
 	end,
 	cry_credits = {
 		idea = {
@@ -113,6 +121,7 @@ local happyhouse = {
 	rarity = 2,
 	cost = 2,
 	blueprint_compat = true,
+	demicolon_compat = true,
 	atlas = "atlastwo",
 	loc_vars = function(self, info_queue, center)
 		return {
@@ -163,6 +172,18 @@ local happyhouse = {
 			and (to_big(card.ability.extra.mult) > to_big(1))
 			and to_big(card.ability.immutable.check) > to_big(card.ability.extra.trigger)
 		then
+			return {
+				message = localize({
+					type = "variable",
+					key = "a_powmult",
+					vars = { number_format(card.ability.extra.mult) },
+				}),
+				Emult_mod = lenient_bignum(card.ability.extra.mult),
+				colour = G.C.DARK_EDITION,
+				card = card,
+			}
+		end
+		if context.forcetrigger then
 			return {
 				message = localize({
 					type = "variable",
@@ -265,6 +286,7 @@ local potofjokes = {
 	order = 104,
 	cost = 10,
 	perishable_compat = false,
+	demicolon_compat = true,
 	atlas = "atlastwo",
 	loc_vars = function(self, info_queue, center)
 		return {
@@ -277,7 +299,7 @@ local potofjokes = {
 		}
 	end,
 	calculate = function(self, card, context)
-		if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+		if (context.end_of_round and not context.individual and not context.repetition and not context.blueprint) or context.forcetrigger then
 			if
 				to_big(card.ability.extra.h_size) + to_big(card.ability.extra.h_mod)
 				>= to_big(card.ability.immutable.h_mod_max)
@@ -452,6 +474,7 @@ local wee_fib = {
 	order = 98,
 	blueprint_compat = true,
 	perishable_compat = false,
+	demicolon_compat = true,
 	loc_vars = function(self, info_queue, center)
 		return {
 			vars = {
@@ -482,6 +505,19 @@ local wee_fib = {
 				}),
 				mult_mod = lenient_bignum(card.ability.extra.mult),
 				colour = G.C.MULT,
+			}
+		end
+		if context.forcetrigger then
+			card.ability.extra.mult = lenient_bignum(to_big(card.ability.extra.mult) + card.ability.extra.mult_mod)
+			return {
+				message = localize({
+					type = "variable",
+					key = "a_mult",
+					vars = { number_format(card.ability.extra.mult) },
+				}),
+				mult_mod = lenient_bignum(card.ability.extra.mult),
+				colour = G.C.MULT,
+				extra = { focus = card, message = localize("k_upgrade_ex") },
 			}
 		end
 	end,
@@ -518,6 +554,7 @@ local whip = {
 	order = 15,
 	blueprint_compat = true,
 	perishable_compat = false,
+	demicolon_compat = true,
 	atlas = "atlasone",
 	loc_vars = function(self, info_queue, center)
 		return {
@@ -600,6 +637,17 @@ local whip = {
 				Xmult_mod = card.ability.extra.x_mult,
 			}
 		end
+		if context.force_trigger then
+			card.ability.extra.x_mult = lenient_bignum(to_big(card.ability.extra.x_mult) + card.ability.extra.Xmult_mod)
+			return {
+				message = localize({
+					type = "variable",
+					key = "a_xmult",
+					vars = { number_format(card.ability.extra.x_mult) },
+				}),
+				Xmult_mod = card.ability.extra.x_mult,
+			}
+		end
 	end,
 	cry_credits = {
 		idea = {
@@ -628,6 +676,7 @@ local lucky_joker = {
 	cost = 4,
 	order = 36,
 	blueprint_compat = true,
+	demicolon_compat = true,
 	atlas = "atlasone",
 	enhancement_gate = "m_lucky",
 	loc_vars = function(self, info_queue, center)
@@ -643,6 +692,12 @@ local lucky_joker = {
 					return true
 				end,
 			}))
+			return {
+				dollars = lenient_bignum(card.ability.extra.dollars),
+				card = card,
+			}
+		end
+		if context.forcetrigger then
 			return {
 				dollars = lenient_bignum(card.ability.extra.dollars),
 				card = card,
@@ -677,6 +732,7 @@ local cursor = {
 	order = 5,
 	blueprint_compat = true,
 	perishable_compat = false,
+	demicolon_compat = true,
 	atlas = "atlasone",
 	loc_vars = function(self, info_queue, center)
 		return {
@@ -700,6 +756,17 @@ local cursor = {
 			return nil, true
 		end
 		if context.joker_main and (to_big(card.ability.extra.chips) > to_big(0)) then
+			return {
+				message = localize({
+					type = "variable",
+					key = "a_chips",
+					vars = { number_format(card.ability.extra.chips) },
+				}),
+				chip_mod = lenient_bignum(card.ability.extra.chips),
+			}
+		end
+		if context.forcetrigger then
+			card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_mod
 			return {
 				message = localize({
 					type = "variable",
