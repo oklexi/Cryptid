@@ -4124,6 +4124,8 @@ return {
 				text = {
 					"When this Joker is {C:cry_code}triggered{},",
 					"trigger {C:cry_code}#1#",
+					"{C:inactive}Not all cards can be triggered this way{}",
+					"{C:inactive}but all jokers can trigger the other{}",
 				},
 			},
 			cry_global_sticker = {
