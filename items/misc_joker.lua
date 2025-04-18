@@ -395,7 +395,7 @@ local queensgambit = {
 				return { remove = not context.destroying_card.ability.eternal }
 			end
 		end
-				if context.forcetrigger then
+		if context.forcetrigger then
 			card_eval_status_text(
 				card,
 				"extra",
