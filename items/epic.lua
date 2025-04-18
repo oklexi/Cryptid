@@ -2266,10 +2266,10 @@ local demicolon = {
 				end
 			end
 		end
-		return { vars = { compat }, }
+		return { vars = { compat } }
 	end,
 	calculate = function(self, card, context)
-		if context.joker_main then 
+		if context.joker_main then
 			for i = 1, #G.jokers.cards do
 				if G.jokers.cards[i] == card then
 					if Cryptid.demicolonGetTriggerable(G.jokers.cards[i + 1]) then
