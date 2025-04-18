@@ -81,7 +81,6 @@ local dropshot = {
 				Xmult_mod = card.ability.extra.x_mult,
 			}
 		end
-				
 	end,
 	cry_credits = {
 		idea = {
@@ -299,7 +298,10 @@ local potofjokes = {
 		}
 	end,
 	calculate = function(self, card, context)
-		if (context.end_of_round and not context.individual and not context.repetition and not context.blueprint) or context.forcetrigger then
+		if
+			(context.end_of_round and not context.individual and not context.repetition and not context.blueprint)
+			or context.forcetrigger
+		then
 			if
 				to_big(card.ability.extra.h_size) + to_big(card.ability.extra.h_mod)
 				>= to_big(card.ability.immutable.h_mod_max)
