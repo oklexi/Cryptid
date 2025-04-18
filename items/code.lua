@@ -4496,6 +4496,7 @@ local CodeJoker = {
 	cost = 11,
 	order = 301,
 	blueprint_compat = true,
+	demicoloncompat = true,
 	atlas = "atlasepic",
 	calculate = function(self, card, context)
 		if
@@ -4513,6 +4514,18 @@ local CodeJoker = {
 			card:juice_up(0.3, 0.5)
 			return nil, true
 		end
+		if context.forcetrigger then
+			play_sound("timpani")
+			local card = create_card("Code", G.consumeables, nil, nil, nil, nil)
+			card:set_edition({
+				negative = true,
+			})
+			card:add_to_deck()
+			G.consumeables:emplace(card)
+			card:juice_up(0.3, 0.5)
+			return nil, true
+		end
+
 	end,
 	cry_credits = {
 		idea = {
@@ -4694,6 +4707,7 @@ local cut = {
 	order = 303,
 	blueprint_compat = true,
 	perishable_compat = false,
+	demicoloncompat = true,
 	atlas = "atlasthree",
 	calculate = function(self, card, context)
 		if context.ending_shop then
@@ -4747,6 +4761,21 @@ local cut = {
 				colour = G.C.MULT,
 			}
 		end
+		if context.forcetrigger then
+			card.ability.extra.Xmult =
+					lenient_bignum(to_big(card.ability.extra.Xmult) + card.ability.extra.Xmult_mod)
+	return {
+				message = localize({
+					type = "variable",
+					key = "a_xmult",
+					vars = {
+						number_format(card.ability.extra.Xmult),
+					},
+				}),
+				Xmult_mod = card.ability.extra.Xmult,
+				colour = G.C.MULT,
+			}
+		end
 	end,
 	loc_vars = function(self, info_queue, center)
 		return {
@@ -4781,6 +4810,7 @@ local blender = {
 	rarity = 1,
 	cost = 5,
 	blueprint_compat = true,
+	demicoloncompat = true,
 	atlas = "atlasthree",
 	order = 304,
 	calculate = function(self, card, context)
@@ -4795,6 +4825,11 @@ local blender = {
 				G.consumeables:emplace(card)
 			end
 		end
+		if context.forcetrigger then
+			local card = create_card("Consumeables", G.consumeables, nil, nil, nil, nil, nil, "cry_blender")
+				card:add_to_deck()
+				G.consumeables:emplace(card)
+end
 	end,
 	cry_credits = {
 		idea = {
@@ -4828,6 +4863,7 @@ local python = {
 	cost = 7,
 	blueprint_compat = true,
 	perishable_compat = false,
+	demicoloncompat = true,
 	atlas = "atlasthree",
 	order = 305,
 	loc_vars = function(self, info_queue, center)
@@ -4861,6 +4897,17 @@ local python = {
 		end
 		if context.joker_main and (to_big(card.ability.extra.Xmult) > to_big(1)) then
 			return {
+				message = localize({
+					type = "variable",
+					key = "a_xmult",
+					vars = { number_format(card.ability.extra.Xmult) },
+				}),
+				Xmult_mod = lenient_bignum(card.ability.extra.Xmult),
+			}
+		end
+		if context.forcetrigger then
+card.ability.extra.Xmult = lenient_bignum(to_big(card.ability.extra.Xmult) + card.ability.extra.Xmult_mod)
+return {
 				message = localize({
 					type = "variable",
 					key = "a_xmult",
