@@ -2254,7 +2254,7 @@ local demicolon = {
 	rarity = "cry_epic",
 	cost = 14,
 	order = 299,
-	blueprint_compat = true,
+	blueprint_compat = false,
 	atlas = "atlasepic",
 	pos = { x = 2, y = 5 },
 	loc_vars = function(self, info_queue, card)
@@ -2269,7 +2269,7 @@ local demicolon = {
 		return { vars = { compat } }
 	end,
 	calculate = function(self, card, context)
-		if context.joker_main then
+		if context.joker_main and not context.blueprint then
 			for i = 1, #G.jokers.cards do
 				if G.jokers.cards[i] == card then
 					if Cryptid.demicolonGetTriggerable(G.jokers.cards[i + 1]) then
