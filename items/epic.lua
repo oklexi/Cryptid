@@ -2256,7 +2256,7 @@ local demicolon = {
 	order = 299,
 	blueprint_compat = false,
 	atlas = "atlasepic",
-	pos = { x = 2, y = 5 },
+	pos = { x = 3, y = 5 },
 	loc_vars = function(self, info_queue, card)
 		local compat = false
 		if G and G.jokers and G.jokers.cards then
