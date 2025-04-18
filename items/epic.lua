@@ -2241,6 +2241,51 @@ local clockwork = { -- Steel Support: The Joker
 		},
 	},
 }
+-- Force-triggers the rightmost joker during context.joker_main
+local demicolon = {
+	object_type = "Joker",
+	dependencies = {
+		items = {
+			"set_cry_epic",
+		},
+	},
+	name = "cry-demicolon",
+	key = "demicolon",
+	rarity = "cry_epic",
+	cost = 14,
+	order = 299,
+	blueprint_compat = true,
+	atlas = "atlasepic",
+	pos = { x = 2, y = 5 },
+	loc_vars = function(self, info_queue, card)
+		local compat = false
+		if G and G.jokers and G.jokers.cards then
+			for i = 1, #G.jokers.cards do
+				if G.jokers.cards[i] == card and i ~= #G.jokers.cards then
+					compat = Cryptid.demicolonGetTriggerable(G.jokers.cards[i + 1])
+				end
+			end
+		end
+		return { vars = { compat }, }
+	end,
+	calculate = function(self, card, context)
+		if context.joker_main then 
+			for i = 1, #G.jokers.cards do
+				if G.jokers.cards[i] == card then
+					if Cryptid.demicolonGetTriggerable(G.jokers.cards[i + 1]) then
+						Cryptid.forcetrigger(G.jokers.cards[i + 1], context)
+						return { message = localize("cry_demicolon") }
+					end
+				end
+			end
+		end
+	end,
+	cry_credits = {
+		idea = { "HexaCryonic" },
+		art = { "HexaCryonic" },
+		code = { "Nova" },
+	},
+}
 return {
 	name = "Epic Jokers",
 	items = {
