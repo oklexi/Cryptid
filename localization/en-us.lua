@@ -1463,6 +1463,13 @@ return {
 					"a {C:attention}#2#",
 				},
 			},
+			j_cry_demicolon = {
+				name = "Demicolon",
+				text = {
+					"{C:attention}Force-trigger{} the joker",
+					"to the right",
+				},
+			},
 			j_cry_digitalhallucinations = {
 				name = "Digital Hallucinations",
 				text = {
@@ -4761,6 +4768,7 @@ return {
 			cry_again_q = "Again?",
 			cry_curse = "Curse",
 			cry_curse_ex = "Curse!",
+			cry_demicolon = "Demitrigger!",
 			cry_sobbing = "Help me...",
 			cry_gaming = "Gaming",
 			cry_gaming_ex = "Gaming!",
