@@ -4525,7 +4525,6 @@ local CodeJoker = {
 			card:juice_up(0.3, 0.5)
 			return nil, true
 		end
-
 	end,
 	cry_credits = {
 		idea = {
@@ -4762,9 +4761,8 @@ local cut = {
 			}
 		end
 		if context.forcetrigger then
-			card.ability.extra.Xmult =
-					lenient_bignum(to_big(card.ability.extra.Xmult) + card.ability.extra.Xmult_mod)
-	return {
+			card.ability.extra.Xmult = lenient_bignum(to_big(card.ability.extra.Xmult) + card.ability.extra.Xmult_mod)
+			return {
 				message = localize({
 					type = "variable",
 					key = "a_xmult",
@@ -4827,9 +4825,9 @@ local blender = {
 		end
 		if context.forcetrigger then
 			local card = create_card("Consumeables", G.consumeables, nil, nil, nil, nil, nil, "cry_blender")
-				card:add_to_deck()
-				G.consumeables:emplace(card)
-end
+			card:add_to_deck()
+			G.consumeables:emplace(card)
+		end
 	end,
 	cry_credits = {
 		idea = {
@@ -4906,8 +4904,8 @@ local python = {
 			}
 		end
 		if context.forcetrigger then
-card.ability.extra.Xmult = lenient_bignum(to_big(card.ability.extra.Xmult) + card.ability.extra.Xmult_mod)
-return {
+			card.ability.extra.Xmult = lenient_bignum(to_big(card.ability.extra.Xmult) + card.ability.extra.Xmult_mod)
+			return {
 				message = localize({
 					type = "variable",
 					key = "a_xmult",
