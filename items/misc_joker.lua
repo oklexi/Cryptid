@@ -359,6 +359,7 @@ local queensgambit = {
 	order = 7,
 	cost = 7,
 	immutable = true,
+	demicoloncompat = true,
 	loc_vars = function(self, info_queue, center)
 		if not center.edition or (center.edition and not center.edition.negative) then
 			info_queue[#info_queue + 1] = G.P_CENTERS.e_negative
@@ -393,6 +394,27 @@ local queensgambit = {
 				}))
 				return { remove = not context.destroying_card.ability.eternal }
 			end
+		end
+				if context.forcetrigger then
+			card_eval_status_text(
+				card,
+				"extra",
+				nil,
+				nil,
+				nil,
+				{ message = localize("k_plus_joker"), colour = G.C.FILTER }
+			)
+			G.E_MANAGER:add_event(Event({
+				trigger = "after",
+				func = function()
+					local card = create_card("Joker", G.jokers, nil, 0.99, nil, nil, nil, "cry_gambit")
+					card:set_edition({ negative = true })
+					card:add_to_deck()
+					G.jokers:emplace(card)
+					card:start_materialize()
+					return true
+				end,
+			}))
 		end
 	end,
 	cry_credits = {
