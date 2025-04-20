@@ -626,9 +626,9 @@ function Card:set_ability(center, y, z)
 	end
 end
 
---open gameset config UI when clicking on a card in the Cryptid collection
---disable this functionality for Jen's Almanac
-if not Jen then
+-- open gameset config UI when clicking on a card in the Cryptid collection
+-- can be disabled in config
+if Cryptid_config.gameset_toggle then
 	local ccl = Card.click
 	function Card:click()
 		ccl(self)
