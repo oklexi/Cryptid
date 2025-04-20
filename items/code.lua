@@ -4573,7 +4573,6 @@ local copypaste = {
 	key = "copypaste",
 	pos = { x = 3, y = 4 },
 	order = 302,
-	immune_to_chemach = true,
 	config = {
 		extra = {
 			odds = 2,
