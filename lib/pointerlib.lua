@@ -119,6 +119,9 @@ function Cryptid.pointergetblist(target) -- "Is this card pointer banned?"
 	if not target then
 		return true
 	end
+	if G.DEBUG_POINTER then
+		return false
+	end
 	if G.GAME.banned_keys[target] then
 		return true
 	end
