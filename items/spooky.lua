@@ -16,7 +16,10 @@ local cotton_candy = {
 	demicoloncompat = true,
 	pools = { ["Food"] = true },
 	calculate = function(self, card, context)
-		if (context.selling_self and not context.retrigger_joker and not context.blueprint_card) or context.forcetrigger then
+		if
+			(context.selling_self and not context.retrigger_joker and not context.blueprint_card)
+			or context.forcetrigger
+		then
 			for i = 1, #G.jokers.cards do
 				if G.jokers.cards[i] == card then
 					if i > 1 then
@@ -98,11 +101,11 @@ local wrapped = {
 				}
 			end
 		end
-	if context.forcetrigger then
-		local card = create_card("Food", G.jokers, nil, nil, nil, nil, nil, "cry_wrapped")
-				card:add_to_deck()
-				G.jokers:emplace(card)
-	end
+		if context.forcetrigger then
+			local card = create_card("Food", G.jokers, nil, nil, nil, nil, nil, "cry_wrapped")
+			card:add_to_deck()
+			G.jokers:emplace(card)
+		end
 	end,
 }
 local choco_dice = {
@@ -871,14 +874,13 @@ local trick_or_treat = {
 			end
 		end
 		if context.forcetrigger then
-							local spawn_num =
-					to_number(math.min(card.ability.immutable.max_candies, card.ability.extra.num_candies))
+			local spawn_num = to_number(math.min(card.ability.immutable.max_candies, card.ability.extra.num_candies))
 
-				for i = 1, spawn_num do
-					local new_card = create_card("Joker", G.jokers, nil, "cry_candy", nil, nil, nil, "cry_trick_candy")
-					new_card:add_to_deck()
-					G.jokers:emplace(new_card)
-				end
+			for i = 1, spawn_num do
+				local new_card = create_card("Joker", G.jokers, nil, "cry_candy", nil, nil, nil, "cry_trick_candy")
+				new_card:add_to_deck()
+				G.jokers:emplace(new_card)
+			end
 		end
 	end,
 	loc_vars = function(self, info_queue, center)
@@ -949,16 +951,15 @@ local candy_basket = {
 			end
 		end
 		if context.forcetrigger then
-						card.ability.immutable.current_win_count = card.ability.immutable.current_win_count + 1
+			card.ability.immutable.current_win_count = card.ability.immutable.current_win_count + 1
 
-				card.ability.extra.candies = lenient_bignum(
-					card.ability.extra.candies
-						+ to_big(card.ability.extra.candy_mod) * card.ability.extra.candy_boss_mod
-				)
-				card.ability.extra.candies =
-					lenient_bignum(to_big(card.ability.extra.candies) + card.ability.extra.candy_mod)
-				card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_upgrade_ex") })
-						for i = 1, math.floor(math.min(card.ability.immutable.max_spawn, card.ability.extra.candies)) do
+			card.ability.extra.candies = lenient_bignum(
+				card.ability.extra.candies + to_big(card.ability.extra.candy_mod) * card.ability.extra.candy_boss_mod
+			)
+			card.ability.extra.candies =
+				lenient_bignum(to_big(card.ability.extra.candies) + card.ability.extra.candy_mod)
+			card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_upgrade_ex") })
+			for i = 1, math.floor(math.min(card.ability.immutable.max_spawn, card.ability.extra.candies)) do
 				local card = create_card("Joker", G.jokers, nil, "cry_candy", nil, nil, nil, "cry_candy_basket")
 				card:add_to_deck()
 				G.jokers:emplace(card)
@@ -1045,12 +1046,12 @@ local blacklist = {
 			end
 		end
 		if context.forcetrigger then
-							G.E_MANAGER:add_event(Event({
-						func = function()
-							card:start_dissolve()
-							return true
-						end,
-					}))
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					card:start_dissolve()
+					return true
+				end,
+			}))
 		end
 	end,
 	add_to_deck = function(self, card, from_debuff)
@@ -1315,7 +1316,7 @@ local candy_dagger = {
 			return nil, true
 		end
 		if context.forcetrigger then
-						local sliced_card = G.jokers.cards[my_pos + 1]
+			local sliced_card = G.jokers.cards[my_pos + 1]
 			sliced_card.getting_sliced = true
 			if sliced_card.config.center.rarity == "cry_exotic" then
 				check_for_unlock({ type = "what_have_you_done" })
@@ -1430,7 +1431,7 @@ local candy_cane = {
 		end
 		if context.forcetrigger then
 			ease_dollars(lenient_bignum(card.ability.extra.dollars))
-						card.ability.extra.rounds = lenient_bignum(to_big(card.ability.extra.rounds) - 1)
+			card.ability.extra.rounds = lenient_bignum(to_big(card.ability.extra.rounds) - 1)
 			if to_big(card.ability.extra.rounds) > to_big(0) then
 				return {
 					message = { localize("cry_minus_round") },
@@ -1554,18 +1555,14 @@ local jawbreaker = {
 			for i = 1, #G.jokers.cards do
 				if G.jokers.cards[i] == card then
 					if i > 1 then
-						if
-							not Card.no(G.jokers.cards[i - 1], "immutable", true)
-						then
+						if not Card.no(G.jokers.cards[i - 1], "immutable", true) then
 							Cryptid.with_deck_effects(G.jokers.cards[i - 1], function(card)
 								Cryptid.misprintize(card, { min = 2, max = 2 }, nil, true)
 							end)
 						end
 					end
 					if i < #G.jokers.cards then
-						if
-							not Card.no(G.jokers.cards[i + 1], "immutable", true)
-						then
+						if not Card.no(G.jokers.cards[i + 1], "immutable", true) then
 							Cryptid.with_deck_effects(G.jokers.cards[i + 1], function(card)
 								Cryptid.misprintize(card, { min = 2, max = 2 }, nil, true)
 							end)
@@ -1600,21 +1597,17 @@ local jawbreaker = {
 			}
 		end
 		if context.forcetrigger then
-						for i = 1, #G.jokers.cards do
+			for i = 1, #G.jokers.cards do
 				if G.jokers.cards[i] == card then
 					if i > 1 then
-						if
-							not Card.no(G.jokers.cards[i - 1], "immutable", true)
-						then
+						if not Card.no(G.jokers.cards[i - 1], "immutable", true) then
 							Cryptid.with_deck_effects(G.jokers.cards[i - 1], function(card)
 								Cryptid.misprintize(card, { min = 2, max = 2 }, nil, true)
 							end)
 						end
 					end
 					if i < #G.jokers.cards then
-						if
-							not Card.no(G.jokers.cards[i + 1], "immutable", true)
-						then
+						if not Card.no(G.jokers.cards[i + 1], "immutable", true) then
 							Cryptid.with_deck_effects(G.jokers.cards[i + 1], function(card)
 								Cryptid.misprintize(card, { min = 2, max = 2 }, nil, true)
 							end)
@@ -1797,7 +1790,7 @@ local monopoly_money = {
 			return nil, true
 		end
 		if context.forcetrigger then
-						G.E_MANAGER:add_event(Event({
+			G.E_MANAGER:add_event(Event({
 				func = function()
 					ease_dollars(math.floor(-0.5 * G.GAME.dollars))
 					return true

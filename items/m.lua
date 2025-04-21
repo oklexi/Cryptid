@@ -78,7 +78,7 @@ local jollysus = {
 			}
 		end
 		if context.forcetrigger then
-						local card = create_card("Joker", G.jokers, nil, nil, nil, nil, nil, "jollysus")
+			local card = create_card("Joker", G.jokers, nil, nil, nil, nil, nil, "jollysus")
 			if Cryptid.enabled("e_cry_m") == true then
 				card:set_edition({ cry_m = true })
 			end
@@ -180,7 +180,7 @@ local bubblem = {
 			}
 		end
 		if context.forcetrigger then
-						local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_jolly")
+			local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_jolly")
 			card:set_edition({
 				foil = true,
 			})
@@ -486,8 +486,8 @@ local mneon = {
 			)
 			return {
 				dollars = lenient_bignum(
-				to_big(card.ability.extra.money) + math.max(1, to_big(card.ability.extra.bonus)) * (jollycount or 1)
-				)
+					to_big(card.ability.extra.money) + math.max(1, to_big(card.ability.extra.bonus)) * (jollycount or 1)
+				),
 			}
 		end
 	end,
@@ -600,19 +600,19 @@ local notebook = {
 				}
 			end
 		end
-		if context.forcetrigger then 
-					card.ability.immutable.slots = to_number(
-					math.min(
-						card.ability.immutable.max_slots,
-						lenient_bignum(card.ability.immutable.slots + to_big(card.ability.extra.add))
-					)
+		if context.forcetrigger then
+			card.ability.immutable.slots = to_number(
+				math.min(
+					card.ability.immutable.max_slots,
+					lenient_bignum(card.ability.immutable.slots + to_big(card.ability.extra.add))
 				)
+			)
 
-				if card.ability.immutable.slots >= card.ability.immutable.max_slots then
-					card.ability.extra.add = 0
-				end
+			if card.ability.immutable.slots >= card.ability.immutable.max_slots then
+				card.ability.extra.add = 0
+			end
 
-				G.jokers.config.card_limit = lenient_bignum(G.jokers.config.card_limit + to_big(card.ability.extra.add))
+			G.jokers.config.card_limit = lenient_bignum(G.jokers.config.card_limit + to_big(card.ability.extra.add))
 		end
 	end,
 	add_to_deck = function(self, card, from_debuff)
@@ -722,18 +722,18 @@ local bonk = {
 			end
 		end
 		if context.forcetrigger then
-					card.ability.extra.chips = lenient_bignum(to_big(card.ability.extra.chips) + card.ability.extra.bonus)
-					return {
-					message = localize({
-						type = "variable",
-						key = "a_chips",
-						vars = {
-							number_format(lenient_bignum(to_big(card.ability.extra.chips) * card.ability.extra.xchips)),
-						},
-					}),
-					chip_mod = lenient_bignum(to_big(card.ability.extra.chips) * card.ability.extra.xchips),
-				}
-				end
+			card.ability.extra.chips = lenient_bignum(to_big(card.ability.extra.chips) + card.ability.extra.bonus)
+			return {
+				message = localize({
+					type = "variable",
+					key = "a_chips",
+					vars = {
+						number_format(lenient_bignum(to_big(card.ability.extra.chips) * card.ability.extra.xchips)),
+					},
+				}),
+				chip_mod = lenient_bignum(to_big(card.ability.extra.chips) * card.ability.extra.xchips),
+			}
+		end
 	end,
 	add_to_deck = function(self, card, from_debuff)
 		card.ability.extra.xchips = lenient_bignum(math.floor(to_big(card.ability.extra.xchips) + 0.5)) --lua moment
@@ -826,7 +826,7 @@ local scrabble = {
 	rarity = 2,
 	cost = 8,
 	blueprint_compat = true,
-			demicoloncompat = true,
+	demicoloncompat = true,
 	atlas = "atlasone",
 	loc_vars = function(self, info_queue, card)
 		if Cryptid.enabled("e_cry_m") == true then
@@ -867,14 +867,14 @@ local scrabble = {
 				return nil, true
 			end
 		end
-				if context.forcetrigger then
-									local card = create_card("Joker", G.jokers, nil, 0.9, nil, nil, nil, "scrabbletile")
-				if Cryptid.enabled("e_cry_m") == true then
-					card:set_edition({ cry_m = true })
-				end
-				card:add_to_deck()
-				G.jokers:emplace(card)
-				end
+		if context.forcetrigger then
+			local card = create_card("Joker", G.jokers, nil, 0.9, nil, nil, nil, "scrabbletile")
+			if Cryptid.enabled("e_cry_m") == true then
+				card:set_edition({ cry_m = true })
+			end
+			card:add_to_deck()
+			G.jokers:emplace(card)
+		end
 	end,
 	cry_credits = {
 		idea = {
@@ -912,7 +912,7 @@ local sacrifice = {
 	rarity = 1,
 	cost = 4,
 	blueprint_compat = true,
-			demicoloncompat = true,
+	demicoloncompat = true,
 	atlas = "atlasone",
 	loc_vars = function(self, info_queue, center)
 		info_queue[#info_queue + 1] = G.P_CENTERS.j_jolly
@@ -973,33 +973,33 @@ local sacrifice = {
 				}
 			end
 		end
-				if context.forcetrigger then
-					if to_big(card.ability.extra.jollies) < to_big(1) then
-					card.ability.extra.jollies = 1
-				end
-				if to_big(card.ability.extra.unc) < to_big(1) then
-					card.ability.extra.unc = 1
-				end
-				for i = 1, math.min(card.ability.immutable.max_spawns, card.ability.extra.jollies) do
-					local jolly = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_jolly")
-					jolly:add_to_deck()
-					G.jokers:emplace(jolly)
-				end
-				for i = 1, math.min(card.ability.immutable.max_spawns, card.ability.extra.unc) do
-					local unc = create_card("Joker", G.jokers, nil, 0.9, nil, nil, nil, "sacrifice")
-					unc:add_to_deck()
-					G.jokers:emplace(unc)
-					unc:start_materialize()
-				end
-				card_eval_status_text(
-					context.blueprint_card or card,
-					"extra",
-					nil,
-					nil,
-					nil,
-					{ message = localize("cry_m_ex"), colour = G.C.SPECTRAL }
-				)
-				end
+		if context.forcetrigger then
+			if to_big(card.ability.extra.jollies) < to_big(1) then
+				card.ability.extra.jollies = 1
+			end
+			if to_big(card.ability.extra.unc) < to_big(1) then
+				card.ability.extra.unc = 1
+			end
+			for i = 1, math.min(card.ability.immutable.max_spawns, card.ability.extra.jollies) do
+				local jolly = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_jolly")
+				jolly:add_to_deck()
+				G.jokers:emplace(jolly)
+			end
+			for i = 1, math.min(card.ability.immutable.max_spawns, card.ability.extra.unc) do
+				local unc = create_card("Joker", G.jokers, nil, 0.9, nil, nil, nil, "sacrifice")
+				unc:add_to_deck()
+				G.jokers:emplace(unc)
+				unc:start_materialize()
+			end
+			card_eval_status_text(
+				context.blueprint_card or card,
+				"extra",
+				nil,
+				nil,
+				nil,
+				{ message = localize("cry_m_ex"), colour = G.C.SPECTRAL }
+			)
+		end
 	end,
 	cry_credits = {
 		idea = {
@@ -1037,7 +1037,7 @@ local reverse = {
 	order = 260,
 	cost = 4,
 	eternal_compat = false,
-			
+
 	immutable = true,
 	atlas = "atlastwo",
 	loc_vars = function(self, info_queue, center)
@@ -1104,34 +1104,34 @@ local reverse = {
 			end
 		end
 		if context.forcetrigger then
-					local spawnamount = math.min(
-					card.ability.immutable.max_spawns,
-					G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer)
-				) + 1 -- +1 to account for reverse card self destruct
-				G.GAME.joker_buffer = G.GAME.joker_buffer + spawnamount
-				G.E_MANAGER:add_event(Event({
-					func = function()
-						for i = 1, spawnamount do
-							local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_jolly")
-							card:set_edition({
-								holo = true, --certified Thunk moment, this literally took ten minutes to figure out why is it set up like this
-							})
-							card:add_to_deck()
-							G.jokers:emplace(card)
-							G.GAME.joker_buffer = 0
-						end
-						return true
-					end,
-				}))
-				card_eval_status_text(
-					card,
-					"extra",
-					nil,
-					nil,
-					nil,
-					{ message = localize("cry_m_ex"), colour = G.C.DARK_EDITION }
-				)
-				end
+			local spawnamount = math.min(
+				card.ability.immutable.max_spawns,
+				G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer)
+			) + 1 -- +1 to account for reverse card self destruct
+			G.GAME.joker_buffer = G.GAME.joker_buffer + spawnamount
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					for i = 1, spawnamount do
+						local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_jolly")
+						card:set_edition({
+							holo = true, --certified Thunk moment, this literally took ten minutes to figure out why is it set up like this
+						})
+						card:add_to_deck()
+						G.jokers:emplace(card)
+						G.GAME.joker_buffer = 0
+					end
+					return true
+				end,
+			}))
+			card_eval_status_text(
+				card,
+				"extra",
+				nil,
+				nil,
+				nil,
+				{ message = localize("cry_m_ex"), colour = G.C.DARK_EDITION }
+			)
+		end
 	end,
 	cry_credits = {
 		idea = {
@@ -1169,7 +1169,7 @@ local doodlem = {
 	cost = 13,
 	order = 266,
 	blueprint_compat = true,
-			demicoloncompat = true,
+	demicoloncompat = true,
 	loc_vars = function(self, info_queue, center)
 		info_queue[#info_queue + 1] = G.P_CENTERS.j_jolly
 		info_queue[#info_queue + 1] = { key = "e_negative_consumable", set = "Edition", config = { extra = 1 } }
@@ -1244,7 +1244,7 @@ local virgo = {
 	cost = 8,
 	order = 265,
 	eternal_compat = false,
-			demicoloncompat = true,
+	demicoloncompat = true,
 	loc_vars = function(self, info_queue, center)
 		info_queue[#info_queue + 1] = G.P_CENTERS.j_jolly
 		if not center.edition or (center.edition and not center.edition.polychrome) then
@@ -1365,17 +1365,17 @@ local smallestm = {
 				})
 			end
 		end
-				if context.forcetrigger then
-					local tag = Tag("tag_cry_double_m")
-				tag.ability.shiny = Cryptid.is_shiny()
-				add_tag(tag)
-				play_sound("generic1", 0.9 + math.random() * 0.1, 0.8)
-				play_sound("holo1", 1.2 + math.random() * 0.1, 0.4)
-				card_eval_status_text(context.blueprint_card or card, "extra", nil, nil, nil, {
-					message = localize("cry_m_ex"),
-					colour = G.C.FILTER,
-				})
-				end
+		if context.forcetrigger then
+			local tag = Tag("tag_cry_double_m")
+			tag.ability.shiny = Cryptid.is_shiny()
+			add_tag(tag)
+			play_sound("generic1", 0.9 + math.random() * 0.1, 0.8)
+			play_sound("holo1", 1.2 + math.random() * 0.1, 0.4)
+			card_eval_status_text(context.blueprint_card or card, "extra", nil, nil, nil, {
+				message = localize("cry_m_ex"),
+				colour = G.C.FILTER,
+			})
+		end
 	end,
 	cry_credits = {
 		idea = {
@@ -1414,7 +1414,7 @@ local biggestm = {
 	cost = 12,
 	order = 268,
 	blueprint_compat = true,
-			demicoloncompat = true,
+	demicoloncompat = true,
 	atlas = "atlasepic",
 	loc_vars = function(self, info_queue, center)
 		return {
@@ -1461,7 +1461,7 @@ local biggestm = {
 				message = localize("k_reset"),
 				card = card,
 			}
-		end		
+		end
 	end,
 	cry_credits = {
 		idea = {
@@ -1508,7 +1508,7 @@ local mprime = {
 	blueprint_compat = true,
 	atlas = "atlasexotic",
 	perishable_compat = false,
-			demicoloncompat = true,
+	demicoloncompat = true,
 	calculate = function(self, card, context)
 		if context.selling_card and (context.card:is_jolly()) then
 			if not context.blueprint then
@@ -1573,8 +1573,8 @@ local mprime = {
 			end
 		end
 		if context.forcetrigger then
-				card.ability.extra.mult = lenient_bignum(to_big(card.ability.extra.mult) + card.ability.extra.bonus)
-					local mjoker = math.min(1, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
+			card.ability.extra.mult = lenient_bignum(to_big(card.ability.extra.mult) + card.ability.extra.bonus)
+			local mjoker = math.min(1, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
 			G.GAME.joker_buffer = G.GAME.joker_buffer + mjoker
 			G.E_MANAGER:add_event(Event({
 				func = function()
@@ -1588,18 +1588,16 @@ local mprime = {
 					return true
 				end,
 			}))
-					return {
-					message = localize({
-						type = "variable",
-						key = "a_powmult",
-						vars = { number_format(card.ability.extra.mult) },
-					}),
-					Emult_mod = lenient_bignum(card.ability.extra.mult),
-					colour = G.C.DARK_EDITION,
-				}
-				end
-					
-					
+			return {
+				message = localize({
+					type = "variable",
+					key = "a_powmult",
+					vars = { number_format(card.ability.extra.mult) },
+				}),
+				Emult_mod = lenient_bignum(card.ability.extra.mult),
+				colour = G.C.DARK_EDITION,
+			}
+		end
 	end,
 	cry_credits = {
 		idea = {
@@ -1641,9 +1639,12 @@ local macabre = {
 	rarity = 1,
 	cost = 5,
 	atlas = "atlasthree",
-			demicoloncompat = true,
+	demicoloncompat = true,
 	calculate = function(self, card, context)
-		if (context.setting_blind and not (context.blueprint or context.retrigger_joker) and not card.getting_sliced) or context.forcetrigger then
+		if
+			(context.setting_blind and not (context.blueprint or context.retrigger_joker) and not card.getting_sliced)
+			or context.forcetrigger
+		then
 			if to_big(card.ability.extra.add) < to_big(1) then
 				card.ability.extra.add = 1
 			end
@@ -1709,7 +1710,7 @@ local megg = {
 	pools = { ["M"] = true },
 	blueprint_compat = false,
 	eternal_compat = false,
-			demicoloncompat = true,
+	demicoloncompat = true,
 	pos = { x = 0, y = 4 },
 	order = 262,
 	config = {
@@ -1764,18 +1765,18 @@ local megg = {
 				G.jokers:emplace(jolly_card)
 			end
 		end
-				if context.forcetrigger then
-					card.ability.extra.amount =
+		if context.forcetrigger then
+			card.ability.extra.amount =
 				lenient_bignum(card.ability.extra.amount + math.max(1, to_big(card.ability.extra.amount_mod)))
 			if to_big(card.ability.extra.amount) > to_big(card.ability.immutable.max_amount) then
 				card.ability.extra.amount = lenient_bignum(card.ability.immutable.max_amount)
 			end
-				for i = 1, math.min(card.ability.immutable.max_amount, math.floor(card.ability.extra.amount)) do
+			for i = 1, math.min(card.ability.immutable.max_amount, math.floor(card.ability.extra.amount)) do
 				local jolly_card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_jolly")
 				jolly_card:add_to_deck()
 				G.jokers:emplace(jolly_card)
 			end
-				end
+		end
 	end,
 	cry_credits = {
 		idea = {
@@ -1810,7 +1811,7 @@ local longboi = {
 	pools = { ["M"] = true },
 	blueprint_compat = true,
 	eternal_compat = false,
-			demicoloncompat = true,
+	demicoloncompat = true,
 	loc_vars = function(self, info_queue, center)
 		return {
 			vars = {
@@ -1843,11 +1844,11 @@ local longboi = {
 				Xmult_mod = lenient_bignum(card.ability.extra.monster),
 			}
 		end
-				if context.forcetrigger then
-					G.GAME.monstermult = lenient_bignum(
+		if context.forcetrigger then
+			G.GAME.monstermult = lenient_bignum(
 				G.GAME.monstermult + math.max(card.ability.immutable.max_bonus, to_big(card.ability.extra.bonus))
 			)
-					return {
+			return {
 				message = localize({
 					type = "variable",
 					key = "a_xmult",
@@ -1855,7 +1856,7 @@ local longboi = {
 				}),
 				Xmult_mod = lenient_bignum(card.ability.extra.monster),
 			}
-				end
+		end
 	end,
 	set_ability = function(self, card, initial, delay_sprites)
 		card.ability.extra.monster = lenient_bignum(G.GAME and G.GAME.monstermult or 1)
