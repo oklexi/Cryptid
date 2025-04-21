@@ -145,12 +145,20 @@ pattern = '''G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.2*delayfac
             save_run()
             return true
       end}))'''
-position = "after"
+position = "at"
 payload = '''
-if G.GAME.cry_make_a_decision then
-	G.GAME.cry_make_a_decision = nil
-	G.STATE = G.STATES.ROUND_EVAL
-	G.STATE_COMPLETE = false
-end
+G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.2*delayfac,
+      func = function()
+      if G.GAME.cry_make_a_decision then
+            G.GAME.cry_make_a_decision = nil
+            G.STATE = G.STATES.ROUND_EVAL
+            G.STATE_COMPLETE = false
+      else
+            save_run()
+      end
+      
+      return true
+end}))
+
 '''
 match_indent = true
