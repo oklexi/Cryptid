@@ -2922,7 +2922,7 @@ return {
 				unlock = {
 					"Win a run with",
 					"your final hand being",
-					"a {E:1,C:attention}Clusterfuck",
+					"a {E:1,C:attention}#1#",
 				},
 			},
 			j_cry_zooble = {
