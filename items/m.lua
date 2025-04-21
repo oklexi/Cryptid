@@ -487,7 +487,9 @@ local mneon = {
 			return {
 				dollars = lenient_bignum(
 				to_big(card.ability.extra.money) + math.max(1, to_big(card.ability.extra.bonus)) * (jollycount or 1)
-				}
+				)
+			}
+		end
 	end,
 	calc_dollar_bonus = function(self, card)
 		if to_big(card.ability.extra.money) > to_big(0) then
