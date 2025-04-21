@@ -469,7 +469,7 @@ return {
 			bl_cry_decision = {
 				name = "The Decision",
 				text = {
-					"Jokers cannot be moved in Blind",
+					"Fasten Jokers after Play or Discard",
 					"On defeat, open a Baneful Buffoon",
 					"Pack and get a Cursed Joker",
 					"or skip to banish rightmost Joker",

@@ -675,7 +675,7 @@ local scorch = {
 		end
 	end,
 }
---Fasten all jokers during blind (sticker, cannot move jokers, unremovable)
+--Fasten all jokers after hand or discard
 --After defeat, open a baneful buffoon pack containing:
 ---4 cursed jokers (can overflow)
 ---a "unique consumeable" that will banish the rightmost joker
@@ -700,15 +700,39 @@ local decision = {
 	atlas = "blinds",
 	order = 22,
 	boss_colour = HEX("474931"),
-	set_blind = function(self, reset, silent)
-		if not reset then
-			G.GAME.cry_fastened = true
-		end
-	end,
 	get_loc_debuff_text = function(self)
 		return localize('cry_blind_baneful_pack')
 	end,
+	calculate = function(self, blind, context)
+		if context.discard and not G.GAME.blind.disabled and not G.GAME.cry_fastened then
+			--visual cue to wiggle all jokers 
+			G.GAME.cry_fastened = true
+			if G.jokers.cards then
+				G.GAME.blind:wiggle()
+				G.GAME.blind.triggered = true
+				for i,v in pairs(G.jokers.cards) do
+					v:juice_up(0,0.25)
+				end
+			end
+			
+		end
+	end,
+	cry_before_play = function(self)
+		if not G.GAME.blind.disabled and not G.GAME.cry_fastened then
+			--visual cue to wiggle all jokers 
+			G.GAME.cry_fastened = true
+			if G.jokers.cards then
+				G.GAME.blind:wiggle()
+				G.GAME.blind.triggered = true
+				for i,v in pairs(G.jokers.cards) do
+					v:juice_up(0,0.25)
+				end
+			end
+		end
+	end,
 	cry_before_cash = function(self)
+		--Always fasten if before cash context (gaming chair, debug mode)
+		G.GAME.cry_fastened = true
 		G.GAME.blind:wiggle()
 		G.GAME.blind.triggered = true
 		--PLACEHOLDER: Will open a random booster pack for now
