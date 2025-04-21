@@ -2238,6 +2238,7 @@ local baneful1 = {
 	atlas = "pack",
 	pos = { x = 0, y = 2 },
 	cry_baneful_punishment = true,
+	no_doe = true,
 	unskippable = function(self)
 		--Only be unskippable if no jokers are owned (or rightmost Joker is Eternal or Cursed)
 		if G.jokers and (#G.jokers.cards == 0 or 
@@ -2249,7 +2250,7 @@ local baneful1 = {
 	end,
 	order = 5,
 	config = { extra = 4, choose = 1 },
-	cost = 14,
+	cost = 1,
 	immutable = true,
 	weight = 0, --never spawn naturally
 	create_card = function(self, card)
