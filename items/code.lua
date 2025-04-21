@@ -1398,8 +1398,14 @@ local crynperror = { -- ://NPERROR, add last played hand back to your hand, mult
 				end
 			end
 			if G.discard.cards[i] and check then
+				if G.discard.cards[i].facing == "back" then
+					G.discard.cards[i]:flip()
+				end
 				draw_card(G.discard, G.hand, i * 100 / 5, "up", nil, G.GAME.last_hand_played_cards[i])
 			elseif G.deck.cards[i] and check then
+				if G.deck.cards[i].facing == "back" then
+					G.deck.cards[i]:flip()
+				end
 				draw_card(G.deck, G.hand, i * 100 / 5, "up", nil, G.GAME.last_hand_played_cards[i])
 			end
 		end
