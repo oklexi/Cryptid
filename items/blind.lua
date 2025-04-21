@@ -1417,6 +1417,14 @@ local obsidian_orb = {
 			end
 		end
 	end,
+	cry_before_cash = function(self)
+		for k, _ in pairs(G.GAME.defeated_blinds) do
+			s = G.P_BLINDS[k]
+			if s.cry_before_cash then
+				s:cry_before_cash()
+			end
+		end
+	end,
 	get_loc_debuff_text = function(self)
 		if not G.GAME.blind.debuff_boss then
 			return localize("cry_debuff_obsidian_orb")
