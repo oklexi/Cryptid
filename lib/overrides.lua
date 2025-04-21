@@ -1460,3 +1460,51 @@ function Card:shatter(volume)
 		delay = 0.51 * dissolve_time,
 	}))
 end
+
+--Hook for booster skip to automatically destroy and banish the rightmost Joker, regardless of eternal
+local banefulSkipPenalty = G.FUNCS.skip_booster
+G.FUNCS.skip_booster = function(e)
+	if SMODS.OPENED_BOOSTER.config.center.cry_baneful_punishment then
+		if not G.GAME.banned_keys then
+			G.GAME.banned_keys = {}
+		end -- i have no idea if this is always initialised already tbh
+		if not G.GAME.cry_banned_pcards then
+			G.GAME.cry_banished_keys = {}
+		end
+		local c = nil
+		c = G.jokers.cards[#G.jokers.cards]
+		if c.config.center.rarity == "cry_exotic" then
+			check_for_unlock({ type = "what_have_you_done" })
+		end
+	
+		G.GAME.cry_banished_keys[c.config.center.key] = true
+		G.GAME.blind:wiggle()
+		G.GAME.blind.triggered = true
+		c:start_dissolve()
+	end
+	banefulSkipPenalty(e)
+end
+
+--Overriding the skip booster function.
+G.FUNCS.can_skip_booster = function(e)
+	if G.pack_cards and (not (G.GAME.STOP_USE and G.GAME.STOP_USE > 0)) and
+	(G.STATE == G.STATES.SMODS_BOOSTER_OPENED or G.STATE == G.STATES.PLANET_PACK or G.STATE == G.STATES.STANDARD_PACK or G.STATE == G.STATES.BUFFOON_PACK or (G.hand  )) then 
+		--if a booster is unskippable (when its unskippable conditionsa re fulfilled), unhighlight it
+		local obj = SMODS.OPENED_BOOSTER.config.center
+		if obj.unskippable and type(obj.unskippable) == "function" then
+			if obj:unskippable() == true then
+				e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+				e.config.button = nil
+			else
+				e.config.colour = G.C.GREY
+				e.config.button = 'skip_booster'
+			end
+		else
+			e.config.colour = G.C.GREY
+			e.config.button = 'skip_booster'
+		end
+	else
+	e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+	e.config.button = nil
+	end
+end

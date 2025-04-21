@@ -9,6 +9,17 @@ local meme_digital_hallucinations_compat = {
 		G.jokers:emplace(ccard) --Note: Will break if any non-Joker gets added to the meme pool
 	end,
 }
+-- Anti synergy with digital hallucinations, it will create ANOTHER cursed Joker when opening the pack
+local cursed_digital_hallucinations_compat = {
+	colour = HEX("474931"),
+	loc_key = "k_plus_joker",
+	create = function()
+		local ccard = create_card("Joker", G.jokers, nil, "cry_cursed", nil, nil, nil, "diha")
+		ccard:set_edition({ negative = true }, true)
+		ccard:add_to_deck()
+		G.jokers:emplace(ccard) --Note: Will break if any non-Joker gets added to the meme pool
+	end,
+}
 local meme1 = {
 	cry_credits = {
 		idea = {
@@ -2204,10 +2215,66 @@ local absolute = {
 		)
 	end,
 }
+local baneful1 = {
+	cry_credits = {
+		idea = {
+			"HexaCryonic",
+		},
+		art = {
+			"nova_422",
+		},
+		code = {
+			"70UNIK",
+		},
+	},
+	object_type = "Booster",
+	dependencies = {
+		items = {
+			"set_cry_cursed",
+		},
+	},
+	key = "baneful_1",
+	kind = "baneful",
+	atlas = "pack",
+	pos = { x = 0, y = 2 },
+	cry_baneful_punishment = true,
+	unskippable = function(self)
+		--Only be unskippable if no jokers are owned (or rightmost Joker is Eternal or Cursed)
+		if G.jokers and (#G.jokers.cards == 0 or 
+		(G.jokers.cards and (G.jokers.cards[#G.jokers.cards].ability.eternal or G.jokers.cards[#G.jokers.cards].config.center.rarity == 'cry_cursed')) 
+		or not G.jokers.cards) then
+			return true
+		end
+		return false
+	end,
+	order = 5,
+	config = { extra = 4, choose = 1 },
+	cost = 14,
+	immutable = true,
+	weight = 0, --never spawn naturally
+	create_card = function(self, card)
+		return create_card("Joker", G.jokers, nil, "cry_cursed", nil, nil, nil, "diha")
+	end,
+	ease_background_colour = function(self)
+		ease_colour(G.C.DYN_UI.MAIN, HEX("474931"))
+		ease_background_colour({ new_colour = HEX("474931"), special_colour = G.C.BLACK, contrast = 2 })
+	end,
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card and card.ability.choose or self.config.choose,
+				card and card.ability.extra or self.config.extra,
+			},
+		}
+	end,
+	group_key = "k_cry_baneful_pack",
+	cry_digital_hallucinations = cursed_digital_hallucinations_compat,
+}
 local miscitems = {
 	meme1,
 	meme2,
 	meme3,
+	baneful1,
 	mosaic_shader,
 	oversat_shader,
 	glitched_shader,

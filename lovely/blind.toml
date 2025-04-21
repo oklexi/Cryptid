@@ -77,4 +77,80 @@ check_for_unlock({ type = "lose_to_specific_blind", blind = cry_defeated_by, amo
 '''
 match_indent = true
 
+# ReAdd pre-cash context for "the decision", to force open a booster when round ends
 
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''G.STATE = G.STATES.ROUND_EVAL
+                        G.STATE_COMPLETE = false'''
+position = "before"
+payload = '''
+if G.GAME.blind.config.blind.cry_before_cash and not G.GAME.blind.disabled then
+	G.STATE = G.STATES.CRY_MAKE_A_DECISION
+	G.STATE_COMPLETE = false
+	
+else
+G.GAME.cry_make_a_decision = nil
+
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''G.STATE = G.STATES.ROUND_EVAL
+                        G.STATE_COMPLETE = false'''
+position = "after"
+payload = '''
+end
+'''
+match_indent = true
+
+## Add state for EVAL
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''if self.STATE == self.STATES.ROUND_EVAL then'''
+position = "before"
+payload = '''
+if self.STATE == self.STATES.CRY_MAKE_A_DECISION then
+	self:make_a_decision(dt)
+end
+'''
+match_indent = true
+
+## Always be able to add cursed Jokers
+[[patches]]
+[patches.pattern]
+target = '''functions/button_callbacks.lua'''
+pattern = '''if card.ability.set ~= 'Joker' or #G.jokers.cards < G.jokers.config.card_limit + card_limit then
+        e.config.colour = G.C.GREEN
+        e.config.button = 'use_card''''
+position = "after"
+payload = '''
+elseif card.ability.set == 'Joker' and card.config.center.rarity == "cry_cursed" then
+        e.config.colour = G.C.GREEN
+        e.config.button = 'use_card'
+'''
+match_indent = true
+
+## Get back into blind and complete it after using a pack
+[[patches]]
+[patches.pattern]
+target = '''functions/button_callbacks.lua'''
+pattern = '''G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.2*delayfac,
+          func = function()
+            save_run()
+            return true
+      end}))'''
+position = "after"
+payload = '''
+if G.GAME.cry_make_a_decision then
+	G.GAME.cry_make_a_decision = nil
+	G.STATE = G.STATES.ROUND_EVAL
+	G.STATE_COMPLETE = false
+end
+'''
+match_indent = true

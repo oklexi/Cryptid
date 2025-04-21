@@ -675,6 +675,72 @@ local scorch = {
 		end
 	end,
 }
+--Fasten all jokers during blind (sticker, cannot move jokers, unremovable)
+--After defeat, open a baneful buffoon pack containing:
+---4 cursed jokers (can overflow)
+---a "unique consumeable" that will banish the rightmost joker
+--Only after that, are jokers unfastened
+local decision = {
+	dependencies = {
+		items = {
+			"set_cry_blind",
+			"set_cry_cursed",
+		},
+	},
+	mult = 1,
+	object_type = "Blind",
+	name = "cry-Decision",
+	key = "decision",
+	pos = { x = 0, y = 19 },
+	dollars = 5,
+	boss = {
+		min = 1,
+		max = 666666,
+	},
+	atlas = "blinds",
+	order = 4,
+	boss_colour = HEX("474931"),
+	set_blind = function(self, reset, silent)
+		if not reset then
+			G.GAME.cry_fastened = true
+		end
+	end,
+	cry_before_cash = function(self)
+		G.GAME.blind:wiggle()
+		G.GAME.blind.triggered = true
+		--PLACEHOLDER: Will open a random booster pack for now
+		--Booster will contain:
+		--4 cursed Jokers
+		--1 "tarot" to banish the rightmost joker
+		G.E_MANAGER:add_event(Event({
+			trigger = 'before',
+			func = function()
+				local key = "p_cry_baneful_1"
+				local card = Card(
+					G.play.T.x + G.play.T.w / 2 - G.CARD_W * 1.27 / 2,
+					G.play.T.y + G.play.T.h / 2 - G.CARD_H * 1.27 / 2,
+					G.CARD_W * 1.27,
+					G.CARD_H * 1.27,
+					G.P_CARDS.empty,
+					G.P_CENTERS[key],
+					{ bypass_discovery_center = true, bypass_discovery_ui = true }
+				)
+				card.cost = 0
+				card.from_tag = true
+				G.FUNCS.use_card({ config = { ref_table = card } })
+				card:start_materialize()
+				pack_opened = true
+				return true
+			end,
+		}))
+	end,
+	disable = function(self, silent)
+		G.GAME.cry_fastened = nil
+	end,
+	defeat = function(self, silent)
+		G.GAME.cry_fastened = nil
+	end,
+}
 --It seems Showdown blind order is seperate from normal blind collection order? convenient for me at least
 --Nvm they changed it
 local lavender_loop = {
@@ -1406,6 +1472,7 @@ local trophy = {
 		end
 	end,
 }
+
 local items_togo = {
 	oldox,
 	oldhouse,
@@ -1434,5 +1501,6 @@ local items_togo = {
 	clock,
 	lavender_loop,
 	trophy,
+	decision,
 }
 return { name = "Blinds", items = items_togo }
