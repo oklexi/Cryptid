@@ -162,3 +162,44 @@ end}))
 
 '''
 match_indent = true
+
+## Do not trigger booster pack tags after ending the baneful pack, otherwise it will be awkward
+[[patches]]
+[patches.pattern]
+target = '''functions/button_callbacks.lua'''
+pattern = '''for i = 1, #G.GAME.tags do
+        if G.GAME.tags[i]:apply_to_run({type = 'new_blind_choice'}) then break end
+      end'''
+position = "at"
+payload = '''
+for i = 1, #G.GAME.tags do
+	if not G.GAME.cry_make_a_decision then
+		if G.GAME.tags[i]:apply_to_run({type = 'new_blind_choice'}) then break end
+	end
+end
+'''
+match_indent = true
+
+##Part 1 of below:
+[[patches]]
+[patches.pattern]
+target = '''functions/misc_functions.lua'''
+pattern = '''--Control the music here'''
+position = "before"
+payload = '''
+local disable_booster_music = false
+local obj = SMODS.OPENED_BOOSTER
+if obj and obj.config and obj.config.center and obj.config.center.no_music then
+	disable_booster_music = true
+end
+'''
+match_indent = true
+
+## Force music to be Boss Blind music while in baneful pack
+[[patches]]
+[patches.pattern]
+target = '''functions/misc_functions.lua'''
+pattern = '''(G.booster_pack and not G.booster_pack.REMOVED and 'music2') or'''
+position = "at"
+payload = '''(G.booster_pack and not G.booster_pack.REMOVED and not disable_booster_music and 'music2') or'''
+match_indent = true

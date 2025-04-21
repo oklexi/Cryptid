@@ -2238,6 +2238,7 @@ local baneful1 = {
 	atlas = "pack",
 	pos = { x = 0, y = 2 },
 	cry_baneful_punishment = true,
+	no_music = true, --prevent override of music, such as in boss blinds
 	no_doe = true,
 	unskippable = function(self)
 		--Only be unskippable if no jokers are owned (or rightmost Joker is Eternal or Cursed)
