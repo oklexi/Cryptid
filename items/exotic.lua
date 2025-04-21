@@ -262,7 +262,7 @@ local universum = {
 								end,
 							}))
 							play_sound("tarot2", 1, 0.4)
-						end
+						end -- hi
 						return true
 					end,
 				}))
