@@ -98,12 +98,12 @@ local wrapped = {
 				}
 			end
 		end
-	end,
 	if context.forcetrigger then
 		local card = create_card("Food", G.jokers, nil, nil, nil, nil, nil, "cry_wrapped")
 				card:add_to_deck()
 				G.jokers:emplace(card)
 	end
+	end,
 }
 local choco_dice = {
 	object_type = "Joker",
