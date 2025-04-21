@@ -1086,6 +1086,15 @@ local aliases = {
 		"Perkeo",
 	},
 
+	-- Vanilla Tarots
+	c_fool = {
+		"Fool",
+		"The Fool",
+	},
+	c_magician = {
+		"Magician",
+		"The Magician",
+	},
 	--[[ 
 	Format:
 		<joker key> = {
