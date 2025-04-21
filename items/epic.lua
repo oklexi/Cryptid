@@ -2314,5 +2314,6 @@ return {
 		spectrogram,
 		jtron,
 		clockwork,
+		demicolon,
 	},
 }
