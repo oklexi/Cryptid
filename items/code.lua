@@ -4967,8 +4967,8 @@ local code_cards = {
 	rigged,
 	patch,
 	-- cryupdate, -- WIP: no effect
-	-- hook, -- WIP; rework needed
-	-- hooked,
+	hook, 
+	hooked,
 	oboe,
 	assemble,
 	inst,
