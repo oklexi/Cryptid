@@ -938,354 +938,352 @@ local keygen = { -- ://Keygen, create a Perishable Banana voucher, destroy the p
 	end,
 }
 
-local payload =
-	{ -- ://Payload, triple interest gained on next cash out, stacks exponentially (multiplicative on modest)
-		cry_credits = {
-			idea = {
-				"Mjiojio",
-			},
-			art = {
-				"HexaCryonic",
-			},
-			code = {
-				"Math",
-			},
+local payload = { -- ://Payload, triple interest gained on next cash out, stacks exponentially (multiplicative on modest)
+	cry_credits = {
+		idea = {
+			"Mjiojio",
 		},
-		dependencies = {
-			items = {
-				"set_cry_code",
-			},
+		art = {
+			"HexaCryonic",
 		},
-		object_type = "Consumable",
-		set = "Code",
-		name = "cry-Payload",
-		key = "payload",
-		pos = { x = 8, y = 0 },
-		config = { interest_mult = 3 },
-		loc_vars = function(self, info_queue, center)
-			return { vars = { self.config.interest_mult } }
-		end,
-		cost = 4,
-		atlas = "atlasnotjokers",
-		order = 2,
-		can_use = function(self, card)
-			return true
-		end,
-		can_bulk_use = true,
-		use = function(self, card, area, copier)
-			G.GAME.cry_payload = to_big((G.GAME.cry_payload or 1)) * to_big(card.ability.interest_mult)
-		end,
-		bulk_use = function(self, card, area, copier, number)
-			G.GAME.cry_payload = to_big((G.GAME.cry_payload or 1)) * to_big(card.ability.interest_mult) ^ to_big(number)
-		end,
-	}
+		code = {
+			"Math",
+		},
+	},
+	dependencies = {
+		items = {
+			"set_cry_code",
+		},
+	},
+	object_type = "Consumable",
+	set = "Code",
+	name = "cry-Payload",
+	key = "payload",
+	pos = { x = 8, y = 0 },
+	config = { interest_mult = 3 },
+	loc_vars = function(self, info_queue, center)
+		return { vars = { self.config.interest_mult } }
+	end,
+	cost = 4,
+	atlas = "atlasnotjokers",
+	order = 2,
+	can_use = function(self, card)
+		return true
+	end,
+	can_bulk_use = true,
+	use = function(self, card, area, copier)
+		G.GAME.cry_payload = to_big((G.GAME.cry_payload or 1)) * to_big(card.ability.interest_mult)
+	end,
+	bulk_use = function(self, card, area, copier, number)
+		G.GAME.cry_payload = to_big((G.GAME.cry_payload or 1)) * to_big(card.ability.interest_mult) ^ to_big(number)
+	end,
+}
 
-local exploit =
-	{ -- ://Exploit, choose a hand, next hand is forced to that hand regardless of cards played, +1 asc power for that hand, multi-use 2
-		cry_credits = {
-			idea = {
-				"Mjiojio",
-			},
-			art = {
-				"HexaCryonic",
-			},
-			code = {
-				"Toneblock",
-			},
+local exploit = { -- ://Exploit, choose a hand, next hand is forced to that hand regardless of cards played, +1 asc power for that hand, multi-use 2
+	cry_credits = {
+		idea = {
+			"Mjiojio",
 		},
-		dependencies = {
-			items = {
-				"set_cry_code",
-			},
+		art = {
+			"HexaCryonic",
 		},
-		object_type = "Consumable",
-		set = "Code",
-		key = "exploit",
-		name = "cry-Exploit",
-		atlas = "atlasnotjokers",
-		pos = { x = 8, y = 3 },
-		cost = 4,
-		order = 3,
-		config = { cry_multiuse = 2, extra = { enteredhand = "" } }, -- i don't think this ever uses config...?
-		loc_vars = function(self, info_queue, card)
-			return { vars = { Cryptid.safe_get(card, "ability", "cry_multiuse") or self.config.cry_multiuse } }
-		end,
-		can_use = function(self, card)
-			return true
-		end,
-		use = function(self, card, area, copier)
-			G.GAME.USING_CODE = true
-			G.ENTERED_HAND = ""
-			G.CHOOSE_HAND = UIBox({
-				definition = create_UIBox_exploit(card),
-				config = {
-					align = "cm",
-					offset = { x = 0, y = 10 },
-					major = G.ROOM_ATTACH,
-					bond = "Weak",
-					instance_type = "POPUP",
+		code = {
+			"Toneblock",
+		},
+	},
+	dependencies = {
+		items = {
+			"set_cry_code",
+		},
+	},
+	object_type = "Consumable",
+	set = "Code",
+	key = "exploit",
+	name = "cry-Exploit",
+	atlas = "atlasnotjokers",
+	pos = { x = 8, y = 3 },
+	cost = 4,
+	order = 3,
+	config = { cry_multiuse = 2, extra = { enteredhand = "" } }, -- i don't think this ever uses config...?
+	loc_vars = function(self, info_queue, card)
+		return { vars = { Cryptid.safe_get(card, "ability", "cry_multiuse") or self.config.cry_multiuse } }
+	end,
+	can_use = function(self, card)
+		return true
+	end,
+	use = function(self, card, area, copier)
+		G.GAME.USING_CODE = true
+		G.ENTERED_HAND = ""
+		G.CHOOSE_HAND = UIBox({
+			definition = create_UIBox_exploit(card),
+			config = {
+				align = "cm",
+				offset = { x = 0, y = 10 },
+				major = G.ROOM_ATTACH,
+				bond = "Weak",
+				instance_type = "POPUP",
+			},
+		})
+		G.CHOOSE_HAND.alignment.offset.y = 0
+		G.ROOM.jiggle = G.ROOM.jiggle + 1
+		G.CHOOSE_HAND:align_to_major()
+	end,
+	init = function(self)
+		function create_UIBox_exploit(card)
+			G.E_MANAGER:add_event(Event({
+				blockable = false,
+				func = function()
+					G.REFRESH_ALERTS = true
+					return true
+				end,
+			}))
+			local t = create_UIBox_generic_options({
+				no_back = true,
+				colour = HEX("04200c"),
+				outline_colour = G.C.SECONDARY_SET.Code,
+				contents = {
+					{
+						n = G.UIT.R,
+						nodes = {
+							create_text_input({
+								colour = G.C.SET.Code,
+								hooked_colour = darken(copy_table(G.C.SET.Code), 0.3),
+								w = 4.5,
+								h = 1,
+								max_length = 24,
+								extended_corpus = true,
+								prompt_text = localize("cry_code_hand"),
+								ref_table = G,
+								ref_value = "ENTERED_HAND",
+								keyboard_offset = 1,
+							}),
+						},
+					},
+					{
+						n = G.UIT.R,
+						nodes = {
+							UIBox_button({
+								colour = G.C.SET.Code,
+								button = "exploit_apply",
+								label = { localize("cry_code_exploit") },
+								minw = 4.5,
+								focus_args = { snap_to = true },
+							}),
+						},
+					},
+					{
+						n = G.UIT.R,
+						nodes = {
+							UIBox_button({
+								colour = G.C.RED,
+								button = "exploit_apply_previous",
+								label = { localize("cry_code_exploit_previous") },
+								minw = 4.5,
+								focus_args = { snap_to = true },
+							}),
+						},
+					},
+					{
+						n = G.UIT.R,
+						nodes = {
+							UIBox_button({
+								colour = G.C.RED,
+								button = "exploit_cancel",
+								label = { localize("cry_code_cancel") },
+								minw = 4.5,
+								focus_args = { snap_to = true },
+							}),
+						},
+					},
 				},
 			})
-			G.CHOOSE_HAND.alignment.offset.y = 0
-			G.ROOM.jiggle = G.ROOM.jiggle + 1
-			G.CHOOSE_HAND:align_to_major()
-		end,
-		init = function(self)
-			function create_UIBox_exploit(card)
-				G.E_MANAGER:add_event(Event({
-					blockable = false,
-					func = function()
-						G.REFRESH_ALERTS = true
-						return true
-					end,
-				}))
-				local t = create_UIBox_generic_options({
-					no_back = true,
-					colour = HEX("04200c"),
-					outline_colour = G.C.SECONDARY_SET.Code,
-					contents = {
-						{
-							n = G.UIT.R,
-							nodes = {
-								create_text_input({
-									colour = G.C.SET.Code,
-									hooked_colour = darken(copy_table(G.C.SET.Code), 0.3),
-									w = 4.5,
-									h = 1,
-									max_length = 24,
-									extended_corpus = true,
-									prompt_text = localize("cry_code_hand"),
-									ref_table = G,
-									ref_value = "ENTERED_HAND",
-									keyboard_offset = 1,
-								}),
-							},
-						},
-						{
-							n = G.UIT.R,
-							nodes = {
-								UIBox_button({
-									colour = G.C.SET.Code,
-									button = "exploit_apply",
-									label = { localize("cry_code_exploit") },
-									minw = 4.5,
-									focus_args = { snap_to = true },
-								}),
-							},
-						},
-						{
-							n = G.UIT.R,
-							nodes = {
-								UIBox_button({
-									colour = G.C.RED,
-									button = "exploit_apply_previous",
-									label = { localize("cry_code_exploit_previous") },
-									minw = 4.5,
-									focus_args = { snap_to = true },
-								}),
-							},
-						},
-						{
-							n = G.UIT.R,
-							nodes = {
-								UIBox_button({
-									colour = G.C.RED,
-									button = "exploit_cancel",
-									label = { localize("cry_code_cancel") },
-									minw = 4.5,
-									focus_args = { snap_to = true },
-								}),
-							},
-						},
-					},
-				})
-				return t
+			return t
+		end
+		G.FUNCS.exploit_apply_previous = function()
+			if G.PREVIOUS_ENTERED_HAND then
+				G.ENTERED_HAND = G.PREVIOUS_ENTERED_HAND or ""
 			end
-			G.FUNCS.exploit_apply_previous = function()
-				if G.PREVIOUS_ENTERED_HAND then
-					G.ENTERED_HAND = G.PREVIOUS_ENTERED_HAND or ""
+			G.FUNCS.exploit_apply()
+		end
+		G.FUNCS.exploit_apply = function()
+			local hand_table = {
+				["High Card"] = {
+					"high card",
+					"high",
+					"1oak",
+					"1 of a kind",
+					"haha one",
+				},
+				["Pair"] = {
+					"pair",
+					"2oak",
+					"2 of a kind",
+					"m",
+					"window",
+				},
+				["Two Pair"] = {
+					"two pair",
+					"2 pair",
+					"mm",
+					"pairpair",
+					"pair of a kind",
+				},
+				["Three of a Kind"] = {
+					"three of a kind",
+					"3 of a kind",
+					"3oak",
+					"trips",
+					"triangle",
+				},
+				["Straight"] = {
+					"straight",
+					"lesbian",
+					"gay",
+					"bisexual",
+					"asexual",
+					"staircase",
+				},
+				["Flush"] = {
+					"flush",
+					"skibidi",
+					"toilet",
+					"floosh",
+					"monotone",
+				},
+				["Full House"] = {
+					"full house",
+					"full",
+					"that 70s show",
+					"modern family",
+					"family matters",
+					"the middle",
+				},
+				["Four of a Kind"] = {
+					"four of a kind",
+					"4 of a kind",
+					"4oak",
+					"22oakoak",
+					"quads",
+					"four to the floor",
+				},
+				["Straight Flush"] = {
+					"straight flush",
+					"strush",
+					"slush",
+					"slushie",
+					"slushy",
+					"monotone staircase",
+				},
+				["Five of a Kind"] = {
+					"five of a kind",
+					"5 of a kind",
+					"5oak",
+					"quints",
+				},
+				["Flush House"] = {
+					"flush house",
+					"flouse",
+					"outhouse",
+					"monotone house",
+					"the grey house",
+				},
+				["Flush Five"] = {
+					"flush five",
+					"fish",
+					"you know what that means",
+					"five of a flush",
+					"monotone fish",
+				},
+				["cry_Bulwark"] = {
+					"bulwark",
+					"flush rock",
+					"stoned",
+					"stone flush",
+					"flush stone",
+					"rock and stone",
+				},
+				["cry_Clusterfuck"] = {
+					"clusterfuck",
+					"fuck",
+					"wtf",
+					"cluster",
+					"what",
+				},
+				["cry_UltPair"] = {
+					"ultimate pair",
+					"ultpair",
+					"ult pair",
+					"pairpairpair",
+					"flush pair of a kind of a kind",
+					"2f2oakoak",
+					"two flush two of a kind of a kind",
+				},
+				["cry_WholeDeck"] = {
+					"the entire fucking deck",
+					"deck",
+					"tefd",
+					"fifty-two",
+					"you are fuck deck",
+					"deck of a kind",
+					"the entire deck",
+					"everything of a kind",
+					"everything",
+				},
+			}
+			local current_hand = nil
+			for k, v in pairs(SMODS.PokerHands) do
+				local index = v.key
+				local current_name = G.localization.misc.poker_hands[index]
+				if not hand_table[v.key] then
+					hand_table[v.key] = { current_name }
 				end
-				G.FUNCS.exploit_apply()
 			end
-			G.FUNCS.exploit_apply = function()
-				local hand_table = {
-					["High Card"] = {
-						"high card",
-						"high",
-						"1oak",
-						"1 of a kind",
-						"haha one",
-					},
-					["Pair"] = {
-						"pair",
-						"2oak",
-						"2 of a kind",
-						"m",
-						"window",
-					},
-					["Two Pair"] = {
-						"two pair",
-						"2 pair",
-						"mm",
-						"pairpair",
-						"pair of a kind",
-					},
-					["Three of a Kind"] = {
-						"three of a kind",
-						"3 of a kind",
-						"3oak",
-						"trips",
-						"triangle",
-					},
-					["Straight"] = {
-						"straight",
-						"lesbian",
-						"gay",
-						"bisexual",
-						"asexual",
-						"staircase",
-					},
-					["Flush"] = {
-						"flush",
-						"skibidi",
-						"toilet",
-						"floosh",
-						"monotone",
-					},
-					["Full House"] = {
-						"full house",
-						"full",
-						"that 70s show",
-						"modern family",
-						"family matters",
-						"the middle",
-					},
-					["Four of a Kind"] = {
-						"four of a kind",
-						"4 of a kind",
-						"4oak",
-						"22oakoak",
-						"quads",
-						"four to the floor",
-					},
-					["Straight Flush"] = {
-						"straight flush",
-						"strush",
-						"slush",
-						"slushie",
-						"slushy",
-						"monotone staircase",
-					},
-					["Five of a Kind"] = {
-						"five of a kind",
-						"5 of a kind",
-						"5oak",
-						"quints",
-					},
-					["Flush House"] = {
-						"flush house",
-						"flouse",
-						"outhouse",
-						"monotone house",
-						"the grey house",
-					},
-					["Flush Five"] = {
-						"flush five",
-						"fish",
-						"you know what that means",
-						"five of a flush",
-						"monotone fish",
-					},
-					["cry_Bulwark"] = {
-						"bulwark",
-						"flush rock",
-						"stoned",
-						"stone flush",
-						"flush stone",
-						"rock and stone",
-					},
-					["cry_Clusterfuck"] = {
-						"clusterfuck",
-						"fuck",
-						"wtf",
-						"cluster",
-						"what",
-					},
-					["cry_UltPair"] = {
-						"ultimate pair",
-						"ultpair",
-						"ult pair",
-						"pairpairpair",
-						"flush pair of a kind of a kind",
-						"2f2oakoak",
-						"two flush two of a kind of a kind",
-					},
-					["cry_WholeDeck"] = {
-						"the entire fucking deck",
-						"deck",
-						"tefd",
-						"fifty-two",
-						"you are fuck deck",
-						"deck of a kind",
-						"the entire deck",
-						"everything of a kind",
-						"everything",
-					},
-				}
-				local current_hand = nil
-				for k, v in pairs(SMODS.PokerHands) do
-					local index = v.key
-					local current_name = G.localization.misc.poker_hands[index]
-					if not hand_table[v.key] then
-						hand_table[v.key] = { current_name }
+			for i, v in pairs(hand_table) do
+				for j, k in pairs(v) do
+					if string.lower(G.ENTERED_HAND) == string.lower(k) then
+						current_hand = i
 					end
 				end
-				for i, v in pairs(hand_table) do
-					for j, k in pairs(v) do
-						if string.lower(G.ENTERED_HAND) == string.lower(k) then
-							current_hand = i
+			end
+			if current_hand and G.GAME.hands[current_hand].visible then
+				G.PREVIOUS_ENTERED_HAND = G.ENTERED_HAND
+				G.GAME.cry_exploit_override = current_hand
+				G.FUNCS.exploit_cancel()
+				return
+			end
+		end
+		G.FUNCS.exploit_cancel = function()
+			G.CHOOSE_HAND:remove()
+			G.GAME.USING_CODE = false
+		end
+		-- mess with poker hand evaluation
+		local evaluate_poker_hand_ref = evaluate_poker_hand
+		function evaluate_poker_hand(hand)
+			local results = evaluate_poker_hand_ref(hand)
+			if G.GAME.cry_exploit_override then
+				if not results[G.GAME.cry_exploit_override][1] then
+					for _, v in ipairs(G.handlist) do
+						if results[v][1] then
+							results[G.GAME.cry_exploit_override] = results[v]
+							break
 						end
 					end
 				end
-				if current_hand and G.GAME.hands[current_hand].visible then
-					G.PREVIOUS_ENTERED_HAND = G.ENTERED_HAND
-					G.GAME.cry_exploit_override = current_hand
-					G.FUNCS.exploit_cancel()
-					return
-				end
 			end
-			G.FUNCS.exploit_cancel = function()
-				G.CHOOSE_HAND:remove()
-				G.GAME.USING_CODE = false
+			return results
+		end
+		local htuis = G.FUNCS.hand_text_UI_set
+		G.FUNCS.hand_text_UI_set = function(e)
+			htuis(e)
+			if G.GAME.cry_exploit_override then
+				e.config.object.colours = { G.C.SECONDARY_SET.Code }
+			else
+				e.config.object.colours = { G.C.UI.TEXT_LIGHT }
 			end
-			-- mess with poker hand evaluation
-			local evaluate_poker_hand_ref = evaluate_poker_hand
-			function evaluate_poker_hand(hand)
-				local results = evaluate_poker_hand_ref(hand)
-				if G.GAME.cry_exploit_override then
-					if not results[G.GAME.cry_exploit_override][1] then
-						for _, v in ipairs(G.handlist) do
-							if results[v][1] then
-								results[G.GAME.cry_exploit_override] = results[v]
-								break
-							end
-						end
-					end
-				end
-				return results
-			end
-			local htuis = G.FUNCS.hand_text_UI_set
-			G.FUNCS.hand_text_UI_set = function(e)
-				htuis(e)
-				if G.GAME.cry_exploit_override then
-					e.config.object.colours = { G.C.SECONDARY_SET.Code }
-				else
-					e.config.object.colours = { G.C.UI.TEXT_LIGHT }
-				end
-				e.config.object:update_text()
-			end
-		end,
-	}
+			e.config.object:update_text()
+		end
+	end,
+}
 
 local malware = { -- ://Malware, apply Glitched edition to held in hand cards
 	cry_credits = {
