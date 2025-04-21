@@ -698,12 +698,15 @@ local decision = {
 		max = 666666,
 	},
 	atlas = "blinds",
-	order = 4,
+	order = 22,
 	boss_colour = HEX("474931"),
 	set_blind = function(self, reset, silent)
 		if not reset then
 			G.GAME.cry_fastened = true
 		end
+	end,
+	get_loc_debuff_text = function(self)
+		return localize('cry_blind_baneful_pack')
 	end,
 	cry_before_cash = function(self)
 		G.GAME.blind:wiggle()

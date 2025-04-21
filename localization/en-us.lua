@@ -4732,6 +4732,7 @@ return {
 			cry_debuff_oldflint = "No Flushes",
 			cry_debuff_oldmark = "No hands containing a Pair",
 			cry_debuff_obsidian_orb = "Applies abilities of all defeated bosses",
+			cry_blind_baneful_pack = "After round, open a Baneful Buffoon Pack",
 
 			cry_tax_placeholder = "(X0.4 blind requirement)",
 			cry_joke_placeholder = "(multiple of 8)",
