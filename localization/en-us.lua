@@ -470,8 +470,7 @@ return {
 				name = "The Decision",
 				text = {
 					"Fasten Jokers after Play or Discard",
-					"On defeat, open a Baneful Buffoon",
-					"Pack and get a Cursed Joker",
+					"After round, get a Cursed Joker",
 					"or skip to banish rightmost Joker",
 				}
 			}

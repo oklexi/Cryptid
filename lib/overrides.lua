@@ -1478,7 +1478,7 @@ G.FUNCS.skip_booster = function(e)
 		end
 	
 		G.GAME.cry_banished_keys[c.config.center.key] = true
-		if G.GAME.blind and G.GAME.blind.in_blind then
+		if G.GAME.blind then
 			G.GAME.blind:wiggle()
 			G.GAME.blind.triggered = true
 		end
