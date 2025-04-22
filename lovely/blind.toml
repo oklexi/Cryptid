@@ -203,3 +203,30 @@ pattern = '''(G.booster_pack and not G.booster_pack.REMOVED and 'music2') or'''
 position = "at"
 payload = '''(G.booster_pack and not G.booster_pack.REMOVED and not disable_booster_music and 'music2') or'''
 match_indent = true
+
+## If selling luchador inside the baneful buffoon pack and the blind is active, automatically skip it without penalty
+[[patches]]
+[patches.pattern]
+target = '''blind.lua'''
+pattern = '''G.STATE = G.STATES.NEW_ROUND
+            G.STATE_COMPLETE = false'''
+position = "before"
+payload = '''
+if G.GAME.cry_make_a_decision and G.STATE == G.STATES.SMODS_BOOSTER_OPENED then
+	SMODS.calculate_context({skipping_booster = true, booster = booster_obj})
+    booster_obj = nil
+	G.FUNCS.end_consumeable()
+else
+'''
+match_indent = true
+##Wrapper of above
+[[patches]]
+[patches.pattern]
+target = '''blind.lua'''
+pattern = '''G.STATE = G.STATES.NEW_ROUND
+            G.STATE_COMPLETE = false'''
+position = "after"
+payload = '''
+end
+'''
+match_indent = true
