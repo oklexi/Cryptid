@@ -755,7 +755,7 @@ local decision = {
 	object_type = "Blind",
 	name = "cry-Decision",
 	key = "decision",
-	pos = { x = 0, y = 19 },
+	pos = { x = 0, y = 20 },
 	dollars = 5,
 	boss = {
 		min = 1,
