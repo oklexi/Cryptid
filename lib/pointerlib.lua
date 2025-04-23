@@ -119,6 +119,9 @@ function Cryptid.pointergetalias(target) -- "Is this alias legit?"
 end
 
 function Cryptid.pointergetblist(target) -- "Is this card pointer banned?"
+		if G.DEBUG_POINTER then
+		return false
+	end
 	return Cryptid.blibgetblocked("pointer", target)
 	-- target = Cryptid.pointergetalias(target)
 	-- if not target then
