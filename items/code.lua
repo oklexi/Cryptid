@@ -3062,6 +3062,7 @@ local class = { -- ://Class, change a selected card's enhancement to one of your
 				m_gold = { "gold", "money", "yellow" },
 				m_lucky = { "lucky", "rng" },
 				m_cry_echo = { "echo", "retrigger", "retriggers" },
+				m_cry_abstract = { "abstract", "abstracted", "tadc","theamazingdigitalcircus","kaufumo"}, --why him? he was the first person we see get abstracted
 				m_cry_light = { "light" },
 				ccd = { "ccd" },
 				null = { "nil" },

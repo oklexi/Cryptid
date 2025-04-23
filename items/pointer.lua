@@ -454,6 +454,7 @@ local pointer = {
 						["m_gold"] = { "gold" },
 						["m_stone"] = { "stone" },
 						["m_cry_echo"] = { "echo" },
+						["m_cry_abstract"] = { "abstract" },
 					}
 					for k, v in pairs(G.P_CENTER_POOLS.Enhanced) do
 						local index = v.key
