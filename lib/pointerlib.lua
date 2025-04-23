@@ -3,7 +3,7 @@ Cryptid.pointerblist = {}
 Cryptid.pointerblisttype = {}
 Cryptid.pointeralias = {}
 
-function Cryptid.pointerblistify(target, remove) -- Add specific joker to blacklist, must input either a card object or a key as string, eg:
+function Cryptid.pointerblistify(target, remove) -- Add specific joker to blacklist, must input either a card object or a key as string
 	return Cryptid.blibblock("pointer", target, remove)
 	-- if not Cryptid.pointerblist then
 	-- 	Cryptid.pointerblist = {}
@@ -22,25 +22,24 @@ function Cryptid.pointerblistify(target, remove) -- Add specific joker to blackl
 end
 
 function Cryptid.pointeraliasify(target, key, remove) -- Add a specific alias/key combo to the alias list
-	return Cryptid.blibadd("pointer", target, key, remove)
-	-- if string.len(key) ~= 1 then
-	-- 	key = string.lower(key:gsub("%b{}", ""):gsub("%s+", ""))
-	-- end
-	-- if not remove then
-	-- 	if not Cryptid.pointeralias[target] then
-	-- 		Cryptid.pointeralias[target] = {}
-	-- 	end
-	-- 	Cryptid.pointeralias[target][#Cryptid.pointeralias[target] + 1] = key
-	-- 	return true
-	-- else
-	-- 	for v = 1, #Cryptid.pointeralias[target] do
-	-- 		if Cryptid.pointeralias[target][v] == key then
-	-- 			table.remove(Cryptid.pointeralias, v)
-	-- 			return true
-	-- 		end
-	-- 	end
-	-- end
-	-- return false
+	if string.len(key) ~= 1 then
+		key = string.lower(key:gsub("%b{}", ""):gsub("%s+", ""))
+	end
+	if not remove then
+		if not Cryptid.pointeralias[target] then
+			Cryptid.pointeralias[target] = {}
+		end
+		Cryptid.pointeralias[target][#Cryptid.pointeralias[target] + 1] = key
+		return true
+	else
+		for v = 1, #Cryptid.pointeralias[target] do
+			if Cryptid.pointeralias[target][v] == key then
+				table.remove(Cryptid.pointeralias, v)
+				return true
+			end
+		end
+	end
+	return false
 end
 
 function Cryptid.pointerblistifytype(target, key, remove) -- eg: blacklists a certain card value, see pointer.lua
@@ -80,42 +79,41 @@ function Cryptid.pointerblistifytype(target, key, remove) -- eg: blacklists a ce
 end
 
 function Cryptid.pointergetalias(target) -- "Is this alias legit?"
-	return Cryptid.blibgetalias("pointer", target)
-	-- target = tostring(target)
-	-- local function apply_lower(strn)
-	-- 	if type(strn) ~= string then -- safety
-	-- 		strn = tostring(strn)
-	-- 	end
-	-- 	-- Remove content within {} and any remaining spaces
-	-- 	strn = strn:gsub("%b{}", ""):gsub("%s+", "")
-	-- 	--this weirdness allows you to get m and M separately
-	-- 	if string.len(strn) == 1 then
-	-- 		return strn
-	-- 	end
-	-- 	return string.lower(strn)
-	-- end
-	-- for keym, card in pairs(G.P_CENTERS) do
-	-- 	if apply_lower(card.name) == apply_lower(target) then
-	-- 		return keym
-	-- 	end
-	-- 	if apply_lower(card.original_key) == apply_lower(target) then
-	-- 		return keym
-	-- 	end
-	-- 	if apply_lower(keym) == apply_lower(target) then
-	-- 		return keym
-	-- 	end
-	-- end
-	-- for card, _ in pairs(Cryptid.pointeralias) do
-	-- 	if card == target then
-	-- 		return card
-	-- 	end
-	-- 	for _, alias in ipairs(Cryptid.pointeralias[card]) do
-	-- 		if alias == target then
-	-- 			return card
-	-- 		end
-	-- 	end
-	-- end
-	-- return false
+	target = tostring(target)
+	local function apply_lower(strn)
+		if type(strn) ~= string then -- safety
+			strn = tostring(strn)
+		end
+		-- Remove content within {} and any remaining spaces
+		strn = strn:gsub("%b{}", ""):gsub("%s+", "")
+		--this weirdness allows you to get m and M separately
+		if string.len(strn) == 1 then
+			return strn
+		end
+		return string.lower(strn)
+	end
+	for keym, card in pairs(G.P_CENTERS) do
+		if apply_lower(card.name) == apply_lower(target) then
+			return keym
+		end
+		if apply_lower(card.original_key) == apply_lower(target) then
+			return keym
+		end
+		if apply_lower(keym) == apply_lower(target) then
+			return keym
+		end
+	end
+	for card, _ in pairs(Cryptid.pointeralias) do
+		if card == target then
+			return card
+		end
+		for _, alias in ipairs(Cryptid.pointeralias[card]) do
+			if alias == target then
+				return card
+			end
+		end
+	end
+	return false
 end
 
 function Cryptid.pointergetblist(target) -- "Is this card pointer banned?"
