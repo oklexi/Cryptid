@@ -2241,13 +2241,19 @@ local baneful1 = {
 	no_music = true, --prevent override of music, such as in boss blinds
 	no_doe = true,
 	unskippable = function(self)
-		--Only be unskippable if no jokers are owned (or rightmost Joker is Eternal or Cursed)
-		if G.jokers and (#G.jokers.cards == 0 or 
-		(G.jokers.cards and (G.jokers.cards[#G.jokers.cards].ability.eternal or G.jokers.cards[#G.jokers.cards].config.center.rarity == 'cry_cursed')) 
-		or not G.jokers.cards) then
+		--Only be unskippable if no VALID jokers are owned (if rightmost is eternal/cursed, the next)
+		if G.jokers and (#G.jokers.cards == 0 or not G.jokers.cards) then
 			return true
 		end
-		return false
+		--For loop that iterates from right to left, breaking and returning false if finding the rightmost valid noneternal or cursed Joker 
+		if G.jokers and G.jokers.cards then
+			for i = #G.jokers.cards,1,-1 do
+				if not (G.jokers.cards[i].ability.eternal or G.jokers.cards[i].config.center.rarity == 'cry_cursed') then
+					return false
+				end
+			end
+		end
+		return true
 	end,
 	order = 5,
 	config = { extra = 4, choose = 1 },
@@ -2268,6 +2274,10 @@ local baneful1 = {
 				card and card.ability.extra or self.config.extra,
 			},
 		}
+	end,
+	--never spawn as well in pool
+	in_pool = function()
+		return false
 	end,
 	group_key = "k_cry_baneful_pack",
 	cry_digital_hallucinations = cursed_digital_hallucinations_compat,

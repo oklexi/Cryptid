@@ -471,7 +471,8 @@ return {
 				text = {
 					"Fasten Jokers after Play or Discard",
 					"After round, get a Cursed Joker",
-					"or skip to banish rightmost Joker",
+					"or skip to banish",
+					"rightmost non-Cursed Joker",
 				}
 			}
 		},

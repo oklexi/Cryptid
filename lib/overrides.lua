@@ -1472,7 +1472,17 @@ G.FUNCS.skip_booster = function(e)
 			G.GAME.cry_banished_keys = {}
 		end
 		local c = nil
-		c = G.jokers.cards[#G.jokers.cards]
+		c = G.jokers.cards[#G.jokers.cards] --fallback to rightmost if somehow, you skipped without disabling and its unskippable.
+		--Iterate backwards to get the rightmost valid (non eternal or cursed) Joker
+		if G.jokers and G.jokers.cards then
+			for i = #G.jokers.cards,1,-1 do
+				if not (G.jokers.cards[i].ability.eternal or G.jokers.cards[i].config.center.rarity == 'cry_cursed') then
+					c = G.jokers.cards[i]
+					break
+				end
+			end
+		end
+		
 		if c.config.center.rarity == "cry_exotic" then
 			check_for_unlock({ type = "what_have_you_done" })
 		end
