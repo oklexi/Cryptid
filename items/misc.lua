@@ -2261,7 +2261,7 @@ local baneful1 = {
 	immutable = true,
 	weight = 0, --never spawn naturally
 	create_card = function(self, card)
-		return create_card("Joker", G.jokers, nil, "cry_cursed", nil, nil, nil, "diha")
+		return create_card("Joker", G.jokers, nil, "cry_cursed", nil, nil, nil, "baneful_pack")
 	end,
 	ease_background_colour = function(self)
 		ease_colour(G.C.DYN_UI.MAIN, HEX("474931"))
