@@ -478,10 +478,9 @@ return {
 			bl_cry_decision = {
 				name = "The Decision",
 				text = {
-					"Fasten Jokers after Play or Discard",
-					"After round, get a Cursed Joker",
-					"or skip to banish",
-					"rightmost non-Cursed Joker",
+					"Fasten Jokers on Play or Discard",
+					"Open a Baneful Buffoon",
+					"Pack after round",
 				}
 			}
 		},
@@ -4736,6 +4735,7 @@ return {
 			k_cry_program_pack = "Program Pack",
 			k_cry_meme_pack = "Meme Pack",
 			k_cry_baneful_pack = "Baneful Buffoon Pack",
+			cry_baneful_warning = "Skipping will Banish rightmost Joker",
 
 			cry_critical_hit_ex = "Critical Hit!",
 			cry_critical_miss_ex = "Critical Miss!",
