@@ -824,21 +824,7 @@ local decision = {
 				return true
 			end,
 		}))
-		G.E_MANAGER:add_event(Event({
-			trigger = 'after',
-			delay = 2,
-			func = function()
-				attention_text({
-					scale = 0.8,
-					text = localize("cry_baneful_warning"),
-					hold = 3,
-					align = "cm",
-					offset = { x = 0, y = -2.7 },
-					major = G.play,
-				})
-				return true
-			end,
-		}))
+		
 	end,
 	disable = function(self, silent)
 		G.GAME.cry_fastened = nil
