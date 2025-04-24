@@ -751,7 +751,7 @@ local decision = {
 			"set_cry_cursed",
 		},
 	},
-	mult = 1,
+	mult = 2,
 	object_type = "Blind",
 	name = "cry-Decision",
 	key = "decision",

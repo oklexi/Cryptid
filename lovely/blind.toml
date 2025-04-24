@@ -212,6 +212,7 @@ pattern = '''G.STATE = G.STATES.NEW_ROUND
             G.STATE_COMPLETE = false'''
 position = "before"
 payload = '''
+
 if G.GAME.cry_make_a_decision and G.STATE == G.STATES.SMODS_BOOSTER_OPENED then
 	SMODS.calculate_context({skipping_booster = true, booster = booster_obj})
     booster_obj = nil
@@ -239,5 +240,30 @@ pattern = '''elseif _type == 'Planet' then _pool[#_pool + 1] = "c_pluto"'''
 position = "before"
 payload = '''
 elseif _type == 'Joker' and _rarity == 'cry_cursed' then _pool[#_pool + 1] = "j_cry_monopoly_money"
+'''
+match_indent = true
+
+## In the rare event you have mr bones at hand, also force close
+[[patches]]
+[patches.pattern]
+target = '''blind.lua'''
+pattern = '''self:set_text()
+    self:wiggle()'''
+position = "before"
+payload = '''
+--Function to check if less than size and if they are SAVED.
+G.E_MANAGER:add_event(Event({
+      trigger = 'immediate',
+      func = function()
+      if self.boss and to_big(G.GAME.chips) - G.GAME.blind.chips < to_big(0) and SMODS.saved then
+            if G.GAME.cry_make_a_decision and G.STATE == G.STATES.SMODS_BOOSTER_OPENED then
+                  SMODS.calculate_context({skipping_booster = true, booster = booster_obj})
+                  booster_obj = nil
+                  G.FUNCS.end_consumeable()
+            end
+      end
+      return true
+end
+}))
 '''
 match_indent = true
