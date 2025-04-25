@@ -109,7 +109,7 @@ function Cryptid.pointergetalias(target) -- "Is this alias legit?"
 				end
 			end
 		end
-	end 
+	end
 	for card, _ in pairs(Cryptid.pointeralias) do
 		if card == target then
 			return card
