@@ -1168,10 +1168,8 @@ local aliases = {
 	},
 	c_world = {
 		"The World",
-		"World"
+		"World",
 	},
-
-	
 
 	--[[ 
 	Format:
