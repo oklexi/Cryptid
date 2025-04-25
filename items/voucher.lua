@@ -659,100 +659,98 @@ local threers = { -- Wasteful T3; Permanently gain +2 discards each round
 		ease_discard(-1 * (card and card.ability.extra or self.config.extra))
 	end,
 }
-local tacclimator =
-	{ -- Tarot Merchant T3; Tarot cards appear X6 more frequently in the shop   All future Tarot cards are free
-		cry_credits = {
-			idea = {
-				"Frix",
-			},
-			art = {
-				"jenwalter666",
-			},
-			code = {
-				"Jevonn",
-				"Toneblock",
-			},
+local tacclimator = { -- Tarot Merchant T3; Tarots are free, spawn rate controllable in run info
+	cry_credits = {
+		idea = {
+			"Frix",
 		},
-		object_type = "Voucher",
-		dependencies = {
-			items = {
-				"set_cry_tier3",
-			},
+		art = {
+			"jenwalter666",
 		},
-		key = "tacclimator",
-		config = { extra = 24 / 4, extra_disp = 6 },
-		atlas = "atlasvoucher",
-		order = 32666,
-		pos = { x = 1, y = 4 },
-		requires = { "v_tarot_tycoon" },
-		pools = { ["Tier3"] = true },
-		loc_vars = function(self, info_queue, card)
-			return { vars = { card and card.ability.extra_disp or self.config.extra_disp } }
-		end,
-		redeem = function(self, card)
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					G.GAME.tarot_rate = G.GAME.tarot_rate * (card and card.ability.extra or self.config.extra)
-					return true
-				end,
-			}))
-		end,
-		unredeem = function(self, card)
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					G.GAME.tarot_rate = G.GAME.tarot_rate / (card and card.ability.extra or self.config.extra)
-					return true
-				end,
-			}))
-		end,
-	}
-local pacclimator =
-	{ -- Planet Merchant T3; Planet cards appear X6 more frequently in the shop   All future Planet cards are free
-		cry_credits = {
-			idea = {
-				"Frix",
-			},
-			art = {
-				"jenwalter666",
-			},
-			code = {
-				"Jevonn",
-				"Toneblock",
-			},
+		code = {
+			"Jevonn",
+			"Toneblock",
 		},
-		object_type = "Voucher",
-		dependencies = {
-			items = {
-				"set_cry_tier3",
-			},
+	},
+	object_type = "Voucher",
+	dependencies = {
+		items = {
+			"set_cry_tier3",
 		},
-		key = "pacclimator",
-		config = { extra = 24 / 4, extra_disp = 6 },
-		atlas = "atlasvoucher",
-		order = 32667,
-		pos = { x = 0, y = 4 },
-		requires = { "v_planet_tycoon" },
-		pools = { ["Tier3"] = true },
-		loc_vars = function(self, info_queue, card)
-			return { vars = { card and card.ability.extra or self.config.extra_disp } }
-		end,
-		redeem = function(self, card)
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					G.GAME.planet_rate = G.GAME.planet_rate * (card and card.ability.extra or self.config.extra)
-					return true
-				end,
-			}))
-		end,
-		unredeem = function(self, card)
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					G.GAME.planet_rate = G.GAME.planet_rate / (card and card.ability.extra or self.config.extra)
-					return true
-				end,
-			}))
-		end,
-	}
+	},
+	key = "tacclimator",
+	config = { extra = 24 / 4, extra_disp = 6 },
+	atlas = "atlasvoucher",
+	order = 32666,
+	pos = { x = 1, y = 4 },
+	requires = { "v_tarot_tycoon" },
+	pools = { ["Tier3"] = true },
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card and card.ability.extra_disp or self.config.extra_disp } }
+	end,
+	redeem = function(self, card)
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				G.GAME.tarot_rate = G.GAME.tarot_rate * (card and card.ability.extra or self.config.extra)
+				return true
+			end,
+		}))
+	end,
+	unredeem = function(self, card)
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				G.GAME.tarot_rate = G.GAME.tarot_rate / (card and card.ability.extra or self.config.extra)
+				return true
+			end,
+		}))
+	end,
+}
+local pacclimator = { -- Planet Merchant T3; Planets are free, spawn rate controllable in run info
+	cry_credits = {
+		idea = {
+			"Frix",
+		},
+		art = {
+			"jenwalter666",
+		},
+		code = {
+			"Jevonn",
+			"Toneblock",
+		},
+	},
+	object_type = "Voucher",
+	dependencies = {
+		items = {
+			"set_cry_tier3",
+		},
+	},
+	key = "pacclimator",
+	config = { extra = 24 / 4, extra_disp = 6 },
+	atlas = "atlasvoucher",
+	order = 32667,
+	pos = { x = 0, y = 4 },
+	requires = { "v_planet_tycoon" },
+	pools = { ["Tier3"] = true },
+	loc_vars = function(self, info_queue, card)
+		return { vars = { card and card.ability.extra or self.config.extra_disp } }
+	end,
+	redeem = function(self, card)
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				G.GAME.planet_rate = G.GAME.planet_rate * (card and card.ability.extra or self.config.extra)
+				return true
+			end,
+		}))
+	end,
+	unredeem = function(self, card)
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				G.GAME.planet_rate = G.GAME.planet_rate / (card and card.ability.extra or self.config.extra)
+				return true
+			end,
+		}))
+	end,
+}
 local moneybean = { -- Seed Money T3; Raise the cap on interest earned in each round to $2.0e299
 	cry_credits = {
 		idea = {
