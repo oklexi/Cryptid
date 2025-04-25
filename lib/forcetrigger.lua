@@ -16,6 +16,7 @@ function Cryptid.forcetrigger(card, context)
 	demicontext.scoring_name = context.scoring_name
 	demicontext.poker_hands = context.poker_hands
 	demicontext.forcetrigger = true
-	eval_card(card, demicontext)
+	local results = eval_card(card, demicontext)
 	demicontext = nil
+	return results
 end
