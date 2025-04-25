@@ -4368,7 +4368,7 @@ local source = {
 	object_type = "Consumable",
 	set = "Spectral",
 	name = "cry-Source",
-	order = 604,
+	order = 603,
 	key = "source",
 	config = {
 		-- This will add a tooltip.
