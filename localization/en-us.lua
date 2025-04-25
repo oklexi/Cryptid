@@ -478,11 +478,11 @@ return {
 			bl_cry_decision = {
 				name = "The Decision",
 				text = {
-					"Fasten Jokers on Play or Discard",
+					"Fasten Jokers on play or discard",
 					"Open a Baneful Buffoon",
 					"Pack after round",
-				}
-			}
+				},
+			},
 		},
 		Code = {
 			c_cry_assemble = {
