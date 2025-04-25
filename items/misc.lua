@@ -1953,6 +1953,7 @@ local abstract = {
 	atlas = "cry_misc",
 	pos = { x = 3, y = 0 },
 	not_fucked = true,
+	shatters = true, --SMODS has a new "shatters" function
 	force_no_face = true, --true = always face, false = always face
 	--NEW! specific_suit suit. Like abstracted!
 	specific_suit = "cry_abstract",
