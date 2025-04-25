@@ -101,6 +101,15 @@ function Cryptid.pointergetalias(target) -- "Is this alias legit?"
 			return keym
 		end
 	end
+	for _, group in pairs(G.localization.descriptions) do
+		if _ ~= "Back" then
+			for key, card in pairs(group) do
+				if apply_lower(card.name) == apply_lower(target) then
+					return key
+				end
+			end
+		end
+	end 
 	for card, _ in pairs(Cryptid.pointeralias) do
 		if card == target then
 			return card
