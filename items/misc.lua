@@ -1935,6 +1935,7 @@ local abstract = {
 			"set_cry_misc",
 		},
 	},
+	name = "cry_abstract",
 	key = "abstract",
 	not_stoned = true,
 	overrides_base_rank = true, --enhancement do not generate in grim, incantation, etc...
