@@ -502,6 +502,7 @@ local pointer = {
 						["pinned"] = { "pinned" },
 						["banana"] = { "banana" }, -- no idea why this evades prefixing
 						["cry_rigged"] = { "rigged" },
+						["cry_global_sticker"] = { "global" },
 						["cry_flickering"] = { "flickering" },
 						["cry_possessed"] = { "possessed" },
 						["cry_absolute"] = { "absolute" },
@@ -1088,13 +1089,90 @@ local aliases = {
 
 	-- Vanilla Tarots
 	c_fool = {
-		"Fool",
 		"The Fool",
+		"Fool",
 	},
-	c_magician = {
-		"Magician",
-		"The Magician",
+	c_high_priestess = {
+		"The High Priestess",
+		"High Priestess",
 	},
+	c_empress = {
+		"The Empress",
+		"Empress",
+	},
+	c_emperor = {
+		"The Emperor",
+		"Emperor",
+	},
+	c_heirophant = {
+		"The Heirophant",
+		"Heirophant",
+	},
+	c_lovers = {
+		"The Lovers",
+		"Lovers",
+	},
+	c_chariot = {
+		"The Chariot",
+		"Chariot",
+	},
+	c_justice = {
+		"Justice",
+	},
+	c_hermit = {
+		"The Hermit",
+		"Hermit",
+	},
+	c_wheel_of_fortune = {
+		"The Wheel Of Fortune",
+		"Wheel Of Fortune",
+		"tWoF",
+		"WoF",
+	},
+	c_strength = {
+		"Strength",
+	},
+	c_hanged_man = {
+		"The Hanged Man",
+		"Hanged Man",
+	},
+	c_death = {
+		"Death",
+		"Turn The Left Card Into The Right Card",
+	},
+	c_temperance = {
+		"Temperance",
+	},
+	c_devil = {
+		"The Devil",
+		"Devil",
+	},
+	c_tower = {
+		"The Tower",
+		"Tower",
+	},
+	c_star = {
+		"The Star",
+		"Star",
+	},
+	c_moon = {
+		"The Moon",
+		"Moon",
+	},
+	c_sun = {
+		"The Sun",
+		"Sun",
+	},
+	c_judgement = {
+		"Judgement",
+	},
+	c_world = {
+		"The World",
+		"World"
+	},
+
+	
+
 	--[[ 
 	Format:
 		<joker key> = {
