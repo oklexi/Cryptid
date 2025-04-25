@@ -11,5 +11,4 @@ return {
 	["force_tooltips"] = true, -- i don't actually know what this does
 	["HTTPS"] = true, -- your internet connection
 	["menu"] = true, -- i don't know what this does either
-	["gameset_toggle"] = true, -- toggles being able to change gameset config, just here for modpack/almanac support
 }
