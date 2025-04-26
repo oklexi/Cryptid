@@ -7463,7 +7463,7 @@ local fractal = {
 		return { vars = { center.ability.extra } }
 	end,
 	add_to_deck = function(self, card, from_debuff)
-		card.ability.extra = math.floor(card.ability.extra)
+		card.ability.extra = math.min(math.floor(card.ability.extra), 1000)
 		G.hand.config.highlighted_limit = G.hand.config.highlighted_limit + card.ability.extra
 	end,
 	remove_from_deck = function(self, card, from_debuff)
