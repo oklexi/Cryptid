@@ -160,23 +160,17 @@ local pointer = {
 			end
 			local current_card -- j_cry_dropshot
 			local entered_card = G.ENTERED_CARD
+			local valid_check = {}
 			G.PREVIOUS_ENTERED_CARD = G.ENTERED_CARD
 			current_card = Cryptid.pointergetalias(apply_lower(entered_card)) or nil
-			if Cryptid.pointergetblist(current_card) and not G.DEBUG_POINTER then
-				current_card = nil
-			end
+			valid_check = Cryptid.pointergetblist(current_card)
 
 			if current_card then -- non-playing card cards
-				local created = false
-				if -- Joker check
-					G.P_CENTERS[current_card].set == "Joker"
-					and (
-						G.DEBUG_POINTER -- Debug Mode
-						or (
-							G.P_CENTERS[current_card].unlocked -- If card discovered
-							and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit -- and you have room
-						)
-					)
+				local created = false -- Joker check
+				if 
+					not valid_check[1]
+					and valid_check[2] == "Joker"
+					and valid_check[3]
 				then
 					local card = create_card("Joker", G.jokers, nil, nil, nil, nil, current_card)
 					card:add_to_deck()
@@ -184,11 +178,9 @@ local pointer = {
 					created = true
 				end
 				if -- Consumeable check
-					G.P_CENTERS[current_card].consumeable
-					and (
-						G.DEBUG_POINTER
-						or (#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit)
-					)
+					not valid_check[1]
+					and valid_check[2] == "Consumeable"
+					and valid_check[3]
 				then
 					local card = create_card("Consumeable", G.consumeables, nil, nil, nil, nil, current_card)
 					if card.ability.name and card.ability.name == "cry-Chambered" then
@@ -199,8 +191,9 @@ local pointer = {
 					created = true
 				end
 				if -- Voucher check
-					G.P_CENTERS[current_card].set == "Voucher"
-					and (G.DEBUG_POINTER or G.P_CENTERS[current_card].unlocked)
+					not valid_check[1]
+					and valid_check[2] == "Voucher"
+					and valid_check[3]
 				then
 					local area
 					if G.STATE == G.STATES.HAND_PLAYED then
@@ -236,16 +229,9 @@ local pointer = {
 					created = true
 				end
 				if -- Booster check
-					G.P_CENTERS[current_card].set == "Booster"
-					and (G.DEBUG_POINTER or G.P_CENTERS[current_card].unlocked)
-					and ( -- no boosters if already in booster
-						G.STATE ~= G.STATES.TAROT_PACK
-						and G.STATE ~= G.STATES.SPECTRAL_PACK
-						and G.STATE ~= G.STATES.STANDARD_PACK
-						and G.STATE ~= G.STATES.BUFFOON_PACK
-						and G.STATE ~= G.STATES.PLANET_PACK
-						and G.STATE ~= G.STATES.SMODS_BOOSTER_OPENED
-					)
+					not valid_check[1]
+					and valid_check[2] == "Booster"
+					and valid_check[3]
 				then
 					local card = create_card("Booster", G.hand, nil, nil, nil, nil, current_card)
 					card.cost = 0
