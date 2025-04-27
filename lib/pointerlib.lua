@@ -90,17 +90,6 @@ function Cryptid.pointergetalias(target) -- "Is this alias legit?"
 		end
 		return string.lower(strn)
 	end
-	for keym, card in pairs(G.P_CENTERS) do
-		if apply_lower(card.name) == apply_lower(target) then
-			return keym
-		end
-		if apply_lower(card.original_key) == apply_lower(target) then
-			return keym
-		end
-		if apply_lower(keym) == apply_lower(target) then
-			return keym
-		end
-	end
 	for _, group in pairs(G.localization.descriptions) do
 		if _ ~= "Back" then
 			for key, card in pairs(group) do
@@ -111,13 +100,24 @@ function Cryptid.pointergetalias(target) -- "Is this alias legit?"
 		end
 	end
 	for card, _ in pairs(Cryptid.pointeralias) do
-		if card == target then
+		if apply_lower(card) == apply_lower(target) then
 			return card
 		end
 		for _, alias in ipairs(Cryptid.pointeralias[card]) do
-			if alias == target then
+			if apply_lower(alias) == apply_lower(target) then
 				return card
 			end
+		end
+	end
+	for keym, card in pairs(G.P_CENTERS) do
+		if apply_lower(card.name) == apply_lower(target) then
+			return keym
+		end
+		if apply_lower(card.original_key) == apply_lower(target) then
+			return keym
+		end
+		if apply_lower(keym) == apply_lower(target) then
+			return keym
 		end
 	end
 	return false
