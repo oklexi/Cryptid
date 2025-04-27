@@ -171,9 +171,7 @@ function Cryptid.pointergetblist(target) -- "Is this card pointer banned?"
 			end
 		elseif target and target.consumeable then
 			results[2] = "Consumeable"
-			if
-				(#G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit)
-			then
+			if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
 				results[3] = true
 			elseif G.DEBUG_POINTER then
 				results[3] = true
@@ -182,9 +180,7 @@ function Cryptid.pointergetblist(target) -- "Is this card pointer banned?"
 			end
 		elseif target and target.set == "Voucher" then
 			results[2] = "Voucher"
-			if
-				target.unlocked
-			then
+			if target.unlocked then
 				results[3] = true
 			elseif G.DEBUG_POINTER then
 				results[3] = true
@@ -193,7 +189,7 @@ function Cryptid.pointergetblist(target) -- "Is this card pointer banned?"
 			end
 		elseif target and target.set == "Booster" then
 			results[2] = "Booster"
-			if 
+			if
 				not ( -- no boosters if already in booster
 					G.STATE ~= G.STATES.TAROT_PACK
 					and G.STATE ~= G.STATES.SPECTRAL_PACK
@@ -203,9 +199,7 @@ function Cryptid.pointergetblist(target) -- "Is this card pointer banned?"
 					and G.STATE ~= G.STATES.SMODS_BOOSTER_OPENED
 				)
 			then
-				if
-					target.unlocked		
-				then
+				if target.unlocked then
 					results[3] = true
 				elseif G.DEBUG_POINTER then
 					results[3] = true
