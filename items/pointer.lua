@@ -167,11 +167,7 @@ local pointer = {
 
 			if current_card then -- non-playing card cards
 				local created = false -- Joker check
-				if 
-					not valid_check[1]
-					and valid_check[2] == "Joker"
-					and valid_check[3]
-				then
+				if not valid_check[1] and valid_check[2] == "Joker" and valid_check[3] then
 					local card = create_card("Joker", G.jokers, nil, nil, nil, nil, current_card)
 					card:add_to_deck()
 					G.jokers:emplace(card)
