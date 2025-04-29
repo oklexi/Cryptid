@@ -2301,11 +2301,11 @@ local demicolon = {
 					other_joker = G.jokers.cards[i + 1]
 				end
 			end
-			if other_joker and other_joker ~= card and not (Card.no(other_joker, "demicoloncompat", true)) then
-				card.ability.demicoloncompat = "incompatible"
+			if other_joker and other_joker ~= card and (Card.no(other_joker, "demicoloncompat", true)) then
+				card.ability.demicoloncompat = "compatible"
 				card.ability.check = false
 			else
-				card.ability.demicoloncompat = "compatible"
+				card.ability.demicoloncompat = "incompatible"
 				card.ability.check = true
 			end
 		end
