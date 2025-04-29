@@ -2258,15 +2258,54 @@ local demicolon = {
 	atlas = "atlasepic",
 	pos = { x = 3, y = 5 },
 	loc_vars = function(self, info_queue, card)
-		local compat = false
-		if G and G.jokers and G.jokers.cards then
+		card.ability.demicoloncompat_ui = card.ability.demicoloncompat_ui_ui or ""
+		card.ability.demicoloncompat_ui_check = nil
+		return {
+			main_end = (card.area and card.area == G.jokers) and {
+				{
+					n = G.UIT.C,
+					config = { align = "bm", minh = 0.4 },
+					nodes = {
+						{
+							n = G.UIT.C,
+							config = {
+								ref_table = card,
+								align = "m",
+								colour = G.C.JOKER_GREY,
+								r = 0.05,
+								padding = 0.06,
+								func = "demicoloncompat",
+							},
+							nodes = {
+								{
+									n = G.UIT.T,
+									config = {
+										ref_table = card.ability,
+										ref_value = "demicoloncompat",
+										colour = G.C.UI.TEXT_LIGHT,
+										scale = 0.32 * 0.8,
+									},
+								},
+							},
+						},
+					},
+				},
+			} or nil,
+		}
+	end,
+	update = function(self, card, front)
+		if G.STAGE == G.STAGES.RUN then
 			for i = 1, #G.jokers.cards do
-				if G.jokers.cards[i] == card and i ~= #G.jokers.cards then
-					compat = Cryptid.demicolonGetTriggerable(G.jokers.cards[i + 1])
+				if G.jokers.cards[i] == card then
+					other_joker = G.jokers.cards[i + 1]
 				end
 			end
+			if other_joker and other_joker ~= card and not (Card.no(other_joker, "demicoloncompat", true)) then
+				card.ability.demicoloncompat = "compatible"
+			else
+				card.ability.demicoloncompat = "incompatible"
+			end
 		end
-		return { vars = { compat } }
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main and not context.blueprint then
