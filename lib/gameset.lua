@@ -1108,7 +1108,7 @@ function Cryptid.update_obj_registry(m, force_enable)
 	end
 	if m.obj_table then
 		for k, v in pairs(m.obj_table) do
-			if v.mod and v.mod.id == "Cryptid" then
+			if v.mod and (v.mod.id == "Cryptid" or Cryptid.mod_gameset_whitelist[v.mod.id]) then
 				local en = force_enable or Cryptid.enabled(k)
 				if en == true then
 					if v.cry_disabled then
@@ -1134,7 +1134,7 @@ function Cryptid.index_items(func, m)
 	end
 	if m.obj_table then
 		for k, v in pairs(m.obj_table) do
-			if v.mod and v.mod.id == "Cryptid" then
+			if v.mod and (v.mod.id == "Cryptid" or Cryptid.mod_gameset_whitelist[v.mod.id]) then
 				func(v)
 			end
 		end
@@ -1711,7 +1711,7 @@ function create_UIBox_your_collection_decks()
 	if G.ACTIVE_MOD_UI and (Cryptid.mod_gameset_whitelist[G.ACTIVE_MOD_UI.id] or G.ACTIVE_MOD_UI.id == "Cryptid") then
 		local generic_collection_pool = {}
 		for k, v in pairs(SMODS.Center.obj_table) do
-			if v.set == "Back" and v.mod and v.mod.id == "Cryptid" then
+			if v.set == "Back" and v.mod and (v.mod.id == "Cryptid" or Cryptid.mod_gameset_whitelist[v.mod.id]) then
 				table.insert(generic_collection_pool, v)
 			end
 		end
@@ -1742,7 +1742,7 @@ function create_UIBox_your_collection_tags()
 	if G.ACTIVE_MOD_UI and (Cryptid.mod_gameset_whitelist[G.ACTIVE_MOD_UI.id] or G.ACTIVE_MOD_UI.id == "Cryptid") then
 		local generic_collection_pool = {}
 		for k, v in pairs(SMODS.Tag.obj_table) do
-			if v.set == "Tag" and v.mod and v.mod.id == "Cryptid" then
+			if v.set == "Tag" and v.mod and (v.mod.id == "Cryptid" or Cryptid.mod_gameset_whitelist[v.mod.id]) then
 				table.insert(generic_collection_pool, v)
 			end
 		end
@@ -1765,7 +1765,7 @@ function create_UIBox_your_collection_blinds()
 	if G.ACTIVE_MOD_UI and (Cryptid.mod_gameset_whitelist[G.ACTIVE_MOD_UI.id] or G.ACTIVE_MOD_UI.id == "Cryptid") then
 		local generic_collection_pool = {}
 		for k, v in pairs(SMODS.Blind.obj_table) do
-			if v.set == "Blind" and v.mod and v.mod.id == "Cryptid" then
+			if v.set == "Blind" and v.mod and (v.mod.id == "Cryptid" or Cryptid.mod_gameset_whitelist[v.mod.id]) then
 				table.insert(generic_collection_pool, v)
 			end
 		end
