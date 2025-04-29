@@ -634,7 +634,7 @@ if not Jen then
 		ccl(self)
 		if G.your_collection then
 			for k, v in pairs(G.your_collection) do
-				if self.area == v and G.ACTIVE_MOD_UI and G.ACTIVE_MOD_UI.id == "Cryptid" then
+				if self.area == v and G.ACTIVE_MOD_UI and (Cryptid.mod_gameset_whitelist[G.ACTIVE_MOD_UI.id] or G.ACTIVE_MOD_UI.id == "Cryptid") then
 					if not self.config.center or self.config.center and self.config.center.set == "Default" then
 						--make a fake center
 						local old_force_gameset = self.config.center and self.config.center.force_gameset
@@ -1611,7 +1611,7 @@ end
 -- Hooks for all collection types
 local smcp = SMODS.collection_pool
 SMODS.collection_pool = function(m)
-	if G.ACTIVE_MOD_UI and G.ACTIVE_MOD_UI.id == "Cryptid" then
+	if G.ACTIVE_MOD_UI and (Cryptid.mod_gameset_whitelist[G.ACTIVE_MOD_UI.id] or G.ACTIVE_MOD_UI.id == "Cryptid") then
 		-- use SMODS pools instead of vanilla pools, so disabled cards appear
 		if m[1] and m[1].set and m[1].set == "Seal" then
 			m = {}
@@ -1653,7 +1653,7 @@ end
 local mct = modsCollectionTally
 function modsCollectionTally(pool, set)
 	local t = mct(pool, set)
-	if G.ACTIVE_MOD_UI and G.ACTIVE_MOD_UI.id == "Cryptid" then
+	if G.ACTIVE_MOD_UI and (Cryptid.mod_gameset_whitelist[G.ACTIVE_MOD_UI.id] or G.ACTIVE_MOD_UI.id == "Cryptid") then
 		local obj_tally = { tally = 0, of = 0 }
 		--infer pool
 		local _set = set or Cryptid.safe_get(pool, 1, "set")
@@ -1708,7 +1708,7 @@ end
 -- Make non-center collections show all cards as centers
 local uibk = create_UIBox_your_collection_decks
 function create_UIBox_your_collection_decks()
-	if G.ACTIVE_MOD_UI and G.ACTIVE_MOD_UI.id == "Cryptid" then
+	if G.ACTIVE_MOD_UI and (Cryptid.mod_gameset_whitelist[G.ACTIVE_MOD_UI.id] or G.ACTIVE_MOD_UI.id == "Cryptid") then
 		local generic_collection_pool = {}
 		for k, v in pairs(SMODS.Center.obj_table) do
 			if v.set == "Back" and v.mod and v.mod.id == "Cryptid" then
@@ -1739,7 +1739,7 @@ end
 
 local uitag = create_UIBox_your_collection_tags
 function create_UIBox_your_collection_tags()
-	if G.ACTIVE_MOD_UI and G.ACTIVE_MOD_UI.id == "Cryptid" then
+	if G.ACTIVE_MOD_UI and (Cryptid.mod_gameset_whitelist[G.ACTIVE_MOD_UI.id] or G.ACTIVE_MOD_UI.id == "Cryptid") then
 		local generic_collection_pool = {}
 		for k, v in pairs(SMODS.Tag.obj_table) do
 			if v.set == "Tag" and v.mod and v.mod.id == "Cryptid" then
@@ -1762,7 +1762,7 @@ end
 
 local uibl = create_UIBox_your_collection_blinds
 function create_UIBox_your_collection_blinds()
-	if G.ACTIVE_MOD_UI and G.ACTIVE_MOD_UI.id == "Cryptid" then
+	if G.ACTIVE_MOD_UI and (Cryptid.mod_gameset_whitelist[G.ACTIVE_MOD_UI.id] or G.ACTIVE_MOD_UI.id == "Cryptid") then
 		local generic_collection_pool = {}
 		for k, v in pairs(SMODS.Blind.obj_table) do
 			if v.set == "Blind" and v.mod and v.mod.id == "Cryptid" then
@@ -1785,7 +1785,7 @@ end
 
 local uisl = create_UIBox_your_collection_seals
 function create_UIBox_your_collection_seals()
-	if G.ACTIVE_MOD_UI and G.ACTIVE_MOD_UI.id == "Cryptid" then
+	if G.ACTIVE_MOD_UI and (Cryptid.mod_gameset_whitelist[G.ACTIVE_MOD_UI.id] or G.ACTIVE_MOD_UI.id == "Cryptid") then
 		return SMODS.card_collection_UIBox(G.P_CENTER_POOLS.Seal, { 5, 5 }, {
 			snap_back = true,
 			infotip = localize("ml_edition_seal_enhancement_explanation"),
@@ -1807,7 +1807,7 @@ end
 
 local uist = create_UIBox_your_collection_stickers
 function create_UIBox_your_collection_stickers()
-	if G.ACTIVE_MOD_UI and G.ACTIVE_MOD_UI.id == "Cryptid" then
+	if G.ACTIVE_MOD_UI and (Cryptid.mod_gameset_whitelist[G.ACTIVE_MOD_UI.id] or G.ACTIVE_MOD_UI.id == "Cryptid") then
 		return SMODS.card_collection_UIBox(SMODS.Stickers, { 5, 5 }, {
 			snap_back = true,
 			hide_single_page = true,
