@@ -958,7 +958,7 @@ return {
 					"Counts as its {C:attention}own{} rank and suit",
 					"{C:green}#4# in #5#{} chance to",
 					"{C:red,E:2}destroy{} card when held at",
-					"{C:attention}round start{} or {C:attention}end{}",
+					"{C:attention}round end{} or {C:attention}hand played{}",
 				},
 			},
 		},
