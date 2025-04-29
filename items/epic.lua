@@ -2301,9 +2301,9 @@ local demicolon = {
 				end
 			end
 			if other_joker and other_joker ~= card and not (Card.no(other_joker, "demicoloncompat", true)) then
-				card.ability.demicoloncompat = "compatible"
-			else
 				card.ability.demicoloncompat = "incompatible"
+			else
+				card.ability.demicoloncompat = "compatible"
 			end
 		end
 	end,
