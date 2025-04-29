@@ -634,7 +634,11 @@ if Cryptid_config.gameset_toggle then
 		ccl(self)
 		if G.your_collection then
 			for k, v in pairs(G.your_collection) do
-				if self.area == v and G.ACTIVE_MOD_UI and (Cryptid.mod_gameset_whitelist[G.ACTIVE_MOD_UI.id] or G.ACTIVE_MOD_UI.id == "Cryptid") then
+				if
+					self.area == v
+					and G.ACTIVE_MOD_UI
+					and (Cryptid.mod_gameset_whitelist[G.ACTIVE_MOD_UI.id] or G.ACTIVE_MOD_UI.id == "Cryptid")
+				then
 					if not self.config.center or self.config.center and self.config.center.set == "Default" then
 						--make a fake center
 						local old_force_gameset = self.config.center and self.config.center.force_gameset
