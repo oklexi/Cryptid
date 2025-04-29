@@ -1965,7 +1965,7 @@ local abstract = {
 		--Druing scoring
 		if
 			context.cardarea == G.hand
-			and not context.end_of_round
+			and context.before
 			and not card.ability.extra.marked
 			and not card.ability.eternal
 			and not card.ability.extra.survive --this presvents repitition of shatter chance by shutting it out once it confirms to "survive"
@@ -1992,6 +1992,7 @@ local abstract = {
 
 		if
 			context.final_scoring_step
+			and context.cardarea == G.hand
 			and card.ability.extra.marked
 			and not context.repetition
 			and not card.ability.eternal
@@ -2005,9 +2006,8 @@ local abstract = {
 					return true
 				end,
 			}))
-		else
-			card.ability.extra.survive = false
 		end
+		card.ability.extra.survive = false
 	end,
 }
 local instability = {
