@@ -1328,7 +1328,7 @@ function create_UIBox_your_collection_content_sets()
 
 	local joker_pool = {}
 	for k, v in pairs(SMODS.ContentSet.obj_table) do
-		if v.set == "Content Set" then
+		if v.set == "Content Set" and v.original_mod.id == G.ACTIVE_MOD_UI.id then
 			table.insert(joker_pool, v)
 		end
 	end
@@ -1492,7 +1492,7 @@ G.FUNCS.your_collection_content_set_page = function(args)
 	end
 	local joker_pool = {}
 	for k, v in pairs(SMODS.ContentSet.obj_table) do
-		if v.set == "Content Set" then
+		if v.set == "Content Set" and v.original_mod.id == G.ACTIVE_MOD_UI.id then
 			table.insert(joker_pool, v)
 		end
 	end
