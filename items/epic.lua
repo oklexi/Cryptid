@@ -2257,6 +2257,7 @@ local demicolon = {
 	blueprint_compat = false,
 	atlas = "atlasepic",
 	pos = { x = 3, y = 5 },
+	immutable = true,
 	loc_vars = function(self, info_queue, card)
 		card.ability.demicoloncompat_ui = card.ability.demicoloncompat_ui or ""
 		card.ability.demicoloncompat_ui_check = nil
@@ -2271,9 +2272,9 @@ local demicolon = {
 							config = {
 								ref_table = card,
 								align = "m",
-								colour = G.C.JOKER_GREY,
+								colour = (card.ability.check and G.C.cry_epic or G.C.JOKER_GREY) 
 								r = 0.05,
-								padding = 0.06,
+								padding = 0.08,
 								func = "blueprint_compat",
 							},
 							nodes = {
@@ -2282,7 +2283,7 @@ local demicolon = {
 									config = {
 										ref_table = card.ability,
 										ref_value = "demicoloncompat",
-										colour = G.C.UI.TEXT_LIGHT,
+										colour = G.C.UI.TEXT_DARK,
 										scale = 0.32 * 0.8,
 									},
 								},
@@ -2302,8 +2303,10 @@ local demicolon = {
 			end
 			if other_joker and other_joker ~= card and not (Card.no(other_joker, "demicoloncompat", true)) then
 				card.ability.demicoloncompat = "incompatible"
+				card.ability.check = false
 			else
 				card.ability.demicoloncompat = "compatible"
+				card.ability.check = true
 			end
 		end
 	end,
