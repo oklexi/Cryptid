@@ -1423,7 +1423,7 @@ function create_UIBox_your_collection_current_set()
 	end
 	Cryptid.index_items(is_in_set)
 	table.sort(joker_pool, function(a, b)
-		return a.cry_order < b.cry_order
+		return (a.cry_order or a.order or pseudorandom(a.key)) < (b.cry_order or b.order or pseudorandom(b.key))
 	end)
 	local joker_options = {}
 	for i = 1, math.ceil(#joker_pool / (5 * #G.your_collection)) do
@@ -1497,7 +1497,7 @@ G.FUNCS.your_collection_content_set_page = function(args)
 		end
 	end
 	table.sort(joker_pool, function(a, b)
-		return a.cry_order < b.cry_order
+		return (a.cry_order or a.order or pseudorandom(a.key)) < (b.cry_order or b.order or pseudorandom(b.key))
 	end)
 	for i = 1, 5 do
 		for j = 1, #G.your_collection do
@@ -1540,7 +1540,7 @@ G.FUNCS.your_collection_current_set_page = function(args)
 	end
 	Cryptid.index_items(is_in_set)
 	table.sort(joker_pool, function(a, b)
-		return a.cry_order < b.cry_order
+		return (a.cry_order or a.order or pseudorandom(a.key)) < (b.cry_order or b.order or pseudorandom(b.key))
 	end)
 	for i = 1, 5 do
 		for j = 1, #G.your_collection do
@@ -1616,14 +1616,14 @@ SMODS.collection_pool = function(m)
 		if m[1] and m[1].set and m[1].set == "Seal" then
 			m = {}
 			for k, v in pairs(SMODS.Seal.obj_table) do
-				if v.mod and v.mod.id == "Cryptid" then
+				if v.mod and (Cryptid.mod_gameset_whitelist[v.mod.id] or v.mod.id == "Cryptid") then
 					table.insert(m, v)
 				end
 			end
 		elseif m[1] and m[1].set and m[1].set == "Sticker" then
 			m = {}
 			for k, v in pairs(SMODS.Sticker.obj_table) do
-				if v.mod and v.mod.id == "Cryptid" then
+				if v.mod and (Cryptid.mod_gameset_whitelist[v.mod.id] or v.mod.id == "Cryptid") then
 					table.insert(m, v)
 				end
 			end
@@ -1631,19 +1631,19 @@ SMODS.collection_pool = function(m)
 			local set = m[1].set
 			m = {}
 			for k, v in pairs(SMODS.Center.obj_table) do
-				if v.set == set and v.mod and v.mod.id == "Cryptid" then
+				if v.set == set and v.mod and (Cryptid.mod_gameset_whitelist[v.mod.id] or v.mod.id == "Cryptid") then
 					table.insert(m, v)
 				end
 			end
 		end
 		-- Fix blind issues
 		for k, v in pairs(m) do
-			if v.set == "Blind" and v.mod and v.mod.id == "Cryptid" then
+			if v.set == "Blind" and v.mod and (Cryptid.mod_gameset_whitelist[v.mod.id] or v.mod.id == "Cryptid") then
 				v.config = {}
 			end
 		end
 		table.sort(m, function(a, b)
-			return a.cry_order < b.cry_order
+			return (a.cry_order or a.order or pseudorandom(a.key)) < (b.cry_order or b.order or pseudorandom(b.key))
 		end)
 	end
 	return smcp(m)
