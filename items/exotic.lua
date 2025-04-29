@@ -115,10 +115,10 @@ local iterum = {
 		end
 		if context.forcetrigger then
 			return {
-					x_mult = card.ability.extra.x_mult,
-					colour = G.C.RED,
-					card = card,
-				}
+				x_mult = card.ability.extra.x_mult,
+				colour = G.C.RED,
+				card = card,
+			}
 		end
 	end,
 	cry_credits = {
@@ -328,7 +328,6 @@ local exponentia = {
 				colour = G.C.DARK_EDITION,
 			}
 		end
-			
 	end,
 	loc_vars = function(self, info_queue, center)
 		return {
@@ -760,8 +759,7 @@ local primus = {
 			}
 		end
 		if context.forcetrigger then
-			card.ability.extra.Emult =
-					lenient_bignum(to_big(card.ability.extra.Emult) + card.ability.extra.Emult_mod)
+			card.ability.extra.Emult = lenient_bignum(to_big(card.ability.extra.Emult) + card.ability.extra.Emult_mod)
 			return {
 				message = localize({
 					type = "variable",
@@ -774,7 +772,6 @@ local primus = {
 				colour = G.C.DARK_EDITION,
 			}
 		end
-			
 	end,
 	loc_vars = function(self, info_queue, center)
 		return {
@@ -810,7 +807,10 @@ local scalae = {
 	config = { extra = { scale = 1, scale_mod = 1 } },
 	demicoloncompat = true,
 	calculate = function(self, card, context)
-		if (context.end_of_round and not context.individual and not context.repetition and not context.blueprint) or context.forcetrigger then
+		if
+			(context.end_of_round and not context.individual and not context.repetition and not context.blueprint)
+			or context.forcetrigger
+		then
 			card.ability.extra.scale = lenient_bignum(to_big(card.ability.extra.scale) + card.ability.extra.scale_mod)
 			return {
 				message = localize("k_upgrade_ex"),
@@ -997,11 +997,13 @@ local circulus_pistoris = {
 	end,
 	calculate = function(self, card, context)
 		if
-			(context.joker_main
-			and (
-				G.GAME.current_round.hands_left >= card.ability.extra.hands_remaining
-				and G.GAME.current_round.hands_left < card.ability.extra.hands_remaining + 1
-			)) or context.forcetrigger
+			(
+				context.joker_main
+				and (
+					G.GAME.current_round.hands_left >= card.ability.extra.hands_remaining
+					and G.GAME.current_round.hands_left < card.ability.extra.hands_remaining + 1
+				)
+			) or context.forcetrigger
 		then
 			local pi = math.pi
 			if Cryptid.safe_get(card, "edition", "cry_oversat") then
@@ -1067,7 +1069,9 @@ local aequilibrium = {
 		return { vars = { math.floor(math.min(25, center.ability.extra.jokers)), joker_generated } }
 	end,
 	calculate = function(self, card, context)
-		if (context.cardarea == G.jokers and context.before and not context.retrigger_joker) or context.forcetrigger then
+		if
+			(context.cardarea == G.jokers and context.before and not context.retrigger_joker) or context.forcetrigger
+		then
 			for i = 1, math.floor(math.min(25, card.ability.extra.jokers)) do
 				local newcard = create_card("Joker", G.jokers, nil, nil, nil, nil, nil)
 				newcard:add_to_deck()
@@ -1142,14 +1146,14 @@ local facile = {
 		end
 		if context.forcetrigger then
 			return {
-					message = localize({
-						type = "variable",
-						key = "a_powmult",
-						vars = { number_format(card.ability.extra.Emult) },
-					}),
-					Emult_mod = lenient_bignum(card.ability.extra.Emult),
-					colour = G.C.DARK_EDITION,
-				}
+				message = localize({
+					type = "variable",
+					key = "a_powmult",
+					vars = { number_format(card.ability.extra.Emult) },
+				}),
+				Emult_mod = lenient_bignum(card.ability.extra.Emult),
+				colour = G.C.DARK_EDITION,
+			}
 		end
 	end,
 	cry_credits = {
@@ -1457,7 +1461,8 @@ local duplicare = {
 		end
 		if (context.joker_main and (to_big(card.ability.extra.Xmult) > to_big(1))) or context.forcetrigger then
 			if context.forcetrigger then
-				card.ability.extra.Xmult = lenient_bignum(to_big(card.ability.extra.Xmult) + card.ability.extra.Xmult_mod)
+				card.ability.extra.Xmult =
+					lenient_bignum(to_big(card.ability.extra.Xmult) + card.ability.extra.Xmult_mod)
 			end
 			return {
 				message = localize({
