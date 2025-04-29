@@ -2258,7 +2258,7 @@ local demicolon = {
 	atlas = "atlasepic",
 	pos = { x = 3, y = 5 },
 	loc_vars = function(self, info_queue, card)
-		card.ability.demicoloncompat_ui = card.ability.demicoloncompat_ui_ui or ""
+		card.ability.demicoloncompat_ui = card.ability.demicoloncompat_ui or ""
 		card.ability.demicoloncompat_ui_check = nil
 		return {
 			main_end = (card.area and card.area == G.jokers) and {
@@ -2274,7 +2274,7 @@ local demicolon = {
 								colour = G.C.JOKER_GREY,
 								r = 0.05,
 								padding = 0.06,
-								func = "demicoloncompat",
+								func = "blueprint_compat",
 							},
 							nodes = {
 								{
