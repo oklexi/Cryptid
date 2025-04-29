@@ -956,9 +956,9 @@ return {
 				text = {
 					"{X:dark_edition,C:white}^#1#{} Mult,",
 					"Counts as its {C:attention}own{} rank and suit",
-					"{C:green}#2# in #3#{} chance card to",
+					"{C:green}#2# in #3#{} chance to",
 					"{C:red,E:2}destroy{} card after scoring",
-					"{C:green}#4# in #5#{} chance card to",
+					"{C:green}#4# in #5#{} chance to",
 					"{C:red,E:2}destroy{} card {C:attention}after round",
 				},
 			},
