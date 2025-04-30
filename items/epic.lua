@@ -875,7 +875,7 @@ local boredom = {
 			then
 				return {
 					message = localize("k_again_ex"),
-					repetitions = 1,
+					repetitions = 1 or {},
 					card = card,
 				}
 			else
@@ -890,7 +890,7 @@ local boredom = {
 		then
 			return {
 				message = localize("k_again_ex"),
-				repetitions = 1,
+				repetitions = 1 or {},
 				card = card,
 			}
 		end
