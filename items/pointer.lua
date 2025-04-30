@@ -617,6 +617,7 @@ local pointer = {
 }
 
 local aliases = {
+	---- Vanilla Cards
 	-- Vanilla Jokers
 	j_joker = {
 		"Joker",
@@ -1533,6 +1534,68 @@ local aliases = {
 		"Mega Spectral Pack",
 	},
 
+	-- Vanilla Tags
+	-- everybody forgor
+
+	-- Vanilla Vouchers
+	-- oops somebody forgor
+
+	---- Cryptid Cards
+	-- M jokers
+	-- placeholder
+	
+	-- SpOoOky jokers
+	-- placeholder
+
+	-- Cursed Jokers
+	-- for some reason
+	
+	-- Code Jokers (not code cards)
+	-- placeholder
+
+	-- Secret Placeholder 1
+	-- Smaller Placeholder
+
+	-- Misc Jokers
+	-- bigger placeholder
+
+	-- Epic Jokers
+	-- epic placeholder
+
+	-- Exotic Jokers
+	-- exotic placeholder
+
+	-- Cryptid Tarots
+	-- placeholder for the like 5 there is
+
+	-- Cryptid Planets
+	-- placerholderer
+
+	-- Cryptid Spectrals
+	-- magic placeholder
+
+	-- Cryptid Unique Consumeables
+	-- probably not going to be used ever
+
+	-- Cryptid Code Cards
+	-- 01010000 01001100 01000001 01000011 01000101 01001000 01001111 01001100 01000100 01000101 01010010
+
+	-- Secret Placeholder 2
+	-- another smaller placeholder
+
+	-- Cryptid Booster Packs
+	-- placeholder in a placeholder in a placeholder in a holdplacer in a placeholder
+
+	-- Cryptid Tags
+	-- meow
+	
+	-- Cryptid Vouchers
+	-- placeholder (T1 T2 T1 T2 pattern)
+
+	-- Cryptid T3 Vouchers
+	-- super strong placeholder
+
+	
 	--[[ 
 	Format:
 		<joker key> = {
