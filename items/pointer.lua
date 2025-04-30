@@ -1543,13 +1543,13 @@ local aliases = {
 	---- Cryptid Cards
 	-- M jokers
 	-- placeholder
-	
+
 	-- SpOoOky jokers
 	-- placeholder
 
 	-- Cursed Jokers
 	-- for some reason
-	
+
 	-- Code Jokers (not code cards)
 	-- placeholder
 
@@ -1588,14 +1588,13 @@ local aliases = {
 
 	-- Cryptid Tags
 	-- meow
-	
+
 	-- Cryptid Vouchers
 	-- placeholder (T1 T2 T1 T2 pattern)
 
 	-- Cryptid T3 Vouchers
 	-- super strong placeholder
 
-	
 	--[[ 
 	Format:
 		<joker key> = {
