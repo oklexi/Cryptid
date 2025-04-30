@@ -2264,37 +2264,39 @@ local demicolon = {
 		card.ability.demicoloncompat_ui_check = nil
 		local check = card.ability.check
 		return {
-			main_end = (card.area and card.area == G.jokers) and {
-				{
-					n = G.UIT.C,
-					config = { align = "bm", minh = 0.4 },
-					nodes = {
+			main_end = (card.area and card.area == G.jokers)
+					and {
 						{
 							n = G.UIT.C,
-							config = {
-								ref_table = card,
-								align = "m",
-								-- colour = (check and G.C.cry_epic or G.C.JOKER_GREY),
-								colour = G.C.cry_epic,
-								r = 0.05,
-								padding = 0.08,
-								func = "blueprint_compat",
-							},
+							config = { align = "bm", minh = 0.4 },
 							nodes = {
 								{
-									n = G.UIT.T,
+									n = G.UIT.C,
 									config = {
-										ref_table = card.ability,
-										ref_value = "demicoloncompat",
-										colour = G.C.UI.TEXT_DARK,
-										scale = 0.32 * 0.8,
+										ref_table = card,
+										align = "m",
+										-- colour = (check and G.C.cry_epic or G.C.JOKER_GREY),
+										colour = G.C.cry_epic,
+										r = 0.05,
+										padding = 0.08,
+										func = "blueprint_compat",
+									},
+									nodes = {
+										{
+											n = G.UIT.T,
+											config = {
+												ref_table = card.ability,
+												ref_value = "demicoloncompat",
+												colour = G.C.UI.TEXT_DARK,
+												scale = 0.32 * 0.8,
+											},
+										},
 									},
 								},
 							},
 						},
-					},
-				},
-			} or nil,
+					}
+				or nil,
 		}
 	end,
 	update = function(self, card, front)
