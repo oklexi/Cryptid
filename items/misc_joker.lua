@@ -2223,7 +2223,7 @@ local lightupthenight = {
 	cost = 7,
 	order = 67,
 	blueprint_compat = true,
-	demicoloncompat = true
+	demicoloncompat = true,
 	loc_vars = function(self, info_queue, center)
 		return { vars = { number_format(center.ability.extra.xmult) } }
 	end,
