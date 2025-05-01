@@ -956,9 +956,9 @@ return {
 				text = {
 					"{X:dark_edition,C:white}^#1#{} Mult,",
 					"Counts as its {C:attention}own{} rank and suit",
-					"{C:green}#2# in #3#{} chance card to",
+					"{C:green}#2# in #3#{} chance to",
 					"{C:red,E:2}destroy{} card after scoring",
-					"{C:green}#4# in #5#{} chance card to",
+					"{C:green}#4# in #5#{} chance to",
 					"{C:red,E:2}destroy{} card {C:attention}after round",
 				},
 			},
@@ -1005,6 +1005,7 @@ return {
 					"Sell this card to create",
 					"{C:attention}#1#{} cop#<ies,y>1# of the leftmost {C:attention}Joker{}",
 					"{C:inactive,s:0.8}Does not copy Nostalgic Googol Play Cards{}",
+					"{C:inactive}(Must have room){}",
 				},
 			},
 			j_cry_altgoogol_balanced = {
@@ -4647,6 +4648,7 @@ return {
 			ach_cry_used_crash = "We Told You Not To",
 			ach_cry_what_have_you_done = "WHAT HAVE YOU DONE?!",
 			ach_cry_pin = "Pin of Shame",
+			ach_cry_technically_positive = "Technically Positive",
 			ach_cry_youre_fucking_kidding = Cryptid_config.family_mode and "You Can't Be Serious"
 				or "You're Fucking Kidding",
 		},
@@ -4672,6 +4674,7 @@ return {
 			ach_cry_used_crash = "Use ://CRASH",
 			ach_cry_what_have_you_done = "Delete or Sacrifice an Exotic Joker",
 			ach_cry_pin = "Lose a run to The Pin",
+			ach_cry_technically_positive = "Obtain a Negative Negative Joker",
 			ach_cry_youre_fucking_kidding = "Discard " .. localize("cry_WholeDeck", "poker_hands"),
 		},
 		challenge_names = {
