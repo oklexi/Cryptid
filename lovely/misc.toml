@@ -322,12 +322,12 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
-pattern = '''for i=1, #G.jokers.cards + #G.consumeables.cards do'''
+pattern = '''for _, area in ipairs(SMODS.get_card_areas('jokers')) do for _, _card in ipairs(area.cards) do'''
 position = "at"
 payload = '''
-local numcards = #G.jokers.cards + #G.consumeables.cards
-if G.GAME.modifiers.cry_beta then numcards = #G.jokers.cards end
-for i=1, numcards do'''
+local cardareas = SMODS.get_card_areas('jokers')
+if G.GAME.modifiers.cry_beta then cardareas = {G.jokers} end
+for _, area in ipairs(cardareas) do for _, _card in ipairs(area.cards) do'''
 match_indent = true
 
 # Poker Hand display can have enhancements
