@@ -867,7 +867,7 @@ local boredom = {
 	end,
 	atlas = "atlasepic",
 	calculate = function(self, card, context)
-		if context.retrigger_joker_check and not context.retrigger_joker and context.other_card ~= card then
+		if context.retrigger_joker_check and not context.retrigger_joker and context.other_card.original_key ~= "boredom" then
 			if
 				pseudorandom("cry_boredom_joker")
 				< cry_prob(card.ability.cry_prob, card.ability.extra.odds, card.ability.cry_rigged)
