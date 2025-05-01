@@ -321,13 +321,11 @@ match_indent = true
 # More Beta Deck fixes
 [[patches]]
 [patches.pattern]
-target = "functions/state_events.lua"
-pattern = '''for _, area in ipairs(SMODS.get_card_areas('jokers')) do for _, _card in ipairs(area.cards) do'''
-position = "at"
+target = '''=[SMODS _ "src/utils.lua"]'''
+pattern = '''-- TARGET: add your own CardAreas for joker evaluation'''
+position = "after"
 payload = '''
-local cardareas = SMODS.get_card_areas('jokers')
-if G.GAME.modifiers.cry_beta then cardareas = {G.jokers} end
-for _, area in ipairs(cardareas) do for _, _card in ipairs(area.cards) do'''
+if G.GAME.modifiers.cry_beta then t = {G.jokers} end'''
 match_indent = true
 
 # Poker Hand display can have enhancements
