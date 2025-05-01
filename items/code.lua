@@ -3896,7 +3896,7 @@ local delete =
 			end
 
 			G.GAME.cry_banished_keys[c.config.center.key] = true
-			eval_card(c, {banishing_card = true, banisher = card, card = c, cardarea = c.area})
+			eval_card(c, { banishing_card = true, banisher = card, card = c, cardarea = c.area })
 			-- blanket ban all boosters of a specific type
 			if a == G.shop_booster then
 				local _center = c.config.center
