@@ -3823,136 +3823,123 @@ local multiply = { -- ://Multiply, doubles a joker's values until the end of the
 	end,
 }
 
-local delete =
-	{ -- ://Delete, Banish a selected card in shop; it will no longer appear normally (can still be created via pointer or other means)
-		cry_credits = {
-			idea = {
-				"Mjiojio",
-			},
-			art = {
-				"HexaCryonic",
-			},
-			code = {
-				"Math",
-				"Toneblock",
-			},
+-- ://Delete, Banish a selected card in shop; it will no longer appear normally (can still be created via pointer or other means)
+local delete = { 
+	cry_credits = {
+		idea = {
+			"Mjiojio",
 		},
-		dependencies = {
-			items = {
-				"set_cry_code",
-			},
+		art = {
+			"HexaCryonic",
 		},
-		object_type = "Consumable",
-		set = "Code",
-		key = "delete",
-		name = "cry-Delete",
-		atlas = "atlasnotjokers",
-		order = 28,
-		pos = { x = 11, y = 2 },
-		cost = 4,
-		config = { cry_multiuse = 3 },
-		loc_vars = function(self, info_queue, card)
-			return { vars = { Cryptid.safe_get(card, "ability", "cry_multiuse") or self.config.cry_multiuse } }
-		end,
-		can_use = function(self, card)
-			return G.STATE == G.STATES.SHOP
-				and card.area == G.consumeables
-				and #G.shop_jokers.highlighted + #G.shop_booster.highlighted + #G.shop_vouchers.highlighted == 1
-				and G.shop_jokers.highlighted[1] ~= self
-				and G.shop_booster.highlighted[1] ~= self
-				and G.shop_vouchers.highlighted[1] ~= self
-		end,
-		use = function(self, card, area, copier)
-			if not G.GAME.banned_keys then
-				G.GAME.banned_keys = {}
-			end -- i have no idea if this is always initialised already tbh
-			if not G.GAME.cry_banned_pcards then
-				G.GAME.cry_banned_pcards = {}
+		code = {
+			"Math",
+			"Toneblock",
+		},
+	},
+	dependencies = {
+		items = {
+			"set_cry_code",
+		},
+	},
+	object_type = "Consumable",
+	set = "Code",
+	key = "delete",
+	name = "cry-Delete",
+	atlas = "atlasnotjokers",
+	order = 28,
+	pos = { x = 11, y = 2 },
+	cost = 4,
+	config = { cry_multiuse = 3 },
+	loc_vars = function(self, info_queue, card)
+		return { vars = { Cryptid.safe_get(card, "ability", "cry_multiuse") or self.config.cry_multiuse } }
+	end,
+	can_use = function(self, card)
+		return G.STATE == G.STATES.SHOP
+			and card.area == (G.GAME.modifiers.cry_beta and G.jokers or G.consumeables)
+			and #G.jokers.highlighted + #G.consumeables.highlighted == 1
+			and #G.shop_jokers.highlighted + #G.shop_booster.highlighted + #G.shop_vouchers.highlighted == 1
+			and G.shop_jokers.highlighted[1] ~= card
+			and G.shop_booster.highlighted[1] ~= card
+			and G.shop_vouchers.highlighted[1] ~= card
+	end,
+	use = function(self, card, area, copier)
+		if not G.GAME.banned_keys then
+			G.GAME.banned_keys = {}
+		end -- i have no idea if this is always initialised already tbh
+		if not G.GAME.cry_banned_pcards then
+			G.GAME.cry_banned_pcards = {}
+		end
+		local a = nil
+		local c = nil
+		local _p = nil
+		if G.shop_jokers.highlighted[1] then
+			_p = not not G.shop_jokers.highlighted[1].base.value
+			a = G.shop_jokers
+			c = G.shop_jokers.highlighted[1]
+		end
+		if G.shop_booster.highlighted[1] then
+			_p = not not G.shop_jokers.highlighted[1].base.value
+			a = G.shop_booster
+			c = G.shop_booster.highlighted[1]
+		end
+		if G.shop_vouchers.highlighted[1] then
+			_p = not not G.shop_jokers.highlighted[1].base.value
+			a = G.shop_vouchers
+			c = G.shop_vouchers.highlighted[1]
+			if c.shop_voucher then
+				G.GAME.current_round.voucher.spawn[c.config.center.key] = nil
+				G.GAME.current_round.cry_voucher_edition = nil
+				G.GAME.current_round.cry_voucher_stickers =
+					{ eternal = false, perishable = false, rental = false, pinned = false, banana = false }
 			end
-			local a = nil
-			local c = nil
-			local _p = nil
-			if G.shop_jokers.highlighted[1] then
-				_p = not not G.shop_jokers.highlighted[1].base.value
-				a = G.shop_jokers
-				c = G.shop_jokers.highlighted[1]
-			end
-			if G.shop_booster.highlighted[1] then
-				a = G.shop_booster
-				c = G.shop_booster.highlighted[1]
-			end
-			if G.shop_vouchers.highlighted[1] then
-				a = G.shop_vouchers
-				c = G.shop_vouchers.highlighted[1]
-				if c.shop_voucher then
-					G.GAME.current_round.voucher.spawn[c.config.center.key] = nil
-					G.GAME.current_round.cry_voucher_edition = nil
-					G.GAME.current_round.cry_voucher_stickers =
-						{ eternal = false, perishable = false, rental = false, pinned = false, banana = false }
-				end
-			end
-			if c.config.center.rarity == "cry_exotic" then
-				check_for_unlock({ type = "what_have_you_done" })
-			end
+		end
+		if c.config.center.rarity == "cry_exotic" then
+			check_for_unlock({ type = "what_have_you_done" })
+		end
 
-			G.GAME.cry_banished_keys[c.config.center.key] = true
-			eval_card(c, { banishing_card = true, banisher = card, card = c, cardarea = c.area })
-			-- blanket ban all boosters of a specific type
-			if a == G.shop_booster then
-				local _center = c.config.center
-				for k, v in pairs(G.P_CENTER_POOLS.Booster) do
-					if
-						_center.kind == v.kind
-						and _center.config.extra == v.config.extra
-						and _center.config.choose == v.config.choose
-					then
-						G.GAME.cry_banished_keys[v.key] = true
-					end
-				end
-			end
+		G.GAME.cry_banished_keys[c.config.center.key] = true
 
-			if _p then
-				for k, v in pairs(G.P_CARDS) do
-					-- blanket banning ranks here, probably more useful
-					if v.value == c.base.value then -- and v.suit == c.base.suit
-						G.GAME.cry_banned_pcards[k] = true
-					end
+		-- blanket ban all boosters of a specific type (disabled because why does this exist)
+		-- if a == G.shop_booster then
+		-- 	local _center = c.config.center
+		-- 	for k, v in pairs(G.P_CENTER_POOLS.Booster) do
+		-- 		if
+		-- 			_center.kind == v.kind
+		-- 			and _center.config.extra == v.config.extra
+		-- 			and _center.config.choose == v.config.choose
+		-- 		then
+		-- 			G.GAME.cry_banished_keys[v.key] = true
+		-- 		end
+		-- 	end
+		-- end
+
+		if _p then
+			for k, v in pairs(G.P_CARDS) do
+				-- bans a specific rank AND suit
+				if v.value == c.base.value and v.suit == c.base.suit then 
+					G.GAME.cry_banned_pcards[k] = true
 				end
 			end
-			c:start_dissolve()
-		end,
-		init = function(self)
-			-- dumb hook because i don't feel like aggressively patching get_pack to do stuff
-			-- very inefficient
-			-- maybe smods should overwrite the function and make it more targetable?
-			local getpackref = get_pack
-			function get_pack(_key, _type)
-				local temp_banned = copy_table(G.GAME.banned_keys)
-				for k, v in pairs(G.GAME.cry_banished_keys) do
-					G.GAME.banned_keys[k] = v
-				end
-				local ret = getpackref(_key, _type)
-				G.GAME.banned_keys = copy_table(temp_banned)
-				return ret
+		end
+		c:start_dissolve()
+	end,
+	init = function(self)
+		-- dumb hook because i don't feel like aggressively patching get_pack to do stuff
+		-- very inefficient
+		-- maybe smods should overwrite the function and make it more targetable?
+		local getpackref = get_pack
+		function get_pack(_key, _type)
+			local temp_banned = copy_table(G.GAME.banned_keys)
+			for k, v in pairs(G.GAME.cry_banished_keys) do
+				G.GAME.banned_keys[k] = v
 			end
-		end,
-		-- i was gonna use this function and all but... i don't like the way it does things
-		-- leaving it here so nobody screams at me
-		--[[
-	keep_on_use = function(self, card)
-		if card.ability.cry_multiuse <= 1 then
-			return false
-		else
-			card.ability.cry_multiuse = card.ability.cry_multiuse - 1
-			delay(0.3)
-			card:juice_up()
-			play_sound('tarot1')
-			card_eval_status_text(card, 'extra', nil, nil, nil, {message = card.ability.cry_multiuse, colour = G.C.SECONDARY_SET.Code})
-			return true
+			local ret = getpackref(_key, _type)
+			G.GAME.banned_keys = copy_table(temp_banned)
+			return ret
 		end
 	end,
-	]]
-	}
+}
 
 local alttab = { -- ://Alt-Tab, creates the current blind's Tag
 	cry_credits = {
