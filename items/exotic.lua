@@ -545,7 +545,7 @@ local tenebris = {
 		if context.forcetrigger then
 			return {
 				dollars = lenient_bignum(card.ability.extra.money),
-				card = context.other_context.blueprint_card or context.other_card,
+				card = card,
 			}
 		end
 	end,
