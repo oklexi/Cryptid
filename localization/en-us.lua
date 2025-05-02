@@ -884,6 +884,7 @@ return {
 					"{C:green}#1# in #2#{} chance this",
 					"card isn't {C:red}destroyed",
 					"when triggered",
+					"{C:inactive}Unriggable{}",
 				},
 			},
 			e_cry_glitched = {
