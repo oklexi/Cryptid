@@ -3824,7 +3824,7 @@ local multiply = { -- ://Multiply, doubles a joker's values until the end of the
 }
 
 -- ://Delete, Banish a selected card in shop; it will no longer appear normally (can still be created via pointer or other means)
-local delete = { 
+local delete = {
 	cry_credits = {
 		idea = {
 			"Mjiojio",
@@ -3917,7 +3917,7 @@ local delete = {
 		if _p then
 			for k, v in pairs(G.P_CARDS) do
 				-- bans a specific rank AND suit
-				if v.value == c.base.value and v.suit == c.base.suit then 
+				if v.value == c.base.value and v.suit == c.base.suit then
 					G.GAME.cry_banned_pcards[k] = true
 				end
 			end
