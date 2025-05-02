@@ -1087,6 +1087,11 @@ local oldcandy = {
 			return nil, true
 		end
 	end,
+	add_to_deck = function(self, card, from_debuff)
+		if card.ability.extra.hand_size > card.ability.immutable.max_hand_size_mod then
+			card.ability.extra.hand_size = card.ability.immutable.max_hand_size_mod
+		end
+	end,
 	cry_credits = {
 		idea = {
 			"Jevonn",
