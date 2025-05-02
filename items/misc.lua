@@ -1288,7 +1288,7 @@ local glass_edition = {
 	loc_vars = function(self, info_queue)
 		return {
 			vars = {
-				(G.GAME.probabilities.normal or 1) * (self.config.shatter_chance - 1),
+				(self.config.shatter_chance - 1),
 				self.config.shatter_chance,
 				self.config.x_mult,
 			},
