@@ -560,7 +560,7 @@ local analog = {
 	pos = { x = 3, y = 0 },
 	config = { copies = 2, ante = 1 },
 	loc_vars = function(self, info_queue, center)
-		return { vars = { center.ability.copies, center.ability.ante } }
+		return { vars = { math.min(center.ability.copies, 100), math.min(center.ability.ante, 1e300) } }
 	end,
 	cost = 4,
 	order = 7,
@@ -592,7 +592,7 @@ local analog = {
 				return true
 			end,
 		}))
-		for i = 1, card.ability.copies do
+		for i = 1, math.min(center.ability.copies, 100) do
 			G.E_MANAGER:add_event(Event({
 				trigger = "before",
 				delay = 0.4,
@@ -605,7 +605,7 @@ local analog = {
 				end,
 			}))
 		end
-		ease_ante(card.ability.ante)
+		ease_ante(math.min(center.ability.ante, 1e300))
 	end,
 }
 local typhoon = {
