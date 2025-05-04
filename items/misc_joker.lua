@@ -8336,10 +8336,9 @@ local kidnap = {
 					value = value + 1
 				end
 			end
-			ease_dollars(value or 0)
+			ease_dollars(lenient_bignum(to_big(card.ability.extra.money) * value) or 0)
 		end
 	end,
-
 	calc_dollar_bonus = function(self, card)
 		local value = 0
 		for _, v in ipairs(G.GAME.jokers_sold) do
