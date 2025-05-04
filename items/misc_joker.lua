@@ -2000,7 +2000,7 @@ local wario = {
 		if context.post_trigger or context.forcetrigger then
 			return {
 				dollars = lenient_bignum(card.ability.extra.money),
-				card = context.other_context.blueprint_card or context.other_card,
+				card = context.other_context and context.other_context.blueprint_card or context.other_card or nil,
 				-- This function isn't working properly :sob:
 				--[[func = function()
 					G.E_MANAGER:add_event(Event({
