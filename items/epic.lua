@@ -1151,12 +1151,12 @@ local circus = {
 	key = "circus",
 	pos = { x = 4, y = 4 },
 	config = {
-		extra = { 
+		extra = {
 			rare_mult_mod = 2,
 			epic_mult_mod = 3,
 			legend_mult_mod = 4,
 			exotic_mult_mod = 20,
-		 },
+		},
 		immutable = {
 			rarity_map = {
 				[3] = "rare_mult_mod",
@@ -1217,7 +1217,12 @@ local circus = {
 		end
 		if context.forcetrigger then
 			return {
-				Xmult_mod = (card.ability.extra.rare_mult_mod * card.ability.extra.epic_mult_mod * card.ability.extra.legend_mult_mod * card.ability.extra.exotic_mult_mod)
+				Xmult_mod = (
+					card.ability.extra.rare_mult_mod
+					* card.ability.extra.epic_mult_mod
+					* card.ability.extra.legend_mult_mod
+					* card.ability.extra.exotic_mult_mod
+				),
 			}
 		end
 	end,
@@ -1392,21 +1397,20 @@ local curse_sob = {
 			return {}
 		elseif
 			( -- Compacting all the elseifs into one block for space and readability also maintablity
-				context.selling_self
-				or context.discard
-				or context.reroll_shop --Yes
-				or context.buying_card
-				or context.skip_blind
-				or context.using_consumeable
-				or context.selling_card
-				or context.setting_blind
-				or context.skipping_booster
-				or context.open_booster
-				or context.forcetrigger
-			)
-			and (#G.jokers.cards + G.GAME.joker_buffer < (context.selling_self and (G.jokers.config.card_limit + 1) or G.jokers.config.card_limit)) or context.forcetrigger
-			and not context.retrigger_joker
-			and not context.blueprint
+					context.selling_self
+					or context.discard
+					or context.reroll_shop --Yes
+					or context.buying_card
+					or context.skip_blind
+					or context.using_consumeable
+					or context.selling_card
+					or context.setting_blind
+					or context.skipping_booster
+					or context.open_booster
+					or context.forcetrigger
+				)
+				and (#G.jokers.cards + G.GAME.joker_buffer < (context.selling_self and (G.jokers.config.card_limit + 1) or G.jokers.config.card_limit))
+			or context.forcetrigger and not context.retrigger_joker and not context.blueprint
 		then
 			local createjoker = math.min(1, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
 			G.GAME.joker_buffer = G.GAME.joker_buffer + createjoker
@@ -1550,24 +1554,24 @@ local bonusjoker = {
 		end
 		if context.forcetrigger then
 			local option = pseudorandom_element({ 1, 2 }, pseudoseed("bonusjoker"))
-					if option == 1 then
-						if not context.blueprint then
-							card.ability.immutable.check = lenient_bignum(card.ability.immutable.check + 1)
-						end
-						G.jokers.config.card_limit = lenient_bignum(G.jokers.config.card_limit + card.ability.extra.add)
-					else
-						if not context.blueprint then
-							card.ability.immutable.check = lenient_bignum(card.ability.immutable.check + 1)
-						end
-						G.consumeables.config.card_limit =
-							lenient_bignum(G.consumeables.config.card_limit + to_big(card.ability.extra.add))
-					end
-					return {
-						extra = { focus = card, message = localize("k_upgrade_ex") },
-						card = card,
-						colour = G.C.MONEY,
-					}
+			if option == 1 then
+				if not context.blueprint then
+					card.ability.immutable.check = lenient_bignum(card.ability.immutable.check + 1)
 				end
+				G.jokers.config.card_limit = lenient_bignum(G.jokers.config.card_limit + card.ability.extra.add)
+			else
+				if not context.blueprint then
+					card.ability.immutable.check = lenient_bignum(card.ability.immutable.check + 1)
+				end
+				G.consumeables.config.card_limit =
+					lenient_bignum(G.consumeables.config.card_limit + to_big(card.ability.extra.add))
+			end
+			return {
+				extra = { focus = card, message = localize("k_upgrade_ex") },
+				card = card,
+				colour = G.C.MONEY,
+			}
+		end
 	end,
 	cry_credits = {
 		idea = {
@@ -1648,17 +1652,17 @@ local multjoker = {
 		end
 		if context.forcetrigger then
 			G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-					G.E_MANAGER:add_event(Event({
-						func = function()
-							local new_card =
-								create_card("Spectral", G.consumeables, nil, nil, nil, nil, "c_cryptid", "multjoker")
-							new_card:add_to_deck()
-							G.consumeables:emplace(new_card)
-							G.GAME.consumeable_buffer = 0
-							return true
-						end,
-					}))
-				end
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					local new_card =
+						create_card("Spectral", G.consumeables, nil, nil, nil, nil, "c_cryptid", "multjoker")
+					new_card:add_to_deck()
+					G.consumeables:emplace(new_card)
+					G.GAME.consumeable_buffer = 0
+					return true
+				end,
+			}))
+		end
 	end,
 	cry_credits = {
 		idea = {
@@ -1789,7 +1793,10 @@ local altgoogol = {
 	end,
 	calculate = function(self, card, context)
 		local gameset = Card.get_gameset(card)
-		if (context.selling_self and not context.retrigger_joker and (gameset == "madness" or not context.blueprint)) or context.forcetrigger then
+		if
+			(context.selling_self and not context.retrigger_joker and (gameset == "madness" or not context.blueprint))
+			or context.forcetrigger
+		then
 			local jokers = {}
 			for i = 1, #G.jokers.cards do
 				if G.jokers.cards[i] ~= card then
@@ -2449,7 +2456,7 @@ local demicolon = {
 						return {
 							message = localize("cry_demicolon"),
 							colour = G.C.RARITY.cry_epic,
-							sound = "cry_demitrigger"
+							sound = "cry_demitrigger",
 						}
 					end
 				end
