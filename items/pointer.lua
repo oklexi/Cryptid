@@ -625,7 +625,7 @@ local aliases = {
 	},
 	j_greedy_joker = {
 		"Greedy Joker",
-		"Diamond Joker"
+		"Diamond Joker",
 	},
 	j_lusty_joker = {
 		"Lusty Joker",
@@ -642,7 +642,7 @@ local aliases = {
 		"Fat Ass Joker",
 		"Big Back",
 		"Big Back Joker",
-		"Club Joker"
+		"Club Joker",
 	},
 	j_jolly = {
 		"Jolly Joker",
@@ -702,7 +702,7 @@ local aliases = {
 	},
 	j_marble = {
 		"Marble Joker",
-		"Lexi"
+		"Lexi",
 	},
 	j_loyalty_card = {
 		"Loyalty Card",
@@ -744,7 +744,7 @@ local aliases = {
 	},
 	j_pareidolia = {
 		"Pareidolia",
-		"All Face Cards"
+		"All Face Cards",
 	},
 	j_gros_michel = {
 		"Gros Michel",
@@ -829,7 +829,7 @@ local aliases = {
 	},
 	j_cavendish = {
 		"Cavendish",
-		"Glitch"
+		"Glitch",
 	},
 	j_card_sharp = {
 		"Card Sharp",
@@ -1039,7 +1039,7 @@ local aliases = {
 	},
 	j_wee = {
 		"Wee Joker",
-		"WEEEE"
+		"WEEEE",
 	},
 	j_merry_andy = {
 		"Merry Andy",
@@ -1055,7 +1055,7 @@ local aliases = {
 	},
 	j_idol = {
 		"The Idol",
-		"Idol"
+		"Idol",
 	},
 	j_seeing_double = {
 		"Seeing Double",
@@ -1599,7 +1599,7 @@ local aliases = {
 		"Spectral Ectoplasm",
 		"Mega Spectral Pack",
 	},
-		p_spectral_mega_1 = {
+	p_spectral_mega_1 = {
 		"Mega Spectral",
 		"Spectral Ectoplasm",
 		"Mega Spectral Pack",
@@ -1751,7 +1751,7 @@ local aliases = {
 		"Orbital Tag",
 		"Tag Orbital",
 		"Orbital",
-		"Planet Tag"
+		"Planet Tag",
 	},
 	tag_economy = {
 		"Economy Tag",
