@@ -592,7 +592,7 @@ local analog = {
 				return true
 			end,
 		}))
-		for i = 1, math.min(center.ability.copies, 100) do
+		for i = 1, math.min(card.ability.copies, 100) do
 			G.E_MANAGER:add_event(Event({
 				trigger = "before",
 				delay = 0.4,
@@ -605,7 +605,7 @@ local analog = {
 				end,
 			}))
 		end
-		ease_ante(math.min(center.ability.ante, 1e300))
+		ease_ante(math.min(card.ability.ante, 1e300))
 	end,
 }
 local typhoon = {
