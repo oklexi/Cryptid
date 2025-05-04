@@ -19,7 +19,7 @@ local dropshot = {
 	cost = 8,
 	blueprint_compat = true,
 	perishable_compat = false,
-	demicolon_compat = true,
+	demicoloncompat = true,
 	atlas = "atlasone",
 	loc_vars = function(self, info_queue, center)
 		return {
@@ -121,7 +121,7 @@ local happyhouse = {
 	rarity = 2,
 	cost = 2,
 	blueprint_compat = true,
-	demicolon_compat = true,
+	demicoloncompat = true,
 	atlas = "atlastwo",
 	loc_vars = function(self, info_queue, center)
 		return {
@@ -286,7 +286,7 @@ local potofjokes = {
 	order = 104,
 	cost = 10,
 	perishable_compat = false,
-	demicolon_compat = true,
+	demicoloncompat = true,
 	atlas = "atlastwo",
 	loc_vars = function(self, info_queue, center)
 		return {
@@ -477,7 +477,7 @@ local wee_fib = {
 	order = 98,
 	blueprint_compat = true,
 	perishable_compat = false,
-	demicolon_compat = true,
+	demicoloncompat = true,
 	loc_vars = function(self, info_queue, center)
 		return {
 			vars = {
@@ -557,7 +557,7 @@ local whip = {
 	order = 15,
 	blueprint_compat = true,
 	perishable_compat = false,
-	demicolon_compat = true,
+	demicoloncompat = true,
 	atlas = "atlasone",
 	loc_vars = function(self, info_queue, center)
 		return {
@@ -679,7 +679,7 @@ local lucky_joker = {
 	cost = 4,
 	order = 36,
 	blueprint_compat = true,
-	demicolon_compat = true,
+	demicoloncompat = true,
 	atlas = "atlasone",
 	enhancement_gate = "m_lucky",
 	loc_vars = function(self, info_queue, center)
@@ -735,7 +735,7 @@ local cursor = {
 	order = 5,
 	blueprint_compat = true,
 	perishable_compat = false,
-	demicolon_compat = true,
+	demicoloncompat = true,
 	atlas = "atlasone",
 	loc_vars = function(self, info_queue, center)
 		return {
