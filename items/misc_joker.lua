@@ -2873,8 +2873,8 @@ local unjust_dagger = {
 			})
 			return nil, true
 		end
-		if context.forcetrigger and my_pos and G.jokers.cards[my_pos + 1] then
-			local sliced_card = G.jokers.cards[my_pos + 1]
+		if context.forcetrigger and my_pos and G.jokers.cards[my_pos - 1] then
+			local sliced_card = G.jokers.cards[my_pos - 1]
 			sliced_card.getting_sliced = true
 			if sliced_card.config.center.rarity == "cry_exotic" then
 				check_for_unlock({ type = "what_have_you_done" })
