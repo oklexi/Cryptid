@@ -1037,7 +1037,7 @@ local reverse = {
 	order = 260,
 	cost = 4,
 	eternal_compat = false,
-
+	demicoloncompat = true,
 	immutable = true,
 	atlas = "atlastwo",
 	loc_vars = function(self, info_queue, center)
