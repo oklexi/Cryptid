@@ -1937,7 +1937,7 @@ local waluigi = {
 	blueprint_compat = true,
 	demicoloncompat = true,
 	calculate = function(self, card, context)
-		if (context.other_joker and context.other_joker.ability.set == "Joker") or context.forcetrigger then
+		if context.other_joker and context.other_joker.ability.set == "Joker" then
 			if not Talisman.config_file.disable_anims then
 				G.E_MANAGER:add_event(Event({
 					func = function()
@@ -1946,6 +1946,16 @@ local waluigi = {
 					end,
 				}))
 			end
+			return {
+				message = localize({
+					type = "variable",
+					key = "a_xmult",
+					vars = { number_format(card.ability.extra.Xmult) },
+				}),
+				Xmult_mod = lenient_bignum(card.ability.extra.Xmult),
+			}
+		end
+		if context.forcetrigger then
 			return {
 				message = localize({
 					type = "variable",
