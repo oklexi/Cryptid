@@ -2426,6 +2426,7 @@ local demicolon = {
 		}
 	end,
 	update = function(self, card, front)
+		local other_joker = nil
 		if G.STAGE == G.STAGES.RUN then
 			for i = 1, #G.jokers.cards do
 				if G.jokers.cards[i] == card then
@@ -2433,6 +2434,9 @@ local demicolon = {
 				end
 			end
 			if other_joker and other_joker ~= card and (Card.no(other_joker, "demicoloncompat", true)) then
+				card.ability.demicoloncompat = "compatible"
+				card.ability.check = true
+			elseif other_joker and other_joker ~= card and Cryptid.forcetriggerVanillaCheck(other_joker) then
 				card.ability.demicoloncompat = "compatible"
 				card.ability.check = true
 			else
