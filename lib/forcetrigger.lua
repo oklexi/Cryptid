@@ -656,11 +656,11 @@ function Cryptid.forcetrigger(card, context)
 			results = { jokers = { Xmult_mod = card.ability.extra, card = card } }
 		end
 		if card.ability.name == "Ramen" then
-			card.ability.x_mult - card.ability.extra
+			card.ability.x_mult = card.ability.x_mult - card.ability.extra
 			results = { jokers = { Xmult_mod = card.ability.x_mult, card = card } }
 		end
 		if card.ability.name == "Walkie Talkie" then
-			results = { jokers = { mult_mod = card.ability.extra.mult, chips = card.ability.extra.chips card = card } }
+			results = { jokers = { mult_mod = card.ability.extra.mult, chips = card.ability.extra.chips, card = card } }
 		end
 		-- if card.ability.name == "Seltzer" then results = { jokers = { } } end
 		if card.ability.name == "Castle" then
