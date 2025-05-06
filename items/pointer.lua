@@ -1764,7 +1764,7 @@ local aliases = {
 		"Tag Eco",
 	},
 	-- Vanilla Vouchers
-	
+
 	v_overstock_norm = {
 		"Overstock",
 		"Over Stock",
