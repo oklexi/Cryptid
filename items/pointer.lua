@@ -1764,7 +1764,194 @@ local aliases = {
 		"Tag Eco",
 	},
 	-- Vanilla Vouchers
-	-- oops somebody forgor
+
+	v_overstock_norm = {
+		"Overstock",
+		"Over Stock",
+	},
+	v_overstock_plus = {
+		"Overstock Plus",
+		"Over Stock Plus",
+		"Overstockplus",
+		"Overstock+",
+		"Overstock 2"
+	},
+	v_clearance_sale = {
+		"Clearance Sale",
+		"Clearancesale",
+		"Clearance",
+	},
+	v_liquidation = {
+		"Liquidation",
+		"Clearance Sale+",
+		"Clearance Sale Plus",
+		"Clearance Sale 2",
+	},
+	v_hone = {
+		"Hone",
+	},
+	v_glow_up = {
+		"Glow Up",
+		"Glow-Up",
+		"Glowup",
+		"Hone+",
+		"Hone Plus",
+		"Hone 2",
+	},
+	v_reroll_surplus = {
+		"Reroll Surplus",
+		"Rerollsurplus",
+		"Reroll Voucher",
+	},
+	v_reroll_glut = {
+		"Reroll Glut",
+		"Rerollglut",
+		"Reroll Surplus+",
+		"Reroll Surplus Plus",
+		"Reroll Surplus 2",
+	},
+	v_crystal_ball = {
+		"Crystal Ball",
+		"Crystalball",
+		"Consumable Slot",
+		"Consumable Voucher",
+		"Consumable Slot Voucher",
+	},
+	v_omen_globe = {
+		"Omen Globe",
+		"Omenglobe",
+		"Crystal Ball+",
+		"Crystal Ball Plus",
+		"Crystal Ball 2",
+	},
+	v_telescope = {
+		"Telescope",
+		"Teliscope",
+	},
+	v_observatory = {
+		"Observatory",
+		"Telescope+",
+		"Telescope Plus",
+		"Telescope 2",
+		"Perkeo Voucher",
+	},
+	v_grabber = {
+		"Grabber",
+		"Hand Voucher",
+	},
+	v_nacho_tong = {
+		"Nacho Tong",
+		"Nachotong",
+		"Grabber+",
+		"Grabber Plus",
+		"Grabber 2",
+	},
+	v_wasteful = {
+		"Wasteful",
+		"Discard Voucher",
+	},
+	v_recyclomancy = {
+		"Recyclomancy",
+		"Wasteful+",
+		"Wasteful Plus",
+		"Wasteful 2",
+	},
+	v_tarot_merchant = {
+		"Tarot Merchant",
+		"Tarotmerchant",
+		"Tarot Voucher"
+	},
+	v_tarot_tycoon = {
+		"Tarot Tycoon",
+		"Tarot Merchant+",
+		"Tarot Merchant Plus",
+		"Tarot Merchant 2",
+	},
+	v_planet_merchant = {
+		"Planet Merchant",
+		"Planetmerchant",
+		"Planet Voucher",
+	},
+	v_planet_tycoon = {
+		"Planet Tycoon",
+		"Planet Merchant+",
+		"Planet Merchant Plus",
+		"Planet Merchant 2",
+	},
+	v_seed_money = {
+		"Seed Money",
+		"Interest Voucher",
+		"Seedmoney",
+	},
+	v_money_tree = {
+		"Money Tree",
+		"Moneytree",
+		"Seed Money+",
+		"Seed Money Plus",
+		"Seed Money 2",
+	},
+	v_blank = {
+		"Blank",
+		"Blank Voucher",
+		"Blank?",
+		"Does Nothing",
+	},
+	v_antimatter = {
+		"Antimatter",
+		"Anti Matter",
+		"Antematter",
+		"Blank+",
+		"Blank Plus",
+		"Blank 2",
+		"Joker Slot Voucher",
+	},
+	v_magic_trick = {
+		"Magic Trick",
+		"Magictrick",
+		"Card Voucher",
+		"Hologram Voucher",
+	},
+	v_illusion = {
+		"Illusion",
+		"Magic Trick+",
+		"Magic Trick Plus",
+		"Magic Trick 2",
+	},
+	v_hieroglyph = {
+		"Hieroglyph",
+		"Heiroglyph",
+		"Hiroglyph",
+	},
+	v_petroglyph = {
+		"Petroglyph",
+		"Hieroglyph+",
+		"Hieroglyph Plus",
+		"Hieroglyph 2",
+	},
+	v_directors_cut = {
+		"Director's Cut",
+		"Directors Cut",
+		"Directorscut",
+	},
+	v_retcon = {
+		"Retcon",
+		"Boss Reroll",
+		"Director's Cut+",
+		"Director's Cut Plus",
+		"Director's Cut 2",
+	},
+	v_paint_brush = {
+		"Paint Brush",
+		"Paintbrush",
+		"Hand Size Voucher",
+	},
+	v_palette = {
+		"Palette",
+		"Pallete",
+		"Paint Brush+",
+		"Paint Brush Plus",
+		"Paint Brush 2",
+	},
 
 	---- Cryptid Cards
 	-- M jokers
