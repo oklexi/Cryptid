@@ -359,7 +359,7 @@ function Cryptid.forcetrigger(card, context)
 		if card.ability.name == "Cavendish" then
 			results = { jokers = { Xmult_mod = card.ability.extra.Xmult, card = card } }
 			G.E_MANAGER:add_event(Event({
-				trigger = 'after',
+				trigger = "after",
 				delay = 0.4,
 				func = function()
 					play_sound("tarot1")
@@ -391,19 +391,30 @@ function Cryptid.forcetrigger(card, context)
 		end
 		if card.ability.name == "Madness" then
 			card.ability.x_mult = card.ability.x_mult + card.ability.extra
-                local destructable_jokers = {}
-                for i = 1, #G.jokers.cards do
-                    if G.jokers.cards[i] ~= card and not G.jokers.cards[i].ability.eternal and not G.jokers.cards[i].getting_sliced then destructable_jokers[#destructable_jokers+1] = G.jokers.cards[i] end
-                end
-                local joker_to_destroy = #destructable_jokers > 0 and pseudorandom_element(destructable_jokers, pseudoseed('madness')) or nil
+			local destructable_jokers = {}
+			for i = 1, #G.jokers.cards do
+				if
+					G.jokers.cards[i] ~= card
+					and not G.jokers.cards[i].ability.eternal
+					and not G.jokers.cards[i].getting_sliced
+				then
+					destructable_jokers[#destructable_jokers + 1] = G.jokers.cards[i]
+				end
+			end
+			local joker_to_destroy = #destructable_jokers > 0
+					and pseudorandom_element(destructable_jokers, pseudoseed("madness"))
+				or nil
 
-                if joker_to_destroy and not (context.blueprint_card or self).getting_sliced then 
-                    joker_to_destroy.getting_sliced = true
-                    G.E_MANAGER:add_event(Event({func = function()
-                        card:juice_up(0.8, 0.8)
-                        joker_to_destroy:start_dissolve({G.C.RED}, nil, 1.6)
-                    return true end }))
-                end
+			if joker_to_destroy and not (context.blueprint_card or self).getting_sliced then
+				joker_to_destroy.getting_sliced = true
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						card:juice_up(0.8, 0.8)
+						joker_to_destroy:start_dissolve({ G.C.RED }, nil, 1.6)
+						return true
+					end,
+				}))
+			end
 			results = { jokers = { Xmult_mod = card.ability.x_mult, card = card } }
 		end
 		if card.ability.name == "Square Joker" then
@@ -412,58 +423,60 @@ function Cryptid.forcetrigger(card, context)
 		end
 		if card.ability.name == "Seance" then
 			G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                                G.E_MANAGER:add_event(Event({
-                                    trigger = 'after',
-                                    delay = 0.4,
-                                    func = (function()
-                                            local card = create_card('Spectral',G.consumeables, nil, nil, nil, nil, nil, 'sea')
-                                            card:add_to_deck()
-                                            G.consumeables:emplace(card)
-                                            G.GAME.consumeable_buffer = 0
-                                        return true
-                                    end)}))
+			G.E_MANAGER:add_event(Event({
+				trigger = "after",
+				delay = 0.4,
+				func = function()
+					local card = create_card("Spectral", G.consumeables, nil, nil, nil, nil, nil, "sea")
+					card:add_to_deck()
+					G.consumeables:emplace(card)
+					G.GAME.consumeable_buffer = 0
+					return true
+				end,
+			}))
 		end
 		if card.ability.name == "Riff-raff" then
 			local jokers_to_create = math.min(2, G.jokers.config.card_limit - (#G.jokers.cards + G.GAME.joker_buffer))
-                G.GAME.joker_buffer = G.GAME.joker_buffer + jokers_to_create
-                G.E_MANAGER:add_event(Event({
-                    func = function() 
-                        for i = 1, jokers_to_create do
-                            local card = create_card('Joker', G.jokers, nil, 0, nil, nil, nil, 'rif')
-                            card:add_to_deck()
-                            G.jokers:emplace(card)
-                            card:start_materialize()
-                            G.GAME.joker_buffer = 0
-                        end
-                        return true
-                    end}))
+			G.GAME.joker_buffer = G.GAME.joker_buffer + jokers_to_create
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					for i = 1, jokers_to_create do
+						local card = create_card("Joker", G.jokers, nil, 0, nil, nil, nil, "rif")
+						card:add_to_deck()
+						G.jokers:emplace(card)
+						card:start_materialize()
+						G.GAME.joker_buffer = 0
+					end
+					return true
+				end,
+			}))
 		end
 		if card.ability.name == "Vampire" then
 			local check = nil
 			local enhanced = {}
 			if context.scoring_hand then
 				for k, v in ipairs(context.scoring_hand) do
-					if v.config.center ~= G.P_CENTERS.c_base and not v.debuff and not v.vampired then 
-						enhanced[#enhanced+1] = v
+					if v.config.center ~= G.P_CENTERS.c_base and not v.debuff and not v.vampired then
+						enhanced[#enhanced + 1] = v
 						v.vampired = true
 						v:set_ability(G.P_CENTERS.c_base, nil, true)
 						G.E_MANAGER:add_event(Event({
-							trigger = 'after',
+							trigger = "after",
 							delay = 0.4,
 							func = function()
 								v:juice_up()
 								v.vampired = nil
 								return true
 							end,
-						})) 
+						}))
 					end
 				end
 				check = true
 			end
 			if not check and G and G.hand and #G.hand.highlighted > 0 then
 				for k, v in ipairs(G.hand.highlighted) do
-					if v.config.center ~= G.P_CENTERS.c_base and not v.debuff and not v.vampired then 
-						enhanced[#enhanced+1] = v
+					if v.config.center ~= G.P_CENTERS.c_base and not v.debuff and not v.vampired then
+						enhanced[#enhanced + 1] = v
 						v.vampired = true
 						v:set_ability(G.P_CENTERS.c_base, nil, true)
 						G.E_MANAGER:add_event(Event({
@@ -472,12 +485,12 @@ function Cryptid.forcetrigger(card, context)
 								v.vampired = nil
 								return true
 							end,
-						})) 
+						}))
 					end
 				end
 				check = true
 			end
-			card.ability.x_mult = card.ability.x_mult + (card.ability.extra * #enhanced or 1) 
+			card.ability.x_mult = card.ability.x_mult + (card.ability.extra * #enhanced or 1)
 			results = { jokers = { Xmult_mod = card.ability.x_mult, card = card } }
 		end
 		-- if card.ability.name == "Shortcut" then results = { jokers = { } } end
@@ -488,13 +501,13 @@ function Cryptid.forcetrigger(card, context)
 		if card.ability.name == "Vagabond" then
 			G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
 			G.E_MANAGER:add_event(Event({
-				trigger = 'after',
+				trigger = "after",
 				delay = 0.4,
 				func = function()
-						local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, 'vag')
-						card:add_to_deck()
-						G.consumeables:emplace(card)
-						G.GAME.consumeable_buffer = 0
+					local card = create_card("Tarot", G.consumeables, nil, nil, nil, nil, nil, "vag")
+					card:add_to_deck()
+					G.consumeables:emplace(card)
+					G.GAME.consumeable_buffer = 0
 					return true
 				end,
 			}))
@@ -503,11 +516,13 @@ function Cryptid.forcetrigger(card, context)
 			results = { jokers = { Xmult_mod = card.ability.extra, card = card } }
 		end
 		if card.ability.name == "Cloud 9" then
-			if card.ability.nine_tally then ease_dollars(card.ability.extra*(card.ability.nine_tally))
-			else ease_dollars(card.ability.extra)
+			if card.ability.nine_tally then
+				ease_dollars(card.ability.extra * card.ability.nine_tally)
+			else
+				ease_dollars(card.ability.extra)
 			end
 		end
-		if card.ability.name == "Rocket" then 
+		if card.ability.name == "Rocket" then
 			card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.increase
 			ease_dollars(card.ability.extra.dollars)
 		end
@@ -520,7 +535,7 @@ function Cryptid.forcetrigger(card, context)
 			local check = nil
 			if context.scoring_hand then
 				for k, v in ipairs(context.scoring_hand) do
-					if v:is_face() then 
+					if v:is_face() then
 						v:set_ability(G.P_CENTERS.m_gold, nil, true)
 						G.E_MANAGER:add_event(Event({
 							trigger = "after",
@@ -529,14 +544,14 @@ function Cryptid.forcetrigger(card, context)
 								v:juice_up()
 								return true
 							end,
-						})) 
+						}))
 					end
 				end
 				check = true
 			end
 			if not check and G and G.hand and #G.hand.highlighted > 0 then
 				for k, v in ipairs(context.scoring_hand) do
-					if v:is_face() then 
+					if v:is_face() then
 						v:set_ability(G.P_CENTERS.m_gold, nil, true)
 						G.E_MANAGER:add_event(Event({
 							trigger = "after",
@@ -545,15 +560,15 @@ function Cryptid.forcetrigger(card, context)
 								v:juice_up()
 								return true
 							end,
-						})) 
+						}))
 					end
 				end
 				check = true
 			end
 		end
 		if card.ability.name == "Luchador" then
-			if G.GAME.blind and ((not G.GAME.blind.disabled) and (G.GAME.blind:get_type() == 'Boss')) then 
-			G.GAME.blind:disable()
+			if G.GAME.blind and ((not G.GAME.blind.disabled) and (G.GAME.blind:get_type() == "Boss")) then
+				G.GAME.blind:disable()
 			end
 		end
 		if card.ability.name == "Photograph" then
@@ -561,25 +576,27 @@ function Cryptid.forcetrigger(card, context)
 		end
 		if card.ability.name == "Gift Card" then
 			for k, v in ipairs(G.jokers.cards) do
-				if v.set_cost then 
+				if v.set_cost then
 					v.ability.extra_value = (v.ability.extra_value or 0) + card.ability.extra
 					v:set_cost()
 				end
 			end
 			for k, v in ipairs(G.consumeables.cards) do
-				if v.set_cost then 
+				if v.set_cost then
 					v.ability.extra_value = (v.ability.extra_value or 0) + card.ability.extra
 					v:set_cost()
 				end
 			end
 		end
 		if card.ability.name == "Turtle Bean" then
-            G.hand:change_size(-card.ability.extra.h_size)
+			G.hand:change_size(-card.ability.extra.h_size)
 			card.ability.extra.h_size = card.ability.extra.h_size - card.ability.extra.h_mod
-            G.hand:change_size(card.ability.extra.h_size)
+			G.hand:change_size(card.ability.extra.h_size)
 		end
 		if card.ability.name == "Erosion" then
-			results = { jokers = { mult_mod = card.ability.extra*(G.GAME.starting_deck_size - #G.playing_cards), card = card } }
+			results = {
+				jokers = { mult_mod = card.ability.extra * (G.GAME.starting_deck_size - #G.playing_cards), card = card },
+			}
 		end
 		if card.ability.name == "Reserved Parking" then
 			ease_dollars(card.ability.extra.dollars)
@@ -590,13 +607,13 @@ function Cryptid.forcetrigger(card, context)
 		-- if card.ability.name == "To the Moon" then results = { jokers = { } } end
 		if card.ability.name == "Hallucination" then
 			G.E_MANAGER:add_event(Event({
-				trigger = 'after',
+				trigger = "after",
 				delay = 0.4,
 				func = function()
-						local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, 'hal')
-						card:add_to_deck()
-						G.consumeables:emplace(card)
-						G.GAME.consumeable_buffer = 0
+					local card = create_card("Tarot", G.consumeables, nil, nil, nil, nil, nil, "hal")
+					card:add_to_deck()
+					G.consumeables:emplace(card)
+					G.GAME.consumeable_buffer = 0
 					return true
 				end,
 			}))
@@ -622,19 +639,24 @@ function Cryptid.forcetrigger(card, context)
 			results = { jokers = { Xmult_mod = card.ability.x_mult, card = card } }
 		end
 		if card.ability.name == "Baseball Card" then
-			results = { jokers = {Xmult_mod = card.ability.extra, card = card } }
+			results = { jokers = { Xmult_mod = card.ability.extra, card = card } }
 		end
 		if card.ability.name == "Bull" then
-			results = { jokers = { chips = card.ability.extra*math.max(0,(G.GAME.dollars + (G.GAME.dollar_buffer or 0))), card = card } }
+			results = {
+				jokers = {
+					chips = card.ability.extra * math.max(0, (G.GAME.dollars + (G.GAME.dollar_buffer or 0))),
+					card = card,
+				},
+			}
 		end
 		if card.ability.name == "Diet Cola" then
 			G.E_MANAGER:add_event(Event({
-				func = (function()
-					add_tag(Tag('tag_double'))
-					play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
-					play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
+				func = function()
+					add_tag(Tag("tag_double"))
+					play_sound("generic1", 0.9 + math.random() * 0.1, 0.8)
+					play_sound("holo1", 1.2 + math.random() * 0.1, 0.4)
 					return true
-				end)
+				end,
 			}))
 		end
 		if card.ability.name == "Trading Card" then
@@ -686,15 +708,16 @@ function Cryptid.forcetrigger(card, context)
 		if card.ability.name == "Swashbuckler" then
 			results = { jokers = { mult_mod = card.ability.mult, card = card } }
 		end
-		if card.ability.name == "Troubadour" then 
+		if card.ability.name == "Troubadour" then
 			G.hand:change_size(card.ability.extra.h_size)
-            G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.h_plays
+			G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.h_plays
 		end
 		if card.ability.name == "Certificate" then
 			local _card = create_playing_card({
-				front = pseudorandom_element(G.P_CARDS, pseudoseed('cert_fr')),
-				center = G.P_CENTERS.c_base}, G.discard, true, nil, {G.C.SECONDARY_SET.Enhanced}, true)
-			_card:set_seal(SMODS.poll_seal({guaranteed = true, type_key = 'certsl'}))
+				front = pseudorandom_element(G.P_CARDS, pseudoseed("cert_fr")),
+				center = G.P_CENTERS.c_base,
+			}, G.discard, true, nil, { G.C.SECONDARY_SET.Enhanced }, true)
+			_card:set_seal(SMODS.poll_seal({ guaranteed = true, type_key = "certsl" }))
 			G.E_MANAGER:add_event(Event({
 				func = function()
 					G.hand:emplace(_card)
@@ -702,7 +725,7 @@ function Cryptid.forcetrigger(card, context)
 					G.GAME.blind:debuff_card(_card)
 					G.hand:sort()
 					return true
-				end
+				end,
 			}))
 		end
 		-- if card.ability.name == "Smeared Joker" then results = { jokers = { } } end
@@ -777,27 +800,32 @@ function Cryptid.forcetrigger(card, context)
 		if card.ability.name == "Invisible Joker" then
 			card.ability.invis_rounds = card.ability.invis_rounds + 1
 			local jokers = {}
-                for i=1, #G.jokers.cards do 
-                    if G.jokers.cards[i] ~= self then
-                        jokers[#jokers+1] = G.jokers.cards[i]
-                    end
-                end
-                if #jokers > 0 then 
-					local chosen_joker = pseudorandom_element(jokers, pseudoseed('invisible'))
-					local card = copy_card(chosen_joker, nil, nil, nil, chosen_joker.edition and chosen_joker.edition.negative)
-					if card.ability.invis_rounds then card.ability.invis_rounds = 0 end
-					card:add_to_deck()
-					G.jokers:emplace(card)                        
-					return nil, true
-                end
+			for i = 1, #G.jokers.cards do
+				if G.jokers.cards[i] ~= self then
+					jokers[#jokers + 1] = G.jokers.cards[i]
+				end
+			end
+			if #jokers > 0 then
+				local chosen_joker = pseudorandom_element(jokers, pseudoseed("invisible"))
+				local card =
+					copy_card(chosen_joker, nil, nil, nil, chosen_joker.edition and chosen_joker.edition.negative)
+				if card.ability.invis_rounds then
+					card.ability.invis_rounds = 0
+				end
+				card:add_to_deck()
+				G.jokers:emplace(card)
+				return nil, true
+			end
 		end
 		-- if card.ability.name == "Brainstorm" then results = { jokers = { } } end
 		if card.ability.name == "Satellite" then
-            local planets_used = 0
-            for k, v in pairs(G.GAME.consumeable_usage) do
-                if v.set == 'Planet' then planets_used = planets_used + 1 end
-            end
-            ease_dollars(card.ability.extra * planets_used or 1)
+			local planets_used = 0
+			for k, v in pairs(G.GAME.consumeable_usage) do
+				if v.set == "Planet" then
+					planets_used = planets_used + 1
+				end
+			end
+			ease_dollars(card.ability.extra * planets_used or 1)
 		end
 		if card.ability.name == "Shoot The Moon" then
 			results = { jokers = { mult_mod = 13, card = card } }
@@ -808,21 +836,27 @@ function Cryptid.forcetrigger(card, context)
 		if card.ability.name == "Cartomancer" then
 			G.E_MANAGER:add_event(Event({
 				func = function()
-					local card = create_card('Tarot', G.consumeables, nil, nil, nil, nil, nil, 'car')
+					local card = create_card("Tarot", G.consumeables, nil, nil, nil, nil, nil, "car")
 					card:add_to_deck()
 					G.consumeables:emplace(card)
-					G.GAME.consumeable_buffer = 0            
+					G.GAME.consumeable_buffer = 0
 					return true
 				end,
 			}))
 		end
 		-- if card.ability.name == "Astronomer" then results = { jokers = { } } end
 		if card.ability.name == "Burnt Joker" and context.scoring_name then
-			local text,disp_text = G.FUNCS.get_poker_hand_info(context.scoring_name)
+			local text, disp_text = G.FUNCS.get_poker_hand_info(context.scoring_name)
 			level_up_hand(card, text, nil, 1)
 		end
 		if card.ability.name == "Bootstraps" then
-			results = { jokers = { mult_mod = card.ability.mult * math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0)) / card.ability.extra.dollars), card = card } }
+			results = {
+				jokers = {
+					mult_mod = card.ability.mult
+						* math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0)) / card.ability.extra.dollars),
+					card = card,
+				},
+			}
 		end
 		if card.ability.name == "Caino" then
 			card.ability.caino_xmult = card.ability.caino_xmult + card.ability.extra
@@ -836,18 +870,18 @@ function Cryptid.forcetrigger(card, context)
 			results = { jokers = { Xmult_mod = card.ability.x_mult, card = card } }
 		end
 		if card.ability.name == "Chicot" then
-			if G.GAME.blind and G.GAME.blind:get_type() == 'Boss' then 
+			if G.GAME.blind and G.GAME.blind:get_type() == "Boss" then
 				G.GAME.blind:disable()
 			end
 		end
 		if card.ability.name == "Perkeo" then
 			if G.consumeables.cards[1] then
 				G.E_MANAGER:add_event(Event({
-					func = function() 
-						local card = copy_card(pseudorandom_element(G.consumeables.cards, pseudoseed('perkeo')), nil)
-						card:set_edition({negative = true}, true)
+					func = function()
+						local card = copy_card(pseudorandom_element(G.consumeables.cards, pseudoseed("perkeo")), nil)
+						card:set_edition({ negative = true }, true)
 						card:add_to_deck()
-						G.consumeables:emplace(card) 
+						G.consumeables:emplace(card)
 						return true
 					end,
 				}))
@@ -856,12 +890,12 @@ function Cryptid.forcetrigger(card, context)
 		if card.ability.name == "Perkeo (Incantation)" then
 			if G.consumeables.cards[1] then
 				G.E_MANAGER:add_event(Event({
-					func = function() 
+					func = function()
 						local total, checked, center = 0, 0, nil
 						for i = 1, #G.consumeables.cards do
 							total = total + (G.consumeables.cards[i]:getQty())
 						end
-						local poll = pseudorandom(pseudoseed('perkeo'))*total
+						local poll = pseudorandom(pseudoseed("perkeo")) * total
 						for i = 1, #G.consumeables.cards do
 							checked = checked + (G.consumeables.cards[i]:getQty())
 							if checked >= poll then
@@ -870,11 +904,11 @@ function Cryptid.forcetrigger(card, context)
 							end
 						end
 						local _card = copy_card(center, nil)
-						_card:set_edition({negative = true}, true)
+						_card:set_edition({ negative = true }, true)
 						_card:add_to_deck()
-						G.consumeables:emplace(_card) 
+						G.consumeables:emplace(_card)
 						return true
-					end
+					end,
 				}))
 			end
 		end
