@@ -1764,7 +1764,7 @@ local aliases = {
 		"Tag Eco",
 	},
 	-- Vanilla Vouchers
-
+	
 	v_overstock_norm = {
 		"Overstock",
 		"Over Stock",
@@ -1955,7 +1955,110 @@ local aliases = {
 
 	---- Cryptid Cards
 	-- M jokers
-	-- placeholder
+	j_cry_m = {
+		"m",
+		"lowercase m",
+	},
+	j_cry_mprime = {
+		"Flesh Panopticon",
+		"Minos Prime",
+		"M Prime",
+	},
+	j_cry_M = {
+		"M",
+		"Capital M",
+	},
+	j_cry_bubblem = {
+		"BubbleM",
+		"Bubble M",
+	},
+	j_cry_foodm = {
+		"McDonalds",
+		"McDonald's",
+		"Food M",
+		"Fast Food M",
+	},
+	j_cry_mstack = {
+		"Stack M",
+		"M Stack",
+	},
+	j_cry_mneon = {
+		"Neon M",
+		"mneon",
+	},
+	j_cry_notebook = {
+		"Notebook",
+		"The Notebook",
+		"The Motebook",
+		"Motebook",
+		"Noting this down",
+		"Moting this down",
+	},
+	j_cry_bonk = {
+		"Bonk",
+	},
+	j_cry_loopy = {
+		"Loopy",
+		"Loopy M",
+	},
+	j_cry_scrabble = {
+		"Scrabble",
+		"Scrabble Tile",
+		"Scrabble M",
+		"Letter M",
+	},
+	j_cry_sacrifice = {
+		"Sacrifice",
+	},
+	j_cry_reverse = {
+		"Uno Card",
+		"Uno Reverse",
+		"Reverse Card",
+		"Uno Reverse Card",
+		"Reverse Uno Card",
+	},
+	j_cry_longboi = {
+		"Monster",
+		"longboi",
+		"long boi",
+	},
+	j_cry_megg = {
+		"Megg",
+		"Jolly Egg",
+	},
+	j_cry_macabre = {
+		"Macabre",
+		"Macabre Joker",
+		"M Dagger",
+	},
+	j_cry_smallestm = {
+		"Tiny",
+		"Tiny M",
+		"very small m",
+		"teeny m",
+	},
+	j_cry_virgo = {
+		"Virgo",
+		"Virgin",
+	},
+	j_cry_doodlem = {
+		"Doodle",
+		"Doodle M",
+		"The anniversary is back on!",
+	},
+	j_cry_jollysus = {
+		"Jolly Joker?",
+		"jolly sus",
+		"blue sus",
+		"sus jolly",
+	},
+	j_cry_biggestm = {
+		"Huge",
+		"Big Boned",
+		"not fat",
+		"Massive",
+		"Huge M",
+	},
 
 	-- SpOoOky jokers
 	-- placeholder
