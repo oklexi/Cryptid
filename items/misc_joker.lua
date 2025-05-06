@@ -3010,7 +3010,12 @@ local spaceglobe = {
 				_poker_hands[#_poker_hands + 1] = k
 			end
 		end
-		card.ability.extra.type = pseudorandom_element(_poker_hands, pseudoseed((card.area and card.area.config.type == 'title') and "false_cry_space_globe" or "cry_space_globe"))
+		card.ability.extra.type = pseudorandom_element(
+			_poker_hands,
+			pseudoseed(
+				(card.area and card.area.config.type == "title") and "false_cry_space_globe" or "cry_space_globe"
+			)
+		)
 	end,
 	calculate = function(self, card, context)
 		if context.cardarea == G.jokers and context.before and not context.blueprint then
