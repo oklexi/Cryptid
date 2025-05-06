@@ -1774,7 +1774,7 @@ local aliases = {
 		"Over Stock Plus",
 		"Overstockplus",
 		"Overstock+",
-		"Overstock 2"
+		"Overstock 2",
 	},
 	v_clearance_sale = {
 		"Clearance Sale",
@@ -1859,7 +1859,7 @@ local aliases = {
 	v_tarot_merchant = {
 		"Tarot Merchant",
 		"Tarotmerchant",
-		"Tarot Voucher"
+		"Tarot Voucher",
 	},
 	v_tarot_tycoon = {
 		"Tarot Tycoon",
