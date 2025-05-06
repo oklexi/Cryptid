@@ -1,4 +1,4 @@
-local pointer = { 
+local pointer = {
 	cry_credits = {
 		idea = {
 			"HexaCryonic",
