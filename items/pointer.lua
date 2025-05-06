@@ -2085,7 +2085,71 @@ local aliases = {
 	-- placeholder for the like 5 there is
 
 	-- Cryptid Planets
-	-- placerholderer
+	c_cry_planetlua = {
+		"Planet.lua",
+		"Lua Planet",
+	},
+	c_cry_abelt = {
+		"Asteroid Belt",
+		"Bulwark",
+	},
+	c_cry_void = {
+		"Void",
+		"Clusterfuck",
+		"Cluster",
+	},
+	c_cry_marsmoons = {
+		"Mars Moons",
+		"Phobos",
+		"Phobos and Deimos",
+		"Ultimate Pair",
+	},
+	c_cry_universe = {
+		"Universe",
+		"The Universe In Its Entirety",
+		"The Universe In Its Fucking Entirety",
+		"The Entire Deck",
+		"The Entire Fucking Deck",
+	},
+	c_cry_nstar = {
+		"Neutron Star",
+		"Random Hand",
+	},
+	c_cry_sunplanet = {
+		"Sun",
+		"Sol",
+		"Ascended Hands",
+		"Ascended Hand",
+	},
+	c_cry_Timantti = {
+		"Ruutu",
+		"Diamond Planet",
+		"High Card Pair Two Pair",
+	},
+	c_cry_Klubi = {
+		"Risti",
+		"Club Planet",
+		"Three of a Kind Straight Flush",
+		"3oak Straight Flush",
+	},
+	c_cry_Sydan = {
+		"Hertta",
+		"Heart Planet",
+		"Full House Four of a Kind Straight Flush",
+		"Full House 4oak Straight Flush",
+	},
+	c_cry_Lapio = {
+		"Pata",
+		"Spade Planet",
+		"Five of a Kind Flush House Flush Five",
+		"5oak Flush House Flush Five",
+	},
+	c_cry_Kaikki = {
+		"Kaikki",
+		"Wild Planet",
+		"Bulwark Clusterfuck Ultimate Pair",
+		"Bulwark Cluster Ultimate Pair",
+	},
 
 	-- Cryptid Spectrals
 	-- magic placeholder
