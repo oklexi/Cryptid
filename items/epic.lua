@@ -2370,12 +2370,12 @@ local clockwork = { -- Steel Support: The Joker
 -- Force-triggers the rightmost joker during context.joker_main
 local demicolon = {
 	object_type = "Joker",
-    gameset_config = {
+	gameset_config = {
 		modest = { disabled = true },
 		mainline = { disabled = true },
 		madness = { disabled = false },
-		experimental = {disabled = false},
-    },
+		experimental = { disabled = false },
+	},
 	dependencies = {
 		items = {
 			"set_cry_epic",
