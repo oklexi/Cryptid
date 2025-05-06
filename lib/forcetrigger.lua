@@ -36,7 +36,7 @@ function Cryptid.forcetrigger(card, context)
 	}))
 	if not Cryptid.forcetriggerVanillaCheck(card) and card.ability.set == "Joker" then
 		results = eval_card(card, demicontext)
-	elseif card.ability.set == "Joker"
+	elseif card.ability.set == "Joker" then
 		results = {}
 		results.jokers = {}
 		-- page 1
