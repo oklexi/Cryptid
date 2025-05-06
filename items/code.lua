@@ -2348,12 +2348,12 @@ local hook = { -- Hook://, applies Hooked to two jokers
 			"Nova",
 		},
 	},
-    gameset_config = {
+	gameset_config = {
 		modest = { disabled = true },
 		mainline = { disabled = false },
 		madness = { disabled = false },
-		experimental = {disabled = false },
-    },
+		experimental = { disabled = false },
+	},
 	dependencies = {
 		items = {
 			"set_cry_code",
