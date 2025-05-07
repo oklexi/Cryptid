@@ -1460,7 +1460,7 @@ return {
 				text = {
 					"This Joker destroys",
 					"a random {C:cry_code}Code{} card",
-					"and gains {X:mult,C:white} X#1# {} Mult",
+					"to gain {X:mult,C:white} X#1# {} Mult",
 					"at the end of the {C:attention}shop{}",
 					"{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)",
 				},
@@ -2656,7 +2656,7 @@ return {
 				text = {
 					"This Joker destroys a",
 					"random {C:planet}Planet{} card",
-					"and gains {X:dark_edition,C:white} ^#1# {} Mult",
+					"to gain {X:dark_edition,C:white} ^#1# {} Mult",
 					"at the end of the {C:attention}shop{}",
 					"{C:inactive}(Currently {X:dark_edition,C:white} ^#2# {C:inactive} Mult)",
 				},
