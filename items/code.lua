@@ -2553,7 +2553,6 @@ local assemble = { -- ://Assemble, add the number of jokers to selected cards +m
 		end
 	end,
 }
-}
 
 local inst =
 	{ -- ://Instantiate, draw 2 cards; one with selected card's rank and the other with selected card's suit (if possible)
