@@ -570,8 +570,8 @@ return {
 			c_cry_hook = {
 				name = "HOOK://",
 				text = {
-					"To Be {C:cry_code}Implemented{}",
-					"in a future {C:cry_code}update{}",
+					"Apply {C:cry_code}Hooked{} to",
+					"2 selected Jokers",
 				},
 			},
 			c_cry_inst = {

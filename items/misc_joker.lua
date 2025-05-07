@@ -1213,7 +1213,7 @@ local compound_interest = {
 		}
 	end,
 	calc_dollar_bonus = function(self, card)
-		if G.GAME.dollars > to_big(0) then
+		if to_big(G.GAME.dollars) > to_big(0) then
 			local bonus = lenient_bignum(
 				math.max(0, math.floor(0.01 * to_big(card.ability.extra.percent) * (G.GAME.dollars or 1)))
 			)

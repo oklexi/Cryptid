@@ -13,6 +13,7 @@ local pointer = {
 	dependencies = {
 		items = {
 			"set_cry_code",
+			"set_cry_spectral",
 		},
 	},
 	object_type = "Consumable",
@@ -163,7 +164,8 @@ local pointer = {
 			local valid_check = {}
 			G.PREVIOUS_ENTERED_CARD = G.ENTERED_CARD
 			current_card = Cryptid.pointergetalias(apply_lower(entered_card)) or nil
-			if Cryptid.pointergetblist(current_card) and not G.DEBUG_POINTER then
+			valid_check = Cryptid.pointergetblist(current_card)
+			if not valid_check[3] then
 				current_card = nil
 			end
 			--if enhancement has a suit or rank override, override above and make nil, so it can proceed with playing card creation
