@@ -163,7 +163,15 @@ local pointer = {
 			local valid_check = {}
 			G.PREVIOUS_ENTERED_CARD = G.ENTERED_CARD
 			current_card = Cryptid.pointergetalias(apply_lower(entered_card)) or nil
-			valid_check = Cryptid.pointergetblist(current_card)
+			if Cryptid.pointergetblist(current_card) and not G.DEBUG_POINTER then
+				current_card = nil
+			end
+			--if enhancement has a suit or rank override, override above and make nil, so it can proceed with playing card creation
+			if current_card ~= nil and string.sub(current_card, 1, 1) == 'm' then
+				if G.P_CENTERS[current_card] and G.P_CENTERS[current_card].specific_suit or  G.P_CENTERS[current_card].specific_rank then
+					current_card = nil
+				end
+			end
 
 			if current_card then -- non-playing card cards
 				local created = false -- Joker check
@@ -392,6 +400,7 @@ local pointer = {
 					{ "Q", "Queen" },
 					{ "K", "King" },
 					{ "A", "Ace", "One", "1", "I" },
+					{ "Abstract","Abstracted","TADC"},
 				} -- ty variable
 				local _rank = nil
 				for m = #words, 1, -1 do -- the legendary TRIPLE LOOP, checking from end since rank is most likely near the end
@@ -436,6 +445,7 @@ local pointer = {
 						["m_gold"] = { "gold" },
 						["m_stone"] = { "stone" },
 						["m_cry_echo"] = { "echo" },
+						["m_cry_abstract"] = { "abstract" },
 					}
 					for k, v in pairs(G.P_CENTER_POOLS.Enhanced) do
 						local index = v.key
@@ -583,6 +593,10 @@ local pointer = {
 							end
 							if _rank == 1 then
 								_card:set_ability(G.P_CENTERS["m_stone"])
+							end
+							--Abstracted
+							if _rank == 15 or string.lower(_suit) == "abstract" or string.lower(_suit) == "abstracted" then
+								_card:set_ability(G.P_CENTERS["m_cry_abstract"])
 							end
 							if _seal ~= "" then
 								_card:set_seal(_seal, true, true)

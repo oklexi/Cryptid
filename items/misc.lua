@@ -9,6 +9,17 @@ local meme_digital_hallucinations_compat = {
 		G.jokers:emplace(ccard) --Note: Will break if any non-Joker gets added to the meme pool
 	end,
 }
+-- Anti synergy with digital hallucinations, it will create ANOTHER cursed Joker when opening the pack
+local cursed_digital_hallucinations_compat = {
+	colour = HEX("474931"),
+	loc_key = "k_plus_joker",
+	create = function()
+		local ccard = create_card("Joker", G.jokers, nil, "cry_cursed", nil, nil, nil, "diha")
+		ccard:set_edition({ negative = true }, true)
+		ccard:add_to_deck()
+		G.jokers:emplace(ccard) --Note: Will break if any non-Joker gets added to the meme pool
+	end,
+}
 local meme1 = {
 	cry_credits = {
 		idea = {
@@ -1939,12 +1950,12 @@ local abstract = {
 	key = "abstract",
 	not_stoned = true,
 	overrides_base_rank = true, --enhancement do not generate in grim, incantation, etc...
-	weight = 0, -- let me know if abstract cards can generate naturally
 	replace_base_card = true, --So no base chips and no image
 	atlas = "cry_misc",
 	pos = { x = 3, y = 0 },
 	not_fucked = true,
-	force_no_face = true, --true = never face, false = always face
+	shatters = true, --SMODS has a new "shatters" function
+	force_no_face = true, --true = always face, false = always face
 	--NEW! specific_suit suit. Like abstracted!
 	specific_suit = "cry_abstract",
 	specific_rank = "cry_abstract",
@@ -2199,10 +2210,78 @@ local absolute = {
 		)
 	end,
 }
+local baneful1 = {
+	cry_credits = {
+		idea = {
+			"HexaCryonic",
+		},
+		art = {
+			"nova_422",
+		},
+		code = {
+			"70UNIK",
+		},
+	},
+	object_type = "Booster",
+	dependencies = {
+		items = {
+			"set_cry_cursed",
+		},
+	},
+	key = "baneful_1",
+	kind = "baneful",
+	atlas = "pack",
+	pos = { x = 0, y = 2 },
+	cry_baneful_punishment = true,
+	no_music = true, --prevent override of music, such as in boss blinds
+	no_doe = true,
+	unskippable = function(self)
+		--Only be unskippable if no VALID jokers are owned (if rightmost is eternal/cursed, the next)
+		if G.jokers and (#G.jokers.cards == 0 or not G.jokers.cards) then
+			return true
+		end
+		--For loop that iterates from right to left, breaking and returning false if finding the rightmost valid noneternal or cursed Joker 
+		if G.jokers and G.jokers.cards then
+			for i = #G.jokers.cards,1,-1 do
+				if not (G.jokers.cards[i].ability.eternal or G.jokers.cards[i].config.center.rarity == 'cry_cursed') then
+					return false
+				end
+			end
+		end
+		return true
+	end,
+	order = 5,
+	config = { extra = 4, choose = 1 },
+	cost = 1,
+	immutable = true,
+	weight = 0, --never spawn naturally
+	create_card = function(self, card)
+		return create_card("Joker", G.jokers, nil, "cry_cursed", nil, nil, nil, "baneful_pack")
+	end,
+	ease_background_colour = function(self)
+		ease_colour(G.C.DYN_UI.MAIN, HEX("474931"))
+		ease_background_colour({ new_colour = HEX("474931"), special_colour = G.C.BLACK, contrast = 2 })
+	end,
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card and card.ability.choose or self.config.choose,
+				card and card.ability.extra or self.config.extra,
+			},
+		}
+	end,
+	--never spawn as well in pool
+	in_pool = function()
+		return false
+	end,
+	group_key = "k_cry_baneful_pack",
+	cry_digital_hallucinations = cursed_digital_hallucinations_compat,
+}
 local miscitems = {
 	meme1,
 	meme2,
 	meme3,
+	baneful1,
 	mosaic_shader,
 	oversat_shader,
 	glitched_shader,

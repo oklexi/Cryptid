@@ -475,6 +475,14 @@ return {
 					"are debuffed",
 				},
 			},
+			bl_cry_decision = {
+				name = "The Decision",
+				text = {
+					"Fasten Jokers on play or discard",
+					"Open a Baneful Buffoon",
+					"Pack after round",
+				},
+			},
 		},
 		Code = {
 			c_cry_assemble = {
@@ -4474,6 +4482,15 @@ return {
 					"up to {C:attention}#2# Meme Joker#<s>2#{}",
 				},
 			},
+			p_cry_baneful_1 = {
+				name = "Baneful Buffoon Pack",
+				text = {
+					"Choose {C:attention}#1#{} of",
+					"up to {C:attention}#2# {X:cry_cursed,C:white}Cursed{} Joker#<s>2#{}",
+					"{C:attention}Skipping{} will {C:red}banish{}",
+					"{C:attention}rightmost{} owned Joker",
+				},
+			},
 			undiscovered_code = {
 				name = "Not Discovered",
 				text = {
@@ -4737,6 +4754,8 @@ return {
 
 			k_cry_program_pack = "Program Pack",
 			k_cry_meme_pack = "Meme Pack",
+			k_cry_baneful_pack = "Baneful Buffoon Pack",
+			cry_baneful_warning = "Skipping will Banish rightmost Joker",
 
 			cry_critical_hit_ex = "Critical Hit!",
 			cry_critical_miss_ex = "Critical Miss!",
@@ -4751,6 +4770,7 @@ return {
 			cry_debuff_oldflint = "No Flushes",
 			cry_debuff_oldmark = "No hands containing a Pair",
 			cry_debuff_obsidian_orb = "Applies abilities of all defeated bosses",
+			cry_blind_baneful_pack = "After round, open a Baneful Buffoon Pack",
 
 			cry_tax_placeholder = "(X0.4 blind requirement)",
 			cry_joke_placeholder = "(multiple of 8)",
