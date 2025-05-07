@@ -912,6 +912,12 @@ function Cryptid.forcetrigger(card, context)
 				}))
 			end
 		end
+	elseif card.consumeable then
+		if card:can_use() then
+			local clone = copy_card(card)
+			clone:add_to_deck()
+			clone:use_consumeable()
+		end	
 	end
 	demicontext = nil
 	print(results)
@@ -1077,6 +1083,9 @@ function Cryptid.forcetriggerVanillaCheck(card)
 		if card and card.ability.name == compatvanilla[i] then
 			vanilcheck = true
 		end
+	end
+	if card.consumeable then
+		vanilcheck = card:can_use()
 	end
 	return vanilcheck
 end
