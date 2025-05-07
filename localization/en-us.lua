@@ -4650,6 +4650,10 @@ return {
 			ach_cry_technically_positive = "Technically Positive",
 			ach_cry_youre_fucking_kidding = Cryptid_config.family_mode and "You Can't Be Serious"
 				or "You're Fucking Kidding",
+			ach_cry_stoned = "Stoned",
+			ach_cry_fucked = Cryptid_config.family_mode and "Clustered" or "Fucked",
+			ach_cry_despaired = "Despaired",
+			ach_cry_decked = "Decked",
 		},
 		achievement_descriptions = {
 			ach_cry_ace_in_crash = 'check_for_unlock({type = "ace_in_crash"})',
@@ -4675,6 +4679,10 @@ return {
 			ach_cry_pin = "Lose a run to The Pin",
 			ach_cry_technically_positive = "Obtain a Negative Negative Joker",
 			ach_cry_youre_fucking_kidding = "Discard " .. localize("cry_WholeDeck", "poker_hands"),
+			ach_cry_stoned = "Get " .. localize("cry_Bulwark", "poker_hands") .. " to level 420",
+			ach_cry_fucked = "Get " .. localize("cry_Clusterfuck", "poker_hands") .. " to level 69",
+			ach_cry_stoned = "Get " .. localize("cry_UltPair", "poker_hands") .. " to level 2222",
+			ach_cry_stoned = "Get " .. localize("cry_WholeDeck", "poker_hands") .. " to level 5252",
 		},
 		challenge_names = {
 			c_cry_ballin = "Ballin'",
