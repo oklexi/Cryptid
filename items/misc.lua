@@ -1299,7 +1299,7 @@ local glass_edition = {
 	loc_vars = function(self, info_queue)
 		return {
 			vars = {
-				(G.GAME.probabilities.normal or 1) * (self.config.shatter_chance - 1),
+				(self.config.shatter_chance - 1),
 				self.config.shatter_chance,
 				self.config.x_mult,
 			},
@@ -1946,6 +1946,7 @@ local abstract = {
 			"set_cry_misc",
 		},
 	},
+	name = "cry_abstract",
 	key = "abstract",
 	not_stoned = true,
 	overrides_base_rank = true, --enhancement do not generate in grim, incantation, etc...
@@ -1974,8 +1975,8 @@ local abstract = {
 	calculate = function(self, card, context)
 		--Druing scoring
 		if
-			context.cardarea == G.play
-			and context.main_scoring
+			context.cardarea == G.hand
+			and context.before
 			and not card.ability.extra.marked
 			and not card.ability.eternal
 			and not card.ability.extra.survive --this presvents repitition of shatter chance by shutting it out once it confirms to "survive"
@@ -1983,7 +1984,7 @@ local abstract = {
 				< cry_prob(card.ability.cry_prob, card.ability.extra.odds_after_play, card.ability.cry_rigged) / card.ability.extra.odds_after_play
 		then -- the 'card.area' part makes sure the card has a chance to survive if in the play area
 			card.ability.extra.marked = true
-		elseif context.cardarea == G.play and context.main_scoring and not card.ability.extra.marked then
+		elseif context.cardarea == G.play and not card.ability.extra.marked then
 			card.ability.extra.survive = true
 		end
 		if context.cardarea == G.play and context.main_scoring then
@@ -2002,12 +2003,12 @@ local abstract = {
 
 		if
 			context.final_scoring_step
+			and context.cardarea == G.hand
 			and card.ability.extra.marked
 			and not context.repetition
 			and not card.ability.eternal
 			and not (card.will_shatter or card.destroyed or card.shattered)
 		then
-			--print("destroy1")
 			G.E_MANAGER:add_event(Event({
 				trigger = "immediate",
 				func = function()
@@ -2016,9 +2017,8 @@ local abstract = {
 					return true
 				end,
 			}))
-		elseif context.final_scoring_step then
-			card.ability.extra.survive = false
 		end
+		card.ability.extra.survive = false
 	end,
 }
 local instability = {
