@@ -2370,8 +2370,11 @@ local hook = { -- Hook://, applies Hooked to two jokers
 	order = 14,
 	no_pool_flag = "beta_deck",
 	can_use = function(self, card)
-		local check = true
-		return (#G.jokers.highlighted == 2 and #G.consumeables.highlighted == 1 and check)
+		if not G.GAME.modifiers.cry_beta then
+			return (#G.jokers.highlighted == 2 and #G.consumeables.highlighted == 1)
+		else
+			return #G.jokers.highlighted == 3
+		end
 	end,
 	loc_vars = function(self, info_queue, card)
 		info_queue[#info_queue + 1] = { key = "cry_hooked", set = "Other", vars = { "hooked Joker" } }
@@ -2380,9 +2383,9 @@ local hook = { -- Hook://, applies Hooked to two jokers
 		local card1 = nil
 		local card2 = nil
 		for i = 1, #G.jokers.highlighted do
-			if not card1 then
+			if not card1 and card1 ~= card then
 				card1 = G.jokers.highlighted[i]
-			else
+			elseif card2 ~= card then
 				card2 = G.jokers.highlighted[i]
 			end
 		end
