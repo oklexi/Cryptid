@@ -1944,7 +1944,7 @@ local abstract = {
 	atlas = "cry_misc",
 	pos = { x = 3, y = 0 },
 	not_fucked = true,
-	force_no_face = true, --true = always face, false = always face
+	force_no_face = true, --true = never face, false = always face
 	--NEW! specific_suit suit. Like abstracted!
 	specific_suit = "cry_abstract",
 	specific_rank = "cry_abstract",
@@ -1964,8 +1964,8 @@ local abstract = {
 	calculate = function(self, card, context)
 		--Druing scoring
 		if
-			context.cardarea == G.play
-			and context.main_scoring
+			context.cardarea == G.hand
+			and context.before
 			and not card.ability.extra.marked
 			and not card.ability.eternal
 			and not card.ability.extra.survive --this presvents repitition of shatter chance by shutting it out once it confirms to "survive"
@@ -1973,7 +1973,7 @@ local abstract = {
 				< cry_prob(card.ability.cry_prob, card.ability.extra.odds_after_play, card.ability.cry_rigged) / card.ability.extra.odds_after_play
 		then -- the 'card.area' part makes sure the card has a chance to survive if in the play area
 			card.ability.extra.marked = true
-		elseif context.cardarea == G.play and context.main_scoring and not card.ability.extra.marked then
+		elseif context.cardarea == G.play and not card.ability.extra.marked then
 			card.ability.extra.survive = true
 		end
 		if context.cardarea == G.play and context.main_scoring then
@@ -1992,12 +1992,12 @@ local abstract = {
 
 		if
 			context.final_scoring_step
+			and context.cardarea == G.hand
 			and card.ability.extra.marked
 			and not context.repetition
 			and not card.ability.eternal
 			and not (card.will_shatter or card.destroyed or card.shattered)
 		then
-			--print("destroy1")
 			G.E_MANAGER:add_event(Event({
 				trigger = "immediate",
 				func = function()
@@ -2006,9 +2006,8 @@ local abstract = {
 					return true
 				end,
 			}))
-		elseif context.final_scoring_step then
-			card.ability.extra.survive = false
 		end
+		card.ability.extra.survive = false
 	end,
 }
 local instability = {
