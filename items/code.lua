@@ -2786,38 +2786,35 @@ local function_sticker = { -- TODO write this
 	},
 	object_type = "Sticker",
 	atlas = "sticker",
-	pos = { x = 6, y = 5 },
+	pos = { x = 3, y = 5 },
 	config = {},
-	key = "cry_function_sticker",
+	key = "cry_function_sticker_desc",
 	no_sticker_sheet = true,
 	prefix_config = { key = false },
 	badge_colour = HEX("14b341"),
 	order = 607,
 	draw = function(self, card) --don't draw shine
-		local notilt = nil
-		if card.area and card.area.config.type == "deck" then
-			notilt = true
-		end
-		if not G.shared_stickers["cry_function_sticker2"] then
-			G.shared_stickers["cry_function_sticker2"] =
-				Sprite(0, 0, G.CARD_W, G.CARD_H, G.ASSET_ATLAS["cry_sticker"], { x = 5, y = 5 })
-		end -- no matter how late i init this, it's always late, so i'm doing it in the damn draw function
-
 		G.shared_stickers[self.key].role.draw_major = card
-		G.shared_stickers["cry_function_sticker2"].role.draw_major = card
-
-		G.shared_stickers[self.key]:draw_shader("dissolve", nil, nil, notilt, card.children.center)
-
-		card.hover_tilt = card.hover_tilt / 2 -- call it spaghetti, but it's what hologram does so...
-		G.shared_stickers["cry_function_sticker2"]:draw_shader("dissolve", nil, nil, notilt, card.children.center)
-		G.shared_stickers["cry_function_sticker2"]:draw_shader(
-			"hologram",
-			nil,
-			card.ARGS.send_to_shader,
-			notilt,
-			card.children.center
-		) -- this doesn't really do much tbh, but the slight effect is nice
-		card.hover_tilt = card.hover_tilt * 2
+		G.shared_stickers[self.key]:draw_shader("dissolve", nil, nil, nil, card.children.center)
+	end,
+	-- loc_vars = function(self, info_queue, card)
+	-- 	info_queue[#info_queue + 1] = {
+	-- 		key = "cry_function_sticker_desc",
+	-- 		set = "Other",
+	-- 		vars = {
+	-- 			(G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[1],
+	-- 			(G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[2],
+	-- 			(G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[3],
+	-- 		},
+	-- 	}
+	-- end,
+	loc_vars = function(self, info_queue, card)
+		return { vars = {
+				(G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[1],
+				(G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[2],
+				(G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[3],
+			},
+		}
 	end,
 }
 
@@ -4970,8 +4967,8 @@ local code_cards = {
 	assemble,
 	inst,
 	revert,
-	-- cryfunction, FINISHED: NEEDS ART
-	-- function_sticker, see above
+	cryfunction, 
+	function_sticker, 
 	run,
 	class,
 	global,
