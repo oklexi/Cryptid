@@ -917,7 +917,7 @@ function Cryptid.forcetrigger(card, context)
 			local clone = copy_card(card)
 			clone:add_to_deck()
 			clone:use_consumeable()
-		end	
+		end
 	end
 	demicontext = nil
 	print(results)
