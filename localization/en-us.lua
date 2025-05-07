@@ -647,7 +647,7 @@ return {
 			},
 			c_cry_quantify = {
 				name = "://QUANTIFY",
-				text = {
+				text = { -- "{C:cry_code}J{C:cry_exotic}o{C:legendary}k{C:cry_epic}e{C:cry_candy}r{C:rare}i{C:uncommon}z{C:common}e{C:dark_edition}!{} an object",
 					"To Be {C:cry_code}Implemented{}",
 					"in a future {C:cry_code}update{}",
 				},
@@ -884,6 +884,7 @@ return {
 					"{C:green}#1# in #2#{} chance this",
 					"card isn't {C:red}destroyed",
 					"when triggered",
+					"{C:inactive}Unriggable{}",
 				},
 			},
 			e_cry_glitched = {
@@ -956,10 +957,9 @@ return {
 				text = {
 					"{X:dark_edition,C:white}^#1#{} Mult,",
 					"Counts as its {C:attention}own{} rank and suit",
-					"{C:green}#2# in #3#{} chance to",
-					"{C:red,E:2}destroy{} card after scoring",
 					"{C:green}#4# in #5#{} chance to",
-					"{C:red,E:2}destroy{} card {C:attention}after round",
+					"{C:red,E:2}destroy{} card when held at",
+					"{C:attention}round end{} or {C:attention}hand played{}",
 				},
 			},
 		},
@@ -1471,6 +1471,13 @@ return {
 					"{C:red}+#1#{} Mult if played",
 					"hand contains",
 					"a {C:attention}#2#",
+				},
+			},
+			j_cry_demicolon = {
+				name = "Demicolon",
+				text = {
+					"{C:attention}Force-trigger{} the joker",
+					"to the right",
 				},
 			},
 			j_cry_digitalhallucinations = {
@@ -4136,6 +4143,8 @@ return {
 				text = {
 					"When this Joker is {C:cry_code}triggered{},",
 					"trigger {C:cry_code}#1#",
+					"{C:inactive}Not all cards can be triggered this way{}",
+					"{C:inactive}but all jokers can trigger the other{}",
 				},
 			},
 			cry_global_sticker = {
@@ -4642,6 +4651,10 @@ return {
 			ach_cry_technically_positive = "Technically Positive",
 			ach_cry_youre_fucking_kidding = Cryptid_config.family_mode and "You Can't Be Serious"
 				or "You're Fucking Kidding",
+			ach_cry_stoned = "Stoned",
+			ach_cry_fucked = Cryptid_config.family_mode and "Clustered" or "Fucked",
+			ach_cry_despaired = "Despaired",
+			ach_cry_decked = "Decked",
 		},
 		achievement_descriptions = {
 			ach_cry_ace_in_crash = 'check_for_unlock({type = "ace_in_crash"})',
@@ -4667,6 +4680,10 @@ return {
 			ach_cry_pin = "Lose a run to The Pin",
 			ach_cry_technically_positive = "Obtain a Negative Negative Joker",
 			ach_cry_youre_fucking_kidding = "Discard " .. localize("cry_WholeDeck", "poker_hands"),
+			ach_cry_stoned = "Get " .. localize("cry_Bulwark", "poker_hands") .. " to level 420",
+			ach_cry_fucked = "Get " .. localize("cry_Clusterfuck", "poker_hands") .. " to level 69",
+			ach_cry_stoned = "Get " .. localize("cry_UltPair", "poker_hands") .. " to level 2222",
+			ach_cry_stoned = "Get " .. localize("cry_WholeDeck", "poker_hands") .. " to level 5252",
 		},
 		challenge_names = {
 			c_cry_ballin = "Ballin'",
@@ -4782,6 +4799,7 @@ return {
 			cry_again_q = "Again?",
 			cry_curse = "Curse",
 			cry_curse_ex = "Curse!",
+			cry_demicolon = "Demitrigger!",
 			cry_sobbing = "Help me...",
 			cry_gaming = "Gaming",
 			cry_gaming_ex = "Gaming!",
