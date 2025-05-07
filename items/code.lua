@@ -2809,7 +2809,8 @@ local function_sticker = { -- TODO write this
 	-- 	}
 	-- end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = {
+		return {
+			vars = {
 				(G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[1],
 				(G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[2],
 				(G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[3],
@@ -4967,8 +4968,8 @@ local code_cards = {
 	assemble,
 	inst,
 	revert,
-	cryfunction, 
-	function_sticker, 
+	cryfunction,
+	function_sticker,
 	run,
 	class,
 	global,
