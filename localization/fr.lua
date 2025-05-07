@@ -413,7 +413,7 @@ return {
 				},
 			},
 			bl_cry_greed = {
-				name = "La Grille",
+				name = "L'Avarice",
 				text = {
 					"+#2# à la taille de la blinde pour",
 					"chaque $#1# lorsqu'elle est sélectionnée",
@@ -429,9 +429,9 @@ return {
 			bl_cry_scorch = {
 				name = "La Grille",
 				text = {
-					"Must play 5 cards,",
-					"destroy played and",
-					"discarded cards",
+					"5 cartes doivent être jouées,",
+					"toutes les cartes jouées",
+					"et défaussées sont détruites",
 				},
 			},
 			bl_cry_sapphire_stamp = {
