@@ -765,31 +765,30 @@ local decision = {
 	order = 22,
 	boss_colour = HEX("474931"),
 	get_loc_debuff_text = function(self)
-		return localize('cry_blind_baneful_pack')
+		return localize("cry_blind_baneful_pack")
 	end,
 	calculate = function(self, blind, context)
 		if context.discard and not G.GAME.blind.disabled and not G.GAME.cry_fastened then
-			--visual cue to wiggle all jokers 
+			--visual cue to wiggle all jokers
 			G.GAME.cry_fastened = true
 			if G.jokers.cards then
 				G.GAME.blind:wiggle()
 				G.GAME.blind.triggered = true
-				for i,v in pairs(G.jokers.cards) do
-					v:juice_up(0,0.25)
+				for i, v in pairs(G.jokers.cards) do
+					v:juice_up(0, 0.25)
 				end
 			end
-			
 		end
 	end,
 	cry_before_play = function(self)
 		if not G.GAME.blind.disabled and not G.GAME.cry_fastened then
-			--visual cue to wiggle all jokers 
+			--visual cue to wiggle all jokers
 			G.GAME.cry_fastened = true
 			if G.jokers.cards then
 				G.GAME.blind:wiggle()
 				G.GAME.blind.triggered = true
-				for i,v in pairs(G.jokers.cards) do
-					v:juice_up(0,0.25)
+				for i, v in pairs(G.jokers.cards) do
+					v:juice_up(0, 0.25)
 				end
 			end
 		end
@@ -804,7 +803,7 @@ local decision = {
 		--4 cursed Jokers
 		--1 "tarot" to banish the rightmost joker
 		G.E_MANAGER:add_event(Event({
-			trigger = 'before',
+			trigger = "before",
 			func = function()
 				local key = "p_cry_baneful_1"
 				local card = Card(
@@ -824,7 +823,6 @@ local decision = {
 				return true
 			end,
 		}))
-		
 	end,
 	disable = function(self, silent)
 		G.GAME.cry_fastened = nil

@@ -2240,10 +2240,12 @@ local baneful1 = {
 		if G.jokers and (#G.jokers.cards == 0 or not G.jokers.cards) then
 			return true
 		end
-		--For loop that iterates from right to left, breaking and returning false if finding the rightmost valid noneternal or cursed Joker 
+		--For loop that iterates from right to left, breaking and returning false if finding the rightmost valid noneternal or cursed Joker
 		if G.jokers and G.jokers.cards then
-			for i = #G.jokers.cards,1,-1 do
-				if not (G.jokers.cards[i].ability.eternal or G.jokers.cards[i].config.center.rarity == 'cry_cursed') then
+			for i = #G.jokers.cards, 1, -1 do
+				if
+					not (G.jokers.cards[i].ability.eternal or G.jokers.cards[i].config.center.rarity == "cry_cursed")
+				then
 					return false
 				end
 			end

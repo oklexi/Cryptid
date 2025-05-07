@@ -167,8 +167,11 @@ local pointer = {
 				current_card = nil
 			end
 			--if enhancement has a suit or rank override, override above and make nil, so it can proceed with playing card creation
-			if current_card ~= nil and string.sub(current_card, 1, 1) == 'm' then
-				if G.P_CENTERS[current_card] and G.P_CENTERS[current_card].specific_suit or  G.P_CENTERS[current_card].specific_rank then
+			if current_card ~= nil and string.sub(current_card, 1, 1) == "m" then
+				if
+					G.P_CENTERS[current_card] and G.P_CENTERS[current_card].specific_suit
+					or G.P_CENTERS[current_card].specific_rank
+				then
 					current_card = nil
 				end
 			end
@@ -400,7 +403,7 @@ local pointer = {
 					{ "Q", "Queen" },
 					{ "K", "King" },
 					{ "A", "Ace", "One", "1", "I" },
-					{ "Abstract","Abstracted","TADC"},
+					{ "Abstract", "Abstracted", "TADC" },
 				} -- ty variable
 				local _rank = nil
 				for m = #words, 1, -1 do -- the legendary TRIPLE LOOP, checking from end since rank is most likely near the end
@@ -595,7 +598,11 @@ local pointer = {
 								_card:set_ability(G.P_CENTERS["m_stone"])
 							end
 							--Abstracted
-							if _rank == 15 or string.lower(_suit) == "abstract" or string.lower(_suit) == "abstracted" then
+							if
+								_rank == 15
+								or string.lower(_suit) == "abstract"
+								or string.lower(_suit) == "abstracted"
+							then
 								_card:set_ability(G.P_CENTERS["m_cry_abstract"])
 							end
 							if _seal ~= "" then

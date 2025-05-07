@@ -1475,18 +1475,20 @@ G.FUNCS.skip_booster = function(e)
 		c = G.jokers.cards[#G.jokers.cards] --fallback to rightmost if somehow, you skipped without disabling and its unskippable.
 		--Iterate backwards to get the rightmost valid (non eternal or cursed) Joker
 		if G.jokers and G.jokers.cards then
-			for i = #G.jokers.cards,1,-1 do
-				if not (G.jokers.cards[i].ability.eternal or G.jokers.cards[i].config.center.rarity == 'cry_cursed') then
+			for i = #G.jokers.cards, 1, -1 do
+				if
+					not (G.jokers.cards[i].ability.eternal or G.jokers.cards[i].config.center.rarity == "cry_cursed")
+				then
 					c = G.jokers.cards[i]
 					break
 				end
 			end
 		end
-		
+
 		if c.config.center.rarity == "cry_exotic" then
 			check_for_unlock({ type = "what_have_you_done" })
 		end
-	
+
 		G.GAME.cry_banished_keys[c.config.center.key] = true
 		if G.GAME.blind then
 			G.GAME.blind:wiggle()
@@ -1499,8 +1501,17 @@ end
 
 --Overriding the skip booster function.
 G.FUNCS.can_skip_booster = function(e)
-	if G.pack_cards and (not (G.GAME.STOP_USE and G.GAME.STOP_USE > 0)) and
-	(G.STATE == G.STATES.SMODS_BOOSTER_OPENED or G.STATE == G.STATES.PLANET_PACK or G.STATE == G.STATES.STANDARD_PACK or G.STATE == G.STATES.BUFFOON_PACK or (G.hand  )) then 
+	if
+		G.pack_cards
+		and not (G.GAME.STOP_USE and G.GAME.STOP_USE > 0)
+		and (
+			G.STATE == G.STATES.SMODS_BOOSTER_OPENED
+			or G.STATE == G.STATES.PLANET_PACK
+			or G.STATE == G.STATES.STANDARD_PACK
+			or G.STATE == G.STATES.BUFFOON_PACK
+			or G.hand
+		)
+	then
 		--if a booster is unskippable (when its unskippable conditionsa re fulfilled), unhighlight it
 		local obj = SMODS.OPENED_BOOSTER.config.center
 		if obj.unskippable and type(obj.unskippable) == "function" then
@@ -1509,14 +1520,14 @@ G.FUNCS.can_skip_booster = function(e)
 				e.config.button = nil
 			else
 				e.config.colour = G.C.GREY
-				e.config.button = 'skip_booster'
+				e.config.button = "skip_booster"
 			end
 		else
 			e.config.colour = G.C.GREY
-			e.config.button = 'skip_booster'
+			e.config.button = "skip_booster"
 		end
 	else
-	e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-	e.config.button = nil
+		e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+		e.config.button = nil
 	end
 end
