@@ -571,7 +571,7 @@ return {
 				name = "HOOK://",
 				text = {
 					"Apply {C:cry_code}Hooked{} to",
-					"two selected jokers",
+					"2 selected Jokers",
 				},
 			},
 			c_cry_inst = {
