@@ -56,6 +56,21 @@ position = "before"
 payload = "if self.ability.set == 'Enhanced' then self.ability.consumeable = nil end"
 match_indent = true
 
+# Remove CCD from enhanced cards
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''if center.consumeable then 
+	self.ability.consumeable = center.config
+end'''
+position = "at"
+payload = '''if center.consumeable then 
+	self.ability.consumeable = center.config
+else
+	self.ability.consumeable = nil
+end'''
+match_indent = true
+
 # ui, ui, ui
 [[patches]]
 [patches.pattern]
