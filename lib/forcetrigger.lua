@@ -71,26 +71,26 @@ function Cryptid.forcetrigger(card, context)
 			results = { jokers = { mult_mod = card.ability.t_mult, card = card } }
 		end
 		if card.ability.name == "Sly Joker" then
-			results = { jokers = { mult_mod = card.ability.t_chips, card = card } }
+			results = { jokers = { chips = card.ability.t_chips, card = card } }
 		end
 		if card.ability.name == "Wily Joker" then
-			results = { jokers = { mult_mod = card.ability.t_chips, card = card } }
+			results = { jokers = { chips = card.ability.t_chips, card = card } }
 		end
 		if card.ability.name == "Clever Joker" then
-			results = { jokers = { mult_mod = card.ability.t_chips, card = card } }
+			results = { jokers = { chips = card.ability.t_chips, card = card } }
 		end
 		if card.ability.name == "Devious Joker" then
-			results = { jokers = { mult_mod = card.ability.t_chips, card = card } }
+			results = { jokers = { chips = card.ability.t_chips, card = card } }
 		end
 		if card.ability.name == "Crafty Joker" then
-			results = { jokers = { mult_mod = card.ability.t_chips, card = card } }
+			results = { jokers = { chips = card.ability.t_chips, card = card } }
 		end
 		-- page 2
 		if card.ability.name == "Half Joker" then
 			results = { jokers = { mult_mod = card.ability.extra.mult, card = card } }
 		end
 		if card.ability.name == "Joker Stencil" then
-			results = { jokers = { mult_mod = card.ability.x_mult, card = card } }
+			results = { jokers = { Xmult_mod = card.ability.x_mult, card = card } }
 		end
 		-- if card.ability.name == "Four Fingers" then results = { jokers = { }, } end
 		-- if card.ability.name == "Mime" then results = { jokers = { }, } end
@@ -156,7 +156,7 @@ function Cryptid.forcetrigger(card, context)
 			}))
 		end
 		if card.ability.name == "Loyalty Card" then
-			results = { jokers = { mult_mod = card.ability.extra.Xmult, card = card } }
+			results = { jokers = { Xmult_mod = card.ability.extra.Xmult, card = card } }
 		end
 		if card.ability.name == "8 Ball" then
 			G.E_MANAGER:add_event(Event({
@@ -180,7 +180,7 @@ function Cryptid.forcetrigger(card, context)
 		end
 		-- if card.ability.name == "Chaos the Clown" then results = { jokers = { }, } end
 		-- page 3
-		if card.ability.name == "Fibonnaci" then
+		if card.ability.name == "Fibonacci" then
 			results = { jokers = { mult_mod = card.ability.extra, card = card } }
 		end
 		if card.ability.name == "Steel Joker" then
@@ -266,7 +266,7 @@ function Cryptid.forcetrigger(card, context)
 		end
 		if card.ability.name == "Ice Cream" then
 			card.ability.extra.chips = card.ability.extra.chips - card.ability.extra.chip_mod
-			results = { jokers = { mult_mod = card.ability.extra.chips, card = card } }
+			results = { jokers = { chips = card.ability.extra.chips, card = card } }
 			if card.ability.extra.chips - card.ability.extra.chip_mod <= 0 then
 				G.E_MANAGER:add_event(Event({
 					trigger = "after",
@@ -671,7 +671,7 @@ function Cryptid.forcetrigger(card, context)
 			results = { jokers = { mult_mod = card.ability.mult, card = card } }
 		end
 		if card.ability.name == "Spare Trousers" then
-			card.ability.mult = card.ability.mult - card.ability.extra
+			card.ability.mult = card.ability.mult + card.ability.extra
 			results = { jokers = { mult_mod = card.ability.mult, card = card } }
 		end
 		if card.ability.name == "Ancient Joker" then
@@ -828,7 +828,7 @@ function Cryptid.forcetrigger(card, context)
 			ease_dollars(card.ability.extra * planets_used or 1)
 		end
 		if card.ability.name == "Shoot The Moon" then
-			results = { jokers = { mult_mod = 13, card = card } }
+			results = { jokers = { mult_mod = card.ability.extra, card = card } }
 		end
 		if card.ability.name == "Driver's License" then
 			results = { jokers = { Xmult_mod = card.ability.extra, card = card } }
