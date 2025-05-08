@@ -3889,12 +3889,12 @@ local delete = {
 			c = G.shop_jokers.highlighted[1]
 		end
 		if G.shop_booster.highlighted[1] then
-			_p = not not G.shop_jokers.highlighted[1].base.value
+			_p = not not G.shop_booster.highlighted[1].base.value
 			a = G.shop_booster
 			c = G.shop_booster.highlighted[1]
 		end
 		if G.shop_vouchers.highlighted[1] then
-			_p = not not G.shop_jokers.highlighted[1].base.value
+			_p = not not G.shop_vouchers.highlighted[1].base.value
 			a = G.shop_vouchers
 			c = G.shop_vouchers.highlighted[1]
 			if c.shop_voucher then
