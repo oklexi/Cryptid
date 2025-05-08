@@ -86,7 +86,7 @@ pattern = '''G.STATE = G.STATES.ROUND_EVAL
                         G.STATE_COMPLETE = false'''
 position = "before"
 payload = '''
-if G.GAME.blind.config.blind.cry_before_cash and not G.GAME.blind.disabled then
+if G.GAME.blind.config.blind.cry_before_cash() and not G.GAME.blind.disabled then
 	G.STATE = G.STATES.CRY_MAKE_A_DECISION
 	G.STATE_COMPLETE = false
 	
