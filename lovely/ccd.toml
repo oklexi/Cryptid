@@ -64,7 +64,8 @@ pattern = '''if center.consumeable then
 	self.ability.consumeable = center.config
 end'''
 position = "after"
-payload = '''else
+payload = '''
+else
 	self.ability.consumeable = nil
 end'''
 match_indent = true
