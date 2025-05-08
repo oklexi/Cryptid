@@ -249,7 +249,7 @@ local tax = {
 	key = "tax",
 	pos = { x = 0, y = 0 },
 	boss = {
-		min = 1,
+		min = 2,
 		max = 10,
 	},
 	atlas = "blinds",
@@ -327,7 +327,7 @@ local clock = {
 	pos = { x = 0, y = 1 },
 	mult = 0,
 	boss = {
-		min = 1,
+		min = 2,
 		max = 10,
 	},
 	config = {
@@ -758,7 +758,7 @@ local decision = {
 	pos = { x = 0, y = 20 },
 	dollars = 5,
 	boss = {
-		min = 1,
+		min = 4,
 		max = 666666,
 	},
 	atlas = "blinds",
