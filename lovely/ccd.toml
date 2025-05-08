@@ -66,7 +66,7 @@ position = "after"
 payload = '''
 else
 	self.ability.consumeable = nil
-end'''
+ '''
 match_indent = true
 
 # ui, ui, ui
