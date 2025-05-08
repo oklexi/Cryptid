@@ -2452,8 +2452,7 @@ local hooked = { -- When a joker is naturally triggered, force-trigger the hooke
 		if context.post_trigger and not context.forcetrigger and not context.other_context.forcetrigger then
 			for i = 1, #G.jokers.cards do
 				if
-					G.jokers.cards[i] == context.other_card
-					and context.other_card.ability.cry_hook_id == card.sort_id
+					G.jokers.cards[i].cry_hook_id == card.sort_id
 				then
 					Cryptid.forcetrigger(card, context)
 				end
