@@ -1783,7 +1783,7 @@ local monopoly_money = {
 		if context.selling_self and not context.blueprint_card and not context.retrigger_joker then
 			G.E_MANAGER:add_event(Event({
 				func = function()
-					ease_dollars(math.floor(-0.5 * G.GAME.dollars))
+					ease_dollars(math.floor(0.5 * G.GAME.dollars - G.GAME.dollars))
 					return true
 				end,
 			}))
@@ -1792,7 +1792,7 @@ local monopoly_money = {
 		if context.forcetrigger then
 			G.E_MANAGER:add_event(Event({
 				func = function()
-					ease_dollars(math.floor(-0.5 * G.GAME.dollars))
+					ease_dollars(math.floor(0.5 * G.GAME.dollars - G.GAME.dollars))
 					return true
 				end,
 			}))
