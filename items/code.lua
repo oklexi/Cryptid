@@ -2719,13 +2719,18 @@ local cryfunction =
 		cost = 4,
 		order = 19,
 		loc_vars = function(self, info_queue, card)
+			lclze = function(index)
+				local func_card = (G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[index]
+				if not func_card then return "None" end
+				return localize({type = "name_text", set = func_card.ability.set, key = func_card.config.center_key})
+			end
 			info_queue[#info_queue + 1] = {
 				key = "cry_function_sticker_desc",
 				set = "Other",
 				vars = {
-					(G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[1],
-					(G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[2],
-					(G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[3],
+					lclze(1),
+					lclze(2),
+					lclze(3),
 				},
 			}
 		end,
@@ -2768,7 +2773,7 @@ local cryfunction =
 								nil,
 								nil,
 								nil,
-								G.GAME.cry_function_cards[1],
+								G.GAME.cry_function_cards[1].config.center_key,
 								"cry_cryfunction"
 							)
 							new_card:add_to_deck()
@@ -2814,11 +2819,16 @@ local function_sticker = { -- TODO write this
 	-- 	}
 	-- end,
 	loc_vars = function(self, info_queue, card)
+		lclze = function(index)
+			local func_card = (G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[index]
+			if not func_card then return "None" end
+			return localize({type = "name_text", set = func_card.ability.set, key = func_card.config.center_key})
+		end
 		return {
 			vars = {
-				(G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[1],
-				(G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[2],
-				(G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[3],
+				lclze(1),
+				lclze(2),
+				lclze(3),
 			},
 		}
 	end,

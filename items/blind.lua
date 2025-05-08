@@ -1505,11 +1505,18 @@ local obsidian_orb = {
 		end
 	end,
 	cry_before_cash = function(self)
+		local decision_made = false
 		for k, _ in pairs(G.GAME.defeated_blinds) do
 			s = G.P_BLINDS[k]
 			if s.cry_before_cash then
+				decision_made = true
 				s:cry_before_cash()
 			end
+		end
+		if not decision_made then
+			G.GAME.cry_make_a_decision = nil
+            G.STATE = G.STATES.ROUND_EVAL
+            G.STATE_COMPLETE = false
 		end
 	end,
 	get_loc_debuff_text = function(self)
