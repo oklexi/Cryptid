@@ -674,39 +674,52 @@ local aliases = {
 	},
 	j_zany = {
 		"Zany Joker",
+		"Zany",
 	},
 	j_mad = {
 		"Mad Joker",
+		"Mad",
 	},
 	j_crazy = {
 		"Crazy Joker",
+		"Crazy",
 	},
 	j_droll = {
 		"Droll Joker",
+		"Droll",
 	},
 	j_sly = {
 		"Sly Joker",
+		"Sly",
 	},
 	j_wily = {
 		"Wily Joker",
+		"Wily",
 	},
 	j_clever = {
 		"Clever Joker",
+		"Clever",
 	},
 	j_devious = {
 		"Devious Joker",
+		"Devious",
 	},
 	j_crafty = {
 		"Crafty Joker",
+		"Crafty",
 	},
 	j_half = {
 		"Half Joker",
+		"Semi Joker",
 	},
 	j_stencil = {
 		"Joker Stencil",
 	},
 	j_four_fingers = {
 		"Four Fingers",
+		"4 Fingers",
+		"Fourfingers",
+		"4fingers",
 	},
 	j_mime = {
 		"Mime",
@@ -716,6 +729,7 @@ local aliases = {
 	},
 	j_ceremonial = {
 		"Ceremonial Dagger",
+		"Dagger",
 	},
 	j_banner = {
 		"Banner",
@@ -732,6 +746,9 @@ local aliases = {
 	},
 	j_8_ball = {
 		"8 Ball",
+		"8-Ball",
+		"Eight Ball",
+		"Eightball",
 	},
 	j_misprint = {
 		"Misprint",
@@ -768,6 +785,7 @@ local aliases = {
 	j_pareidolia = {
 		"Pareidolia",
 		"All Face Cards",
+		"Pariedolia",
 	},
 	j_gros_michel = {
 		"Gros Michel",
@@ -831,6 +849,7 @@ local aliases = {
 	},
 	j_sixth_sense = {
 		"Sixth Sense",
+		"6th Sense",
 	},
 	j_constellation = {
 		"Constellation",
@@ -843,12 +862,15 @@ local aliases = {
 	},
 	j_green_joker = {
 		"Green Joker",
+		"Grimbo",
 	},
 	j_superposition = {
 		"Superposition",
 	},
 	j_todo_list = {
 		"To Do List",
+		"Todo List",
+		"To-Do List",
 	},
 	j_cavendish = {
 		"Cavendish",
@@ -983,6 +1005,7 @@ local aliases = {
 	},
 	j_ancient = {
 		"Ancient Joker",
+		"Anceint Joker",
 	},
 	j_ramen = {
 		"Ramen",
@@ -1174,6 +1197,8 @@ local aliases = {
 		"Emperor",
 	},
 	c_heirophant = {
+		"The Hierophant",
+		"Hierophant",
 		"The Heirophant",
 		"Heirophant",
 	},
@@ -1207,6 +1232,7 @@ local aliases = {
 		"The Hanged Man",
 		"Hanged Man",
 		"Hang Man",
+		"Hung Man",
 	},
 	c_death = {
 		"Death",
@@ -2139,8 +2165,8 @@ local aliases = {
 		"Random Hand",
 	},
 	c_cry_sunplanet = {
-		"Sun",
 		"Sol",
+		"Sun Planet",
 		"Ascended Hands",
 		"Ascended Hand",
 	},
@@ -2175,7 +2201,61 @@ local aliases = {
 	},
 
 	-- Cryptid Spectrals
-	-- magic placeholder
+	c_cry_lock = {
+		"Lock",
+	},
+	c_cry_vacuum = {
+		"Vacuum",
+	},
+	c_cry_hammerspace = {
+		"Hammerspace",
+		"CCD",
+	},
+	c_cry_trade = {
+		"Trade",
+	},
+	c_cry_summoning = {
+		"Summoning",
+	},
+	c_cry_replica = {
+		"Replica",
+	},
+	c_cry_analog = {
+		"Analog",
+	},
+	c_cry_typhoon = {
+		"Typhoon",
+		"Azure Seal"
+	},
+	c_cry_ritual = {
+		"Ritual",
+	},
+	c_cry_adversary = {
+		"Adversary",
+	},
+	c_cry_chambered = {
+		"Chambered",
+	},
+	c_cry_conduit = {
+		"Conduit",
+	},
+	c_cry_white_hole = {
+		"White Hole",
+	},
+	c_cry_gateway = {
+		"Gateway",
+		"Exotic",
+	},
+	c_cry_source = {
+		"Source",
+		"Green Seal",
+	},
+	c_cry_pointer = {
+		"Pointer",
+		"Pointer://",
+		"://Pointer",
+		"self"
+	},
 
 	-- Cryptid Unique Consumeables
 	-- probably not going to be used ever
