@@ -61,8 +61,7 @@ match_indent = true
 [patches.pattern]
 target = "card.lua"
 pattern = '''if center.consumeable then 
-	self.ability.consumeable = center.config
-end'''
+	self.ability.consumeable = center.config'''
 position = "after"
 payload = '''
 else
