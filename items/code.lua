@@ -2428,15 +2428,15 @@ local hooked = { -- When a joker is naturally triggered, force-trigger the hooke
 	order = 606,
 	loc_vars = function(self, info_queue, card)
 		local var
-		if not card or not card.cry_hook_id then
+		if not card or not card.ability.cry_hook_id then
 			var = "[" .. localize("k_joker") .. "]"
 		else
 			for i = 1, #G.jokers.cards do
-				if G.jokers.cards[i].sort_id == card.cry_hook_id then
+				if G.jokers.cards[i].sort_id == card.ability.cry_hook_id then
 					var = G.jokers.cards[i]
 				end
 			end
-			var = var or ("[no joker found - " .. (card.cry_hook_id or "nil") .. "]")
+			var = var or ("[no joker found - " .. (card.ability.cry_hook_id or "nil") .. "]")
 		end
 		return { vars = { var or "hooked Joker" } }
 	end,
@@ -2451,7 +2451,7 @@ local hooked = { -- When a joker is naturally triggered, force-trigger the hooke
 	calculate = function(self, card, context)
 		if context.post_trigger and not context.forcetrigger and not context.other_context.forcetrigger then
 			for i = 1, #G.jokers.cards do
-				if G.jokers.cards[i].cry_hook_id == card.sort_id then
+				if G.jokers.cards[i].ability.cry_hook_id == card.sort_id then
 					Cryptid.forcetrigger(card, context)
 				end
 			end
