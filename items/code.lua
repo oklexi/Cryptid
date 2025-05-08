@@ -2721,8 +2721,10 @@ local cryfunction =
 		loc_vars = function(self, info_queue, card)
 			lclze = function(index)
 				local func_card = (G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[index]
-				if not func_card then return "None" end
-				return localize({type = "name_text", set = func_card.ability.set, key = func_card.config.center_key})
+				if not func_card then
+					return "None"
+				end
+				return localize({ type = "name_text", set = func_card.ability.set, key = func_card.config.center_key })
 			end
 			info_queue[#info_queue + 1] = {
 				key = "cry_function_sticker_desc",
@@ -2821,8 +2823,10 @@ local function_sticker = { -- TODO write this
 	loc_vars = function(self, info_queue, card)
 		lclze = function(index)
 			local func_card = (G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[index]
-			if not func_card then return "None" end
-			return localize({type = "name_text", set = func_card.ability.set, key = func_card.config.center_key})
+			if not func_card then
+				return "None"
+			end
+			return localize({ type = "name_text", set = func_card.ability.set, key = func_card.config.center_key })
 		end
 		return {
 			vars = {

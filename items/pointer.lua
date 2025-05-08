@@ -2156,7 +2156,7 @@ local aliases = {
 		"Wonka Bar",
 		"Wonka",
 	},
-	
+
 	-- Cursed Jokers
 	j_cry_blacklist = {
 		"Blacklist",
@@ -2295,7 +2295,7 @@ local aliases = {
 	},
 	c_cry_typhoon = {
 		"Typhoon",
-		"Azure Seal"
+		"Azure Seal",
 	},
 	c_cry_ritual = {
 		"Ritual",
@@ -2324,7 +2324,7 @@ local aliases = {
 		"Pointer",
 		"Pointer://",
 		"://Pointer",
-		"self"
+		"self",
 	},
 
 	-- Cryptid Unique Consumeables
