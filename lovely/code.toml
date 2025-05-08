@@ -213,7 +213,7 @@ if not G.GAME.modifiers.cry_beta then -- function code + fallback
 					nil,
 					nil,
 					nil,
-					G.GAME.cry_function_cards[2],
+					G.GAME.cry_function_cards[2].key,
 					"cry_cryfunction"
 				)
 				new_card:add_to_deck()
@@ -234,7 +234,7 @@ if not G.GAME.modifiers.cry_beta then -- function code + fallback
 					nil,
 					nil,
 					nil,
-					G.GAME.cry_function_cards[3],
+					G.GAME.cry_function_cards[3].key,
 					"cry_cryfunction"
 				)
 				new_card:add_to_deck()
