@@ -2110,13 +2110,83 @@ local aliases = {
 	},
 
 	-- SpOoOky jokers
-	-- placeholder
-
+	j_cry_cotton_candy = {
+		"Cotton Candy",
+	},
+	j_cry_wrapped = {
+		"Wrapped Candy",
+	},
+	j_cry_chocolate_dice = {
+		"Chocolate Dice",
+		"Chocolate Die",
+		"Choco Dice",
+		"Choco Die",
+	},
+	j_cry_trick_or_treat = {
+		"Trick or Treat",
+		"Trickortreat",
+		"Trick-or-Treat",
+	},
+	j_cry_candy_basket = {
+		"Candy Basket",
+	},
+	j_cry_candy_dagger = {
+		"Candy Dagger",
+	},
+	j_cry_candy_cane = {
+		"Candy Cane",
+	},
+	j_cry_candy_buttons = {
+		"Candy Buttons",
+	},
+	j_cry_jawbreaker = {
+		"Jawbreaker",
+	},
+	j_cry_mellowcreme = {
+		"Mellowcreme",
+		"Mellowcream",
+	},
+	j_cry_brittle = {
+		"Brittle Candy",
+	},
+	j_cry_candy_sticks = {
+		"Candy Sticks",
+	},
+	j_cry_wonka_bar = {
+		"Wonka Bar",
+		"Wonka",
+	},
+	
 	-- Cursed Jokers
-	-- for some reason
+	j_cry_blacklist = {
+		"Blacklist",
+	},
+	j_cry_monopoly_money = {
+		"Monopoly Money",
+		"Monopoly",
+	},
 
 	-- Code Jokers (not code cards)
-	-- placeholder
+	j_cry_CodeJoker = {
+		"Code Joker",
+		"Codejoker",
+	},
+	j_cry_copypaste = {
+		"Copy Paste",
+		"Copy-Paste",
+		"Copy/Paste",
+		"Copypaste",
+		"Copypasta",
+	},
+	j_cry_cut = {
+		"Cut",
+	},
+	j_cry_blender = {
+		"Blender",
+	},
+	j_cry_python = {
+		"Python",
+	},
 
 	-- Secret Placeholder 1
 	-- Smaller Placeholder
