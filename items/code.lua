@@ -2368,7 +2368,6 @@ local hook = { -- Hook://, applies Hooked to two jokers
 	cost = 4,
 	atlas = "atlasnotjokers",
 	order = 14,
-	no_pool_flag = "beta_deck",
 	can_use = function(self, card)
 		if not G.GAME.modifiers.cry_beta then
 			return (#G.jokers.highlighted == 2 and #G.consumeables.highlighted == 1)
@@ -2383,9 +2382,9 @@ local hook = { -- Hook://, applies Hooked to two jokers
 		local card1 = nil
 		local card2 = nil
 		for i = 1, #G.jokers.highlighted do
-			if not card1 and card1 ~= card then
+			if not card1 and G.jokers.highlighted[i] ~= card then
 				card1 = G.jokers.highlighted[i]
-			elseif card2 ~= card then
+			elseif G.jokers.highlighted[i] ~= card then
 				card2 = G.jokers.highlighted[i]
 			end
 		end
@@ -2451,7 +2450,7 @@ local hooked = { -- When a joker is naturally triggered, force-trigger the hooke
 	calculate = function(self, card, context)
 		if context.post_trigger and not context.forcetrigger and not context.other_context.forcetrigger then
 			for i = 1, #G.jokers.cards do
-				if G.jokers.cards[i].ability.cry_hook_id == card.sort_id then
+				if G.jokers.cards[i].sort_id == card.ability.cry_hook_id then
 					Cryptid.forcetrigger(card, context)
 				end
 			end
