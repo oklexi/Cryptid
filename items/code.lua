@@ -2427,15 +2427,15 @@ local hooked = { -- When a joker is naturally triggered, force-trigger the hooke
 	order = 606,
 	loc_vars = function(self, info_queue, card)
 		local var
-		if not card or not card.cry_hook_id then
+		if not card or not card.ability.cry_hook_id then
 			var = "[" .. localize("k_joker") .. "]"
 		else
 			for i = 1, #G.jokers.cards do
 				if G.jokers.cards[i].sort_id == card.ability.cry_hook_id then
-					var = G.jokers.cards[i]
+					var = localize({type = "name_text", set = "Joker", key = G.jokers.cards[i].config.center_key})
 				end
 			end
-			var = var or ("[no joker found - " .. (card.cry_hook_id or "nil") .. "]")
+			var = var or ("[no joker found - " .. (card.ability.cry_hook_id or "nil") .. "]")
 		end
 		return { vars = { var or "hooked Joker" } }
 	end,
@@ -2448,10 +2448,13 @@ local hooked = { -- When a joker is naturally triggered, force-trigger the hooke
 		G.shared_stickers[self.key]:draw_shader("dissolve", nil, nil, nil, card.children.center)
 	end,
 	calculate = function(self, card, context)
-		if context.post_trigger and not context.forcetrigger and not context.other_context.forcetrigger then
+		if context.other_card == card and context.post_trigger and not context.forcetrigger and not context.other_context.forcetrigger then
 			for i = 1, #G.jokers.cards do
 				if G.jokers.cards[i].sort_id == card.ability.cry_hook_id then
-					Cryptid.forcetrigger(card, context)
+					local results = Cryptid.forcetrigger(G.jokers.cards[i], context)
+					if results and results.jokers then
+						return results.jokers
+					end
 				end
 			end
 		end
