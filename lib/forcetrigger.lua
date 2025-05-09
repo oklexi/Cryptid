@@ -823,7 +823,7 @@ function Cryptid.forcetrigger(card, context)
 			ease_dollars(card.ability.extra * planets_used or 1)
 		end
 		if card.ability.name == "Shoot The Moon" then
-			results = { jokers = { mult_mod = card.ability.extra, card = card } }
+			results = { jokers = { mult_mod = 13, card = card } }
 		end
 		if card.ability.name == "Driver's License" then
 			results = { jokers = { Xmult_mod = card.ability.extra, card = card } }

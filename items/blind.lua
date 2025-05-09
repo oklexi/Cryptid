@@ -348,6 +348,8 @@ local clock = {
 	cry_ante_base_mod = function(self, dt)
 		if G.SETTINGS.paused then
 			return 0
+		elseif G.GAME.round == 0 and G.GAME.skips == 0 then
+			return 0
 		else
 			return 0.1 * (dt * math.min(G.SETTINGS.GAMESPEED, 4) / 4) / 3
 		end
