@@ -764,6 +764,8 @@ local aliases = {
 	},
 	j_fibonacci = {
 		"Fibonacci",
+		"Fibbonaci",
+		"Fibonnaci",
 	},
 	j_steel_joker = {
 		"Steel Joker",
