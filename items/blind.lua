@@ -459,6 +459,7 @@ local hammer = {
 		if card.area ~= G.jokers and not G.GAME.blind.disabled then
 			if
 				not SMODS.has_no_rank(card)
+				and not SMODS.has_enhancement(card, "m_cry_abstract")
 				and (
 					card.base.value == "3"
 					or card.base.value == "5"
@@ -494,6 +495,7 @@ local magic = {
 		if card.area ~= G.jokers and not G.GAME.blind.disabled then
 			if
 				not SMODS.has_no_rank(card)
+				and not SMODS.has_enhancement(card, "m_cry_abstract")
 				and (
 					card.base.value == "2"
 					or card.base.value == "4"
