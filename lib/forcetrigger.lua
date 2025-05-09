@@ -19,14 +19,7 @@ function Cryptid.demicolonGetTriggerable(card)
 end
 
 function Cryptid.forcetrigger(card, context)
-	local demicontext = {}
 	local results = {}
-	demicontext.cardarea = context.cardarea or nil
-	demicontext.full_hand = context.full_hand or nil
-	demicontext.scoring_hand = context.scoring_hand or nil
-	demicontext.scoring_name = context.scoring_name or nil
-	demicontext.poker_hands = context.poker_hands or nil
-	demicontext.forcetrigger = true
 	G.E_MANAGER:add_event(Event({
 		trigger = "before",
 		func = function()
@@ -35,6 +28,8 @@ function Cryptid.forcetrigger(card, context)
 		end,
 	}))
 	if not Cryptid.forcetriggerVanillaCheck(card) and card.ability.set == "Joker" then
+		local demicontext = Cryptid.deep_copy(context)
+		demicontext.forcetrigger = true
 		results = eval_card(card, demicontext)
 	elseif card.ability.set == "Joker" then
 		results = {}
@@ -913,7 +908,6 @@ function Cryptid.forcetrigger(card, context)
 			end
 		end
 	end
-	demicontext = nil
 	print(results)
 	return results
 end
