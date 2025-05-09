@@ -31,6 +31,7 @@ function Cryptid.forcetrigger(card, context)
 		local demicontext = Cryptid.deep_copy(context)
 		demicontext.forcetrigger = true
 		results = eval_card(card, demicontext)
+		demicontext = nil
 	elseif card.ability.set == "Joker" then
 		results = {}
 		results.jokers = {}
