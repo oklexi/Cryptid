@@ -232,7 +232,7 @@ function Cryptid.forcetrigger(card, context)
 			results = { jokers = { chips = card.ability.extra.chips, mult_mod = card.ability.extra.mult, card = card } }
 		end
 		if card.ability.name == "Business Card" then
-			ease_dollars(card.ability.extra)
+			ease_dollars(2)
 		end
 		if card.ability.name == "Supernova" then
 			results = { jokers = { mult_mod = G.GAME.hands[context.scoring_name].played, card = card } }
