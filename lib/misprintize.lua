@@ -14,6 +14,7 @@ Cryptid.misprintize_value_blacklist = {
 	d_size = false,
 	h_size = false,
 	selected_d6_face = false,
+	cry_hook_id = false,
 	-- TARGET: Misprintize Value Blacklist (format: key = false, )
 }
 
