@@ -2377,7 +2377,7 @@ return {
 					"gain a random {C:attention}Tag{}",
 				},
 			},
-			j_cry_pity_prize_modest = { 
+			j_cry_pity_prize_modest = {
 				name = "Pity Prize",
 				text = {
 					"On skipping a {C:attention}Booster Pack{},",
