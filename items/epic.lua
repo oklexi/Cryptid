@@ -2439,14 +2439,15 @@ local demicolon = {
 					other_joker = G.jokers.cards[i + 1]
 				end
 			end
-			if other_joker and other_joker ~= card and (Card.no(other_joker, "demicoloncompat", true)) then
-				card.ability.demicoloncompat = "compatible"
+			local m = Cryptid.demicolonGetTriggerable(other_joker)
+			if m[1] then
+				card.ability.demicoloncompat = "Compatible"
 				card.ability.check = true
-			elseif other_joker and other_joker ~= card and Cryptid.forcetriggerVanillaCheck(other_joker) then
-				card.ability.demicoloncompat = "compatible"
+			elseif m[2] then
+				card.ability.demicoloncompat = "Dangerous!"
 				card.ability.check = true
 			else
-				card.ability.demicoloncompat = "incompatible"
+				card.ability.demicoloncompat = "Incompatible"
 				card.ability.check = false
 			end
 		end

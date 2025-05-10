@@ -8,31 +8,41 @@ SMODS.Sound({
 	path = "demitrigger.ogg",
 })
 function Cryptid.demicolonGetTriggerable(card)
-	if Cryptid.forcetriggerVanillaCheck(card) then
-		return true
+	local n = {}
+	if not card then
+		return { false, false }
 	end
 	if card and Card.no(card, "demicoloncompat", true) then
-		return true
+		n[1] = true
 	else
-		return false
+		n[1] = false
 	end
+	if Cryptid.forcetriggerVanillaCheck(card) then
+		n[1] = true
+	end
+	if card.ability.consumeable then
+		n[1] = true
+		n[2] = true
+	end
+	return n
 end
 
 function Cryptid.forcetrigger(card, context)
 	local results = {}
+	local check = Cryptid.forcetriggerVanillaCheck(card)
 	G.E_MANAGER:add_event(Event({
 		trigger = "before",
 		func = function()
-			play_sound("cry_forcetrigger", 1, 1)
+			play_sound("cry_forcetrigger", 1, 0.6)
 			return true
 		end,
 	}))
-	if not Cryptid.forcetriggerVanillaCheck(card) and card.ability.set == "Joker" then
+	if not check and card.ability.set == "Joker" then
 		local demicontext = Cryptid.deep_copy(context)
 		demicontext.forcetrigger = true
 		results = eval_card(card, demicontext)
 		demicontext = nil
-	elseif card.ability.set == "Joker" then
+	elseif check and card.ability.set == "Joker" then
 		results = {}
 		results.jokers = {}
 		-- page 1
@@ -908,8 +918,9 @@ function Cryptid.forcetrigger(card, context)
 				}))
 			end
 		end
+	elseif card.ability.consumeable then
+		card:use_consumeable()
 	end
-	print(results)
 	return results
 end
 
