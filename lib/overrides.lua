@@ -1353,7 +1353,7 @@ function set_consumeable_usage(card)
 		G.GAME.cry_function_stupid_workaround[i] = G.GAME.cry_last_used_consumeables[i]
 	end
 	local nextindex = #G.GAME.cry_last_used_consumeables + 1
-	G.GAME.cry_last_used_consumeables[nextindex] = card
+	G.GAME.cry_last_used_consumeables[nextindex] = card.config.center_key
 	if nextindex > 3 then
 		table.remove(G.GAME.cry_last_used_consumeables, 1)
 	end
