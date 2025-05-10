@@ -9,7 +9,9 @@ SMODS.Sound({
 })
 function Cryptid.demicolonGetTriggerable(card)
 	local n = {}
-	if not card then return { false, false } end
+	if not card then
+		return { false, false }
+	end
 	if card and Card.no(card, "demicoloncompat", true) then
 		n[1] = true
 	else
@@ -917,7 +919,7 @@ function Cryptid.forcetrigger(card, context)
 			end
 		end
 	elseif card.ability.consumeable then
-			card:use_consumeable()
+		card:use_consumeable()
 	end
 	return results
 end
