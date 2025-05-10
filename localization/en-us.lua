@@ -284,7 +284,8 @@ return {
 				name = "The Clock",
 				text = {
 					"+0.1X blind requirements every",
-					"12 seconds spent this ante",
+					"12 seconds spent this ante,",
+					"multiplied by game speed",
 				},
 			},
 			bl_cry_hammer = {
@@ -312,7 +313,8 @@ return {
 				name = "Lavender Loop",
 				text = {
 					"1.25X blind requirements every",
-					"6 seconds spent this round",
+					"6 seconds spent this round,",
+					"multiplied by game speed",
 				},
 			},
 			bl_cry_obsidian_orb = {
@@ -396,6 +398,13 @@ return {
 					"discarded cards",
 				},
 			},
+			bl_cry_greed = {
+				name = "The Greed",
+				text = {
+					"+#2# blind requirement",
+					"per $#1# when selected",
+				},
+			},
 			bl_cry_pinkbow = {
 				name = "Pink Bow",
 				text = {
@@ -464,6 +473,14 @@ return {
 				text = {
 					"All Uncommon Jokers",
 					"are debuffed",
+				},
+			},
+			bl_cry_decision = {
+				name = "The Decision",
+				text = {
+					"Fasten Jokers on play or discard",
+					"Open a Baneful Buffoon",
+					"Pack after round",
 				},
 			},
 		},
@@ -553,8 +570,8 @@ return {
 			c_cry_hook = {
 				name = "HOOK://",
 				text = {
-					"To Be {C:cry_code}Implemented{}",
-					"in a future {C:cry_code}update{}",
+					"Apply {C:cry_code}Hooked{} to",
+					"2 selected Jokers",
 				},
 			},
 			c_cry_inst = {
@@ -638,7 +655,7 @@ return {
 			},
 			c_cry_quantify = {
 				name = "://QUANTIFY",
-				text = {
+				text = { -- "{C:cry_code}J{C:cry_exotic}o{C:legendary}k{C:cry_epic}e{C:cry_candy}r{C:rare}i{C:uncommon}z{C:common}e{C:dark_edition}!{} an object",
 					"To Be {C:cry_code}Implemented{}",
 					"in a future {C:cry_code}update{}",
 				},
@@ -875,6 +892,7 @@ return {
 					"{C:green}#1# in #2#{} chance this",
 					"card isn't {C:red}destroyed",
 					"when triggered",
+					"{C:inactive}Unriggable{}",
 				},
 			},
 			e_cry_glitched = {
@@ -946,11 +964,10 @@ return {
 				name = "Abstract Card",
 				text = {
 					"{X:dark_edition,C:white}^#1#{} Mult,",
-					"Counts as it's {C:attention}own{} rank and suit",
-					"{C:green}#2# in #3#{} chance card to",
-					"{C:red,E:2}destroy{} card after scoring",
-					"{C:green}#4# in #5#{} chance card to",
-					"{C:red,E:2}destroy{} card {C:attention}after round",
+					"Counts as its {C:attention}own{} rank and suit",
+					"{C:green}#4# in #5#{} chance to",
+					"{C:red,E:2}destroy{} card when held at",
+					"{C:attention}round end{} or {C:attention}hand played{}",
 				},
 			},
 		},
@@ -996,6 +1013,7 @@ return {
 					"Sell this card to create",
 					"{C:attention}#1#{} cop#<ies,y>1# of the leftmost {C:attention}Joker{}",
 					"{C:inactive,s:0.8}Does not copy Nostalgic Googol Play Cards{}",
+					"{C:inactive}(Must have room){}",
 				},
 			},
 			j_cry_altgoogol_balanced = {
@@ -1450,7 +1468,7 @@ return {
 				text = {
 					"This Joker destroys",
 					"a random {C:cry_code}Code{} card",
-					"and gains {X:mult,C:white} X#1# {} Mult",
+					"to gain {X:mult,C:white} X#1# {} Mult",
 					"at the end of the {C:attention}shop{}",
 					"{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)",
 				},
@@ -1461,6 +1479,13 @@ return {
 					"{C:red}+#1#{} Mult if played",
 					"hand contains",
 					"a {C:attention}#2#",
+				},
+			},
+			j_cry_demicolon = {
+				name = "Demicolon",
+				text = {
+					"{C:attention}Force-trigger{} the joker",
+					"to the right",
 				},
 			},
 			j_cry_digitalhallucinations = {
@@ -2352,6 +2377,14 @@ return {
 					"gain a random {C:attention}Tag{}",
 				},
 			},
+			j_cry_pity_prize_modest = {
+				name = "Pity Prize",
+				text = {
+					"On skipping a {C:attention}Booster Pack{},",
+					"gain a random {C:attention}Tag{}",
+					"{C:red,E:2}Self destructs{}",
+				},
+			},
 			j_cry_pot_of_jokes = {
 				name = "Pot of Jokes",
 				text = {
@@ -2592,6 +2625,15 @@ return {
 					"{C:attention}Abstract{} cards {C:attention}#1#{} time#<s>1#",
 				},
 			},
+			j_cry_brokenhome = {
+				name = "Broken Home",
+				text = {
+					"{X:mult,C:white} X#1# {} Mult",
+					"{C:green}#2# in #3#{} chance this",
+					"card is destroyed",
+					"at end of round",
+				},
+			},
 			j_cry_spaceglobe = {
 				name = "Celestial Globe",
 				text = {
@@ -2637,7 +2679,7 @@ return {
 				text = {
 					"This Joker destroys a",
 					"random {C:planet}Planet{} card",
-					"and gains {X:dark_edition,C:white} ^#1# {} Mult",
+					"to gain {X:dark_edition,C:white} ^#1# {} Mult",
 					"at the end of the {C:attention}shop{}",
 					"{C:inactive}(Currently {X:dark_edition,C:white} ^#2# {C:inactive} Mult)",
 				},
@@ -2915,7 +2957,7 @@ return {
 				unlock = {
 					"Win a run with",
 					"your final hand being",
-					"a {E:1,C:attention}Clusterfuck",
+					"a {E:1,C:attention}#1#",
 				},
 			},
 			j_cry_zooble = {
@@ -4127,6 +4169,8 @@ return {
 				text = {
 					"When this Joker is {C:cry_code}triggered{},",
 					"trigger {C:cry_code}#1#",
+					"{C:inactive}Not all cards can be triggered this way{}",
+					"{C:inactive}but all jokers can trigger the other{}",
 				},
 			},
 			cry_global_sticker = {
@@ -4456,6 +4500,15 @@ return {
 					"up to {C:attention}#2# Meme Joker#<s>2#{}",
 				},
 			},
+			p_cry_baneful_1 = {
+				name = "Baneful Buffoon Pack",
+				text = {
+					"Choose {C:attention}#1#{} of",
+					"up to {C:attention}#2# {X:cry_cursed,C:white}Cursed{} Joker#<s>2#{}",
+					"{C:attention}Skipping{} will {C:red}banish{}",
+					"{C:attention}rightmost{} owned Joker",
+				},
+			},
 			undiscovered_code = {
 				name = "Not Discovered",
 				text = {
@@ -4630,8 +4683,13 @@ return {
 			ach_cry_used_crash = "We Told You Not To",
 			ach_cry_what_have_you_done = "WHAT HAVE YOU DONE?!",
 			ach_cry_pin = "Pin of Shame",
+			ach_cry_technically_positive = "Technically Positive",
 			ach_cry_youre_fucking_kidding = Cryptid_config.family_mode and "You Can't Be Serious"
 				or "You're Fucking Kidding",
+			ach_cry_stoned = "Stoned",
+			ach_cry_fucked = Cryptid_config.family_mode and "Clustered" or "Fucked",
+			ach_cry_despaired = "Despaired",
+			ach_cry_decked = "Decked",
 		},
 		achievement_descriptions = {
 			ach_cry_ace_in_crash = 'check_for_unlock({type = "ace_in_crash"})',
@@ -4655,7 +4713,12 @@ return {
 			ach_cry_used_crash = "Use ://CRASH",
 			ach_cry_what_have_you_done = "Delete or Sacrifice an Exotic Joker",
 			ach_cry_pin = "Lose a run to The Pin",
+			ach_cry_technically_positive = "Obtain a Negative Negative Joker",
 			ach_cry_youre_fucking_kidding = "Discard " .. localize("cry_WholeDeck", "poker_hands"),
+			ach_cry_stoned = "Get " .. localize("cry_Bulwark", "poker_hands") .. " to level 420",
+			ach_cry_fucked = "Get " .. localize("cry_Clusterfuck", "poker_hands") .. " to level 69",
+			ach_cry_stoned = "Get " .. localize("cry_UltPair", "poker_hands") .. " to level 2222",
+			ach_cry_stoned = "Get " .. localize("cry_WholeDeck", "poker_hands") .. " to level 5252",
 		},
 		challenge_names = {
 			c_cry_ballin = "Ballin'",
@@ -4709,6 +4772,8 @@ return {
 
 			k_cry_program_pack = "Program Pack",
 			k_cry_meme_pack = "Meme Pack",
+			k_cry_baneful_pack = "Baneful Buffoon Pack",
+			cry_baneful_warning = "Skipping will Banish rightmost Joker",
 
 			cry_critical_hit_ex = "Critical Hit!",
 			cry_critical_miss_ex = "Critical Miss!",
@@ -4723,6 +4788,7 @@ return {
 			cry_debuff_oldflint = "No Flushes",
 			cry_debuff_oldmark = "No hands containing a Pair",
 			cry_debuff_obsidian_orb = "Applies abilities of all defeated bosses",
+			cry_blind_baneful_pack = "After round, open a Baneful Buffoon Pack",
 
 			cry_tax_placeholder = "(X0.4 blind requirement)",
 			cry_joke_placeholder = "(multiple of 8)",
@@ -4771,6 +4837,7 @@ return {
 			cry_again_q = "Again?",
 			cry_curse = "Curse",
 			cry_curse_ex = "Curse!",
+			cry_demicolon = "Demitrigger!",
 			cry_sobbing = "Help me...",
 			cry_gaming = "Gaming",
 			cry_gaming_ex = "Gaming!",
@@ -4789,6 +4856,7 @@ return {
 			cry_unredeemed = "Unredeemed...",
 			cry_active = "Active",
 			cry_inactive = "Inactive",
+			cry_divorced = "Divorced!",
 
 			k_disable_music = "Disable Music",
 

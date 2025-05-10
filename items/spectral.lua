@@ -560,7 +560,7 @@ local analog = {
 	pos = { x = 3, y = 0 },
 	config = { copies = 2, ante = 1 },
 	loc_vars = function(self, info_queue, center)
-		return { vars = { center.ability.copies, center.ability.ante } }
+		return { vars = { math.min(center.ability.copies, 100), math.min(center.ability.ante, 1e300) } }
 	end,
 	cost = 4,
 	order = 7,
@@ -592,7 +592,7 @@ local analog = {
 				return true
 			end,
 		}))
-		for i = 1, card.ability.copies do
+		for i = 1, math.min(card.ability.copies, 100) do
 			G.E_MANAGER:add_event(Event({
 				trigger = "before",
 				delay = 0.4,
@@ -605,7 +605,7 @@ local analog = {
 				end,
 			}))
 		end
-		ease_ante(card.ability.ante)
+		ease_ante(math.min(card.ability.ante, 1e300))
 	end,
 }
 local typhoon = {
@@ -686,9 +686,7 @@ local summoning = {
 			"AlexZGreat",
 		},
 		art = {
-			--Summoning's sprite takes some parts from an unused sprite by Rattlingsnow so i'm crediting both users
-			"Kailen",
-			"RattlingSnow353",
+			"Nova",
 		},
 		code = {
 			"Jevonn",
@@ -716,8 +714,7 @@ local summoning = {
 		}
 	end,
 	can_use = function(self, card)
-		return #G.jokers.cards > 0
-			and #G.jokers.cards <= G.jokers.config.card_limit
+		return #G.jokers.cards <= G.jokers.config.card_limit
 			--Prevent use if slots are full and all jokers are eternal (would exceed limit)
 			and #Cryptid.advanced_find_joker(nil, nil, nil, { "eternal" }, true, "j") < G.jokers.config.card_limit
 	end,
@@ -879,13 +876,28 @@ local ritual = {
 	pos = { x = 5, y = 1 },
 	can_use = function(self, card)
 		if card.area ~= G.hand then
-			return G.hand and (#G.hand.highlighted == 1) and G.hand.highlighted[1] and not G.hand.highlighted[1].edition
+			local check = true
+			if #G.hand.highlighted > card.ability.max_highlighted then
+				check = nil
+			end
+			if #G.hand.highlighted < 1 then
+				check = nil
+			end
+			for index, card in ipairs(G.hand.highlighted) do
+				if G.hand.highlighted[index].edition then
+					check = nil
+				end
+			end
+			return G.hand and (#G.hand.highlighted <= card.ability.max_highlighted) and check
 		else
 			local idx = 1
-			if G.hand.highlighted[1] == card then
-				idx = 2
+			local check = true
+			for index, card in ipairs(G.hand.highlighted) do
+				if G.hand.highlighted[index].edition and not G.hand.highlighted[index] == card then
+					check = nil
+				end
 			end
-			return (#G.hand.highlighted == 2) and not G.hand.highlighted[idx].edition
+			return G.hand and (#G.hand.highlighted <= (card.ability.max_highlighted + 1)) and check
 		end
 	end,
 	use = function(self, card, area, copier)

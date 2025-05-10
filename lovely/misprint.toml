@@ -60,6 +60,21 @@ if G.GAME.boostertag and G.GAME.boostertag > 0 then
     self.ability.extra = self.ability.extra * 2
     G.GAME.pack_choices = G.GAME.pack_choices * 2
     G.GAME.boostertag = math.max(0, G.GAME.boostertag - 1)
+    if G.GAME.boostertag > 0 then
+    	G.E_MANAGER:add_event(Event({
+		func = function()
+			attention_text({
+				scale = 1,
+				text = localize({ type = "name_text", set = "Tag", key = "tag_cry_booster" }) .. ": " .. localize{type = 'variable', key = ('loyalty_inactive'), vars = {G.GAME.boostertag}},
+				hold = 2,
+				align = "cm",
+				offset = { x = 0, y = -2.7 },
+				major = G.play,
+			})
+			return true
+		end,
+	}))
+    end
 end
 self.ability.extra = math.min(self.ability.extra, 1000)
 G.GAME.pack_choices = math.min(G.GAME.pack_choices, 1000)
@@ -500,5 +515,24 @@ pattern = '''v_planet_tycoon=    {order = 20,     discovered = false, unlocked =
 position = "at"
 payload = '''
 v_planet_tycoon=    {order = 20,     discovered = false, unlocked = false, available = true,cost = 10, name = "Planet Tycoon", pos = {x=2,y=1}, set = "Voucher", config = {extra = 32/9.6, extra_disp = 4}, requires = {'v_planet_merchant'},unlock_condition = {type = 'c_planets_bought', extra = 50}},
+'''
+match_indent = true
+
+#Fix copying jokers with bignum values
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if not strip_edition then "
+position = "before"
+payload = '''
+Cryptid.misprintize_tbl(
+				new_card.config.center_key,
+				new_card,
+				"ability",
+				nil,
+				{min = 1, max = 1},
+				true,
+				Cryptid.is_card_big(new_card)
+			)
 '''
 match_indent = true
