@@ -9033,7 +9033,10 @@ local pity_prize = {
 				tag.ability.orbital_hand = pseudorandom_element(_poker_hands, pseudoseed("cry_pity_prize"))
 			end
 			add_tag(tag)
-			if Card.get_gameset(card) == "modest" and (not context.blueprint and not context.retrigger_joker) or context.forcetrigger then
+			if
+				Card.get_gameset(card) == "modest" and (not context.blueprint and not context.retrigger_joker)
+				or context.forcetrigger
+			then
 				G.E_MANAGER:add_event(Event({
 					func = function()
 						play_sound("tarot1")
