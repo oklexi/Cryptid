@@ -468,7 +468,7 @@ if CardSleeves then
 				local card = context.card
 				local is_spectral_pack = card.ability.set == "Booster" and card.ability.name:find("Spectral")
 				if is_spectral_pack and sleeve.config.spectral_more_options then
-				card.ability.extra = card.ability.extra + sleeve.config.spectral_more_options
+					card.ability.extra = card.ability.extra + sleeve.config.spectral_more_options
 				end
 			end
 			if context.context == "eval" and Cryptid.safe_get(G.GAME, "last_blind", "boss") then
@@ -518,8 +518,8 @@ if CardSleeves then
 		end,
 		apply = function(self)
 			local function get_random() -- borrowed from CardSleeves
-                return pseudorandom("slv", 3, 6)
-            end
+				return pseudorandom("slv", 3, 6)
+			end
 			Cryptid.antimattersleeve_apply()
 			G.E_MANAGER:add_event(Event({
 				func = function()
@@ -574,7 +574,8 @@ if CardSleeves then
 			G.GAME.modifiers.cry_highlight_limit = self.config.cry_highlight_limit + 1
 			G.GAME.modifiers.cry_misprint_min = 1
 			G.GAME.modifiers.cry_misprint_max = (G.GAME.modifiers.cry_misprint_max or 1) * 10
-			G.GAME.modifiers.cry_negative_rate = (G.GAME.modifiers.cry_negative_rate or 1) * self.config.cry_negative_rate
+			G.GAME.modifiers.cry_negative_rate = (G.GAME.modifiers.cry_negative_rate or 1)
+				* self.config.cry_negative_rate
 			G.GAME.modifiers.cry_uncommon_value_quad = true
 			G.GAME.starting_params.discards = G.GAME.starting_params.discards + 1 + get_random()
 			G.GAME.starting_params.dollars = G.GAME.starting_params.dollars + get_random()
@@ -671,8 +672,14 @@ if CardSleeves then
 					--Glowing Deck
 					if
 						(
-								Cryptid.safe_get(G.PROFILES, G.SETTINGS.profile, "deck_usage", "b_cry_glowing", "wins", 1)
-								or 0
+								Cryptid.safe_get(
+									G.PROFILES,
+									G.SETTINGS.profile,
+									"deck_usage",
+									"b_cry_glowing",
+									"wins",
+									1
+								) or 0
 							)
 							~= 0
 						or skip
@@ -732,7 +739,10 @@ if CardSleeves then
 					end
 					--Anaglyph Deck
 					if
-						(Cryptid.safe_get(G.PROFILES, G.SETTINGS.profile, "deck_usage", "b_anaglyph", "wins", 1) or 0)
+						(
+								Cryptid.safe_get(G.PROFILES, G.SETTINGS.profile, "deck_usage", "b_anaglyph", "wins", 1)
+								or 0
+							)
 							~= 0
 						or skip
 					then
@@ -750,97 +760,93 @@ if CardSleeves then
 		end,
 	})
 	function Cryptid.antimattersleeve_apply(skip)
-					G.GAME.starting_params.hands = G.GAME.starting_params.hands + 1
-				-- All Decks with Vouchers (see Cryptid.get_antimatter_vouchers)
-					local vouchers = Cryptid.get_antimattersleeve_vouchers(nil, skip)
-					if #vouchers > 0 then
-						for k, v in pairs(vouchers) do
-							if G.P_CENTERS[v] then
-								G.GAME.used_vouchers[v] = true
-								G.GAME.starting_voucher_count = (G.GAME.starting_voucher_count or 0) + 1
-								G.E_MANAGER:add_event(Event({
-									func = function()
-										Card.apply_to_run(nil, G.P_CENTERS[v])
-										return true
-									end,
-								}))
-							end
-						end
-					end
-					--All Consumables (see Cryptid.get_antimatter_consumables)
-					local querty = Cryptid.get_antimattersleeve_consumables(nil, skip)
-					if #querty > 0 then
-						delay(0.4)
-						G.E_MANAGER:add_event(Event({
-							func = function()
-								for k, v in ipairs(querty) do
-									if G.P_CENTERS[v] then
-										local card = create_card("Tarot", G.consumeables, nil, nil, nil, nil, v, "deck")
-										card:add_to_deck()
-										G.consumeables:emplace(card)
-									end
-								end
-								return true
-							end,
-						}))
-					end
-				end
-			function Cryptid.get_antimattersleeve_vouchers(voucher_table, skip)
-				-- Create a table or use one that is passed into the function
-				if not voucher_table or type(voucher_table) ~= "table" then
-					voucher_table = {}
-				end
-				-- Add Vouchers into the table by key
-				local function already_exists(t, voucher)
-					for _, v in ipairs(t) do
-						if v == voucher then
+		G.GAME.starting_params.hands = G.GAME.starting_params.hands + 1
+		-- All Decks with Vouchers (see Cryptid.get_antimatter_vouchers)
+		local vouchers = Cryptid.get_antimattersleeve_vouchers(nil, skip)
+		if #vouchers > 0 then
+			for k, v in pairs(vouchers) do
+				if G.P_CENTERS[v] then
+					G.GAME.used_vouchers[v] = true
+					G.GAME.starting_voucher_count = (G.GAME.starting_voucher_count or 0) + 1
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							Card.apply_to_run(nil, G.P_CENTERS[v])
 							return true
+						end,
+					}))
+				end
+			end
+		end
+		--All Consumables (see Cryptid.get_antimatter_consumables)
+		local querty = Cryptid.get_antimattersleeve_consumables(nil, skip)
+		if #querty > 0 then
+			delay(0.4)
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					for k, v in ipairs(querty) do
+						if G.P_CENTERS[v] then
+							local card = create_card("Tarot", G.consumeables, nil, nil, nil, nil, v, "deck")
+							card:add_to_deck()
+							G.consumeables:emplace(card)
 						end
 					end
-					return false
+					return true
+				end,
+			}))
+		end
+	end
+	function Cryptid.get_antimattersleeve_vouchers(voucher_table, skip)
+		-- Create a table or use one that is passed into the function
+		if not voucher_table or type(voucher_table) ~= "table" then
+			voucher_table = {}
+		end
+		-- Add Vouchers into the table by key
+		local function already_exists(t, voucher)
+			for _, v in ipairs(t) do
+				if v == voucher then
+					return true
 				end
-				local function Add_voucher_to_the_table(t, voucher)
-					if not already_exists(t, voucher) then
-						table.insert(t, voucher)
-					end
-				end
-				--Yellow Sleeve
-				Add_voucher_to_the_table(voucher_table, "v_seed_money")
-				
-				-- Magic Sleeve
-				Add_voucher_to_the_table(voucher_table, "v_omen_globe")
-				
-				-- Nebula Sleeve
-				Add_voucher_to_the_table(voucher_table, "v_observatory")
-				
-				-- Zodiac Deck
-				--Add_voucher_to_the_table(voucher_table, "v_tarot_merchant")
-				--Add_voucher_to_the_table(voucher_table, "v_planet_merchant")
-				--Add_voucher_to_the_table(voucher_table, "v_overstock_norm")
-			
-				-- Deck Of Equilibrium
-				Add_voucher_to_the_table(voucher_table, "v_overstock_norm")
-				Add_voucher_to_the_table(voucher_table, "v_overstock_plus")
-				
-				return voucher_table
 			end
-			function Cryptid.get_antimattersleeve_consumables(consumable_table, skip)
-				if not consumable_table or type(consumable_table) ~= "table" then
-					consumable_table = {}
-				end
-				if
-					(Cryptid.safe_get(G.PROFILES, G.SETTINGS.profile, "deck_usage", "b_magic", "wins", 8) or 0 ~= 0) or skip
-				then
-					table.insert(consumable_table, "c_fool")
-					table.insert(consumable_table, "c_fool")
-				end
-				if
-					(Cryptid.safe_get(G.PROFILES, G.SETTINGS.profile, "deck_usage", "b_ghost", "wins", 8) or 0 ~= 0) or skip
-				then
-					table.insert(consumable_table, "c_hex")
-				end
-				return consumable_table
+			return false
+		end
+		local function Add_voucher_to_the_table(t, voucher)
+			if not already_exists(t, voucher) then
+				table.insert(t, voucher)
 			end
+		end
+		--Yellow Sleeve
+		Add_voucher_to_the_table(voucher_table, "v_seed_money")
+
+		-- Magic Sleeve
+		Add_voucher_to_the_table(voucher_table, "v_omen_globe")
+
+		-- Nebula Sleeve
+		Add_voucher_to_the_table(voucher_table, "v_observatory")
+
+		-- Zodiac Deck
+		--Add_voucher_to_the_table(voucher_table, "v_tarot_merchant")
+		--Add_voucher_to_the_table(voucher_table, "v_planet_merchant")
+		--Add_voucher_to_the_table(voucher_table, "v_overstock_norm")
+
+		-- Deck Of Equilibrium
+		Add_voucher_to_the_table(voucher_table, "v_overstock_norm")
+		Add_voucher_to_the_table(voucher_table, "v_overstock_plus")
+
+		return voucher_table
+	end
+	function Cryptid.get_antimattersleeve_consumables(consumable_table, skip)
+		if not consumable_table or type(consumable_table) ~= "table" then
+			consumable_table = {}
+		end
+		if (Cryptid.safe_get(G.PROFILES, G.SETTINGS.profile, "deck_usage", "b_magic", "wins", 8) or 0 ~= 0) or skip then
+			table.insert(consumable_table, "c_fool")
+			table.insert(consumable_table, "c_fool")
+		end
+		if (Cryptid.safe_get(G.PROFILES, G.SETTINGS.profile, "deck_usage", "b_ghost", "wins", 8) or 0 ~= 0) or skip then
+			table.insert(consumable_table, "c_hex")
+		end
+		return consumable_table
+	end
 	local sleeveitems = {}
 	if CardSleeves then
 		sleeveitems = {
