@@ -149,7 +149,7 @@ local happyhouse = {
 					or (
 						CardSleeves
 						and G.GAME.selected_sleeve
-						--	and G.GAME.selected_sleeve ~= "sleeve_cry_antimatter_sleeve"	TODO: Add check if Antimatter sleeve gets added
+						and G.GAME.selected_sleeve ~= "sleeve_cry_antimatter_sleeve"
 						and G.GAME.selected_sleeve ~= "sleeve_cry_equilibrium_sleeve"
 					)
 				)
