@@ -2368,7 +2368,6 @@ local hook = { -- Hook://, applies Hooked to two jokers
 	cost = 4,
 	atlas = "atlasnotjokers",
 	order = 14,
-	no_pool_flag = "beta_deck",
 	can_use = function(self, card)
 		if not G.GAME.modifiers.cry_beta then
 			return (#G.jokers.highlighted == 2 and #G.consumeables.highlighted == 1)
@@ -2383,9 +2382,9 @@ local hook = { -- Hook://, applies Hooked to two jokers
 		local card1 = nil
 		local card2 = nil
 		for i = 1, #G.jokers.highlighted do
-			if not card1 and card1 ~= card then
+			if not card1 and G.jokers.highlighted[i] ~= card then
 				card1 = G.jokers.highlighted[i]
-			elseif card2 ~= card then
+			elseif G.jokers.highlighted[i] ~= card then
 				card2 = G.jokers.highlighted[i]
 			end
 		end
@@ -2428,15 +2427,15 @@ local hooked = { -- When a joker is naturally triggered, force-trigger the hooke
 	order = 606,
 	loc_vars = function(self, info_queue, card)
 		local var
-		if not card or not card.cry_hook_id then
+		if not card or not card.ability.cry_hook_id then
 			var = "[" .. localize("k_joker") .. "]"
 		else
 			for i = 1, #G.jokers.cards do
-				if G.jokers.cards[i].sort_id == card.cry_hook_id then
-					var = G.jokers.cards[i]
+				if G.jokers.cards[i].sort_id == card.ability.cry_hook_id then
+					var = localize({ type = "name_text", set = "Joker", key = G.jokers.cards[i].config.center_key })
 				end
 			end
-			var = var or ("[no joker found - " .. (card.cry_hook_id or "nil") .. "]")
+			var = var or ("[no joker found - " .. (card.ability.cry_hook_id or "nil") .. "]")
 		end
 		return { vars = { var or "hooked Joker" } }
 	end,
@@ -2449,13 +2448,18 @@ local hooked = { -- When a joker is naturally triggered, force-trigger the hooke
 		G.shared_stickers[self.key]:draw_shader("dissolve", nil, nil, nil, card.children.center)
 	end,
 	calculate = function(self, card, context)
-		if context.post_trigger and not context.forcetrigger and not context.other_context.forcetrigger then
+		if
+			context.other_card == card
+			and context.post_trigger
+			and not context.forcetrigger
+			and not context.other_context.forcetrigger
+		then
 			for i = 1, #G.jokers.cards do
-				if
-					G.jokers.cards[i] == context.other_card
-					and context.other_card.ability.cry_hook_id == card.sort_id
-				then
-					Cryptid.forcetrigger(card, context)
+				if G.jokers.cards[i].sort_id == card.ability.cry_hook_id then
+					local results = Cryptid.forcetrigger(G.jokers.cards[i], context)
+					if results and results.jokers then
+						return results.jokers
+					end
 				end
 			end
 		end
@@ -2719,13 +2723,29 @@ local cryfunction =
 		cost = 4,
 		order = 19,
 		loc_vars = function(self, info_queue, card)
+			lclze = function(index)
+				local func_card = (G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[index]
+				if not func_card then
+					return "None"
+				end
+				for _, group in pairs(G.localization.descriptions) do
+					if _ ~= "Back" then
+						for key, card in pairs(group) do
+							if key == func_card then
+								return card.name
+							end
+						end
+					end
+				end
+				return "None"
+			end
 			info_queue[#info_queue + 1] = {
 				key = "cry_function_sticker_desc",
 				set = "Other",
 				vars = {
-					(G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[1],
-					(G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[2],
-					(G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[3],
+					lclze(1),
+					lclze(2),
+					lclze(3),
 				},
 			}
 		end,
@@ -2814,11 +2834,27 @@ local function_sticker = { -- TODO write this
 	-- 	}
 	-- end,
 	loc_vars = function(self, info_queue, card)
+		lclze = function(index)
+			local func_card = (G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[index]
+			if not func_card then
+				return "None"
+			end
+			for _, group in pairs(G.localization.descriptions) do
+				if _ ~= "Back" then
+					for key, card in pairs(group) do
+						if key == func_card then
+							return card.name
+						end
+					end
+				end
+			end
+			return "None"
+		end
 		return {
 			vars = {
-				(G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[1],
-				(G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[2],
-				(G.GAME.cry_function_cards or G.GAME.cry_last_used_consumeables)[3],
+				lclze(1),
+				lclze(2),
+				lclze(3),
 			},
 		}
 	end,
@@ -3889,12 +3925,12 @@ local delete = {
 			c = G.shop_jokers.highlighted[1]
 		end
 		if G.shop_booster.highlighted[1] then
-			_p = not not G.shop_jokers.highlighted[1].base.value
+			_p = not not G.shop_booster.highlighted[1].base.value
 			a = G.shop_booster
 			c = G.shop_booster.highlighted[1]
 		end
 		if G.shop_vouchers.highlighted[1] then
-			_p = not not G.shop_jokers.highlighted[1].base.value
+			_p = not not G.shop_vouchers.highlighted[1].base.value
 			a = G.shop_vouchers
 			c = G.shop_vouchers.highlighted[1]
 			if c.shop_voucher then

@@ -52,7 +52,7 @@ local supercell = {
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main then
-			if card.ability.extra.stat2 > 1 then --misprint deck moment
+			if lenient_bignum(card.ability.extra.stat2) > lenient_bignum(1) then --misprint deck moment
 				if Card.get_gameset(card) ~= "modest" then
 					return {
 						message = localize("cry_gaming_ex"),

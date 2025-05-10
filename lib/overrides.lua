@@ -1343,17 +1343,17 @@ end
 
 local scuref = set_consumeable_usage
 function set_consumeable_usage(card)
+	if not G.GAME.cry_last_used_consumeables then
+		G.GAME.cry_last_used_consumeables = {}
+	end
 	for i = 1, #G.GAME.cry_last_used_consumeables do
 		if not G.GAME.cry_function_stupid_workaround then
 			G.GAME.cry_function_stupid_workaround = {}
 		end
 		G.GAME.cry_function_stupid_workaround[i] = G.GAME.cry_last_used_consumeables[i]
 	end
-	if not G.GAME.cry_last_used_consumeables then
-		G.GAME.cry_last_used_consumeables = {}
-	end
 	local nextindex = #G.GAME.cry_last_used_consumeables + 1
-	G.GAME.cry_last_used_consumeables[nextindex] = card.config.center.key
+	G.GAME.cry_last_used_consumeables[nextindex] = card.config.center_key
 	if nextindex > 3 then
 		table.remove(G.GAME.cry_last_used_consumeables, 1)
 	end

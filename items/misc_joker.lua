@@ -9012,7 +9012,7 @@ local pity_prize = {
 	blueprint_compat = true,
 	demicoloncompat = true,
 	loc_vars = function(self, info_queue, center)
-		return { vars = {} }
+		return { key = Cryptid.gameset_loc(self, { modest = "modest" }), vars = {} }
 	end,
 	calculate = function(self, card, context)
 		if context.skipping_booster or context.forcetrigger then
@@ -9033,7 +9033,10 @@ local pity_prize = {
 				tag.ability.orbital_hand = pseudorandom_element(_poker_hands, pseudoseed("cry_pity_prize"))
 			end
 			add_tag(tag)
-			if Card.get_gameset(card) == "modest" and not context.blueprint and not context.retrigger_joker then
+			if
+				Card.get_gameset(card) == "modest" and (not context.blueprint and not context.retrigger_joker)
+				or context.forcetrigger
+			then
 				G.E_MANAGER:add_event(Event({
 					func = function()
 						play_sound("tarot1")
