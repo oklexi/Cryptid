@@ -327,7 +327,7 @@ local clock = {
 	pos = { x = 0, y = 1 },
 	mult = 0,
 	boss = {
-		min = 2,
+		min = 1,
 		max = 10,
 	},
 	config = {
