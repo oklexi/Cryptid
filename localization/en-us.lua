@@ -2377,7 +2377,7 @@ return {
 					"gain a random {C:attention}Tag{}",
 				},
 			},
-			j_cry_pity_prize_modest = {
+			j_cry_pity_prize_modest = { 
 				name = "Pity Prize",
 				text = {
 					"On skipping a {C:attention}Booster Pack{},",
@@ -2972,83 +2972,7 @@ return {
 			},
 		},
 		Planet = {
-			c_cry_asteroidbelt = {
-				name = "Asteroid Belt",
-				text = {
-					"{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
-					"{C:attention}#2#",
-					"{C:mult}+#3#{} Mult and",
-					"{C:chips}+#4#{} chip#<s>4#",
-				},
-			},
-			c_cry_void = {
-				name = "Void",
-				text = {
-					"{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
-					"{C:attention}#2#",
-					"{C:mult}+#3#{} Mult and",
-					"{C:chips}+#4#{} chip#<s>4#",
-				},
-			},
-			c_cry_marsmoons = {
-				name = "Phobos & Deimos",
-				text = {
-					"{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
-					"{C:attention}#2#",
-					"{C:mult}+#3#{} Mult and",
-					"{C:chips}+#4#{} chip#<s>4#",
-				},
-			},
-			-- Reserved Spot For None Hand Planet
-			c_cry_universe = {
-				name = Cryptid_config.family_mode and "Universe" or "The Universe In Its Fucking Entirety",
-				text = {
-					"{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
-					"{C:attention}#2#",
-					"{C:mult}+#3#{} Mult and",
-					"{C:chips}+#4#{} chip#<s>4#",
-				},
-			},
-			c_cry_planetlua = {
-				name = "Planet.lua",
-				text = {
-					"{C:green}#1# in #2#{} chance to",
-					"upgrade every",
-					"{C:legendary,E:1}poker hand{}",
-					"by {C:attention}1{} level",
-				},
-			},
-			c_cry_nstar = {
-				name = "Neutron Star",
-				text = {
-					"Upgrade a random",
-					"poker hand by",
-					"{C:attention}1{} level for each",
-					"{C:attention}Neutron Star{} used",
-					"in this run",
-					"{C:inactive}(Currently{C:attention} #1#{C:inactive}){}",
-				},
-			},
-			c_cry_sunplanet = {
-				name = "Sol",
-				text = {
-					"{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){}",
-					"Increase power of",
-					"{C:attention}Ascended{} hands by {X:gold,C:white}#2#{}",
-					"{C:inactive}(Currently {X:gold,C:white}X(#3#^asc){C:inactive})",
-				},
-			},
-			c_cry_ruutu = {
-				name = "Ruutu",
-				text = {
-					"({V:1}lvl.#4#{})({V:2}lvl.#5#{})({V:3}lvl.#6#{})",
-					"Level up",
-					"{C:attention}#1#{},",
-					"{C:attention}#2#{},",
-					"and {C:attention}#3#{}",
-				},
-			},
-			c_cry_risti = {
+			c_cry_Klubi = {
 				name = "Risti",
 				text = {
 					"({V:1}lvl.#4#{})({V:2}lvl.#5#{})({V:3}lvl.#6#{})",
@@ -3058,17 +2982,7 @@ return {
 					"and {C:attention}#3#{}",
 				},
 			},
-			c_cry_hertta = {
-				name = "Hertta",
-				text = {
-					"({V:1}lvl.#4#{})({V:2}lvl.#5#{})({V:3}lvl.#6#{})",
-					"Level up",
-					"{C:attention}#1#{},",
-					"{C:attention}#2#{},",
-					"and {C:attention}#3#{}",
-				},
-			},
-			c_cry_pata = {
+			c_cry_Lapio = {
 				name = "Pata",
 				text = {
 					"({V:1}lvl.#4#{})({V:2}lvl.#5#{})({V:3}lvl.#6#{})",
@@ -3086,6 +3000,91 @@ return {
 					"{C:attention}#1#{},",
 					"{C:attention}#2#{},",
 					"and {C:attention}#3#{}",
+				},
+			},
+			c_cry_nstar = {
+				name = "Neutron Star",
+				text = {
+					"Upgrade a random",
+					"poker hand by",
+					"{C:attention}1{} level for each",
+					"{C:attention}Neutron Star{} used",
+					"in this run",
+					"{C:inactive}(Currently{C:attention} #1#{C:inactive}){}",
+				},
+			},
+			c_cry_planetlua = {
+				name = "Planet.lua",
+				text = {
+					"{C:green}#1# in #2#{} chance to",
+					"upgrade every",
+					"{C:legendary,E:1}poker hand{}",
+					"by {C:attention}1{} level",
+				},
+			},
+			c_cry_Sydan = {
+				name = "Hertta",
+				text = {
+					"({V:1}lvl.#4#{})({V:2}lvl.#5#{})({V:3}lvl.#6#{})",
+					"Level up",
+					"{C:attention}#1#{},",
+					"{C:attention}#2#{},",
+					"and {C:attention}#3#{}",
+				},
+			},
+			c_cry_Timantti = {
+				name = "Ruutu",
+				text = {
+					"({V:1}lvl.#4#{})({V:2}lvl.#5#{})({V:3}lvl.#6#{})",
+					"Level up",
+					"{C:attention}#1#{},",
+					"{C:attention}#2#{},",
+					"and {C:attention}#3#{}",
+				},
+			},
+			c_cry_marsmoons = {
+				name = "Phobos & Deimos",
+				text = {
+					"{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+					"{C:attention}#2#",
+					"{C:mult}+#3#{} Mult and",
+					"{C:chips}+#4#{} chip#<s>4#",
+				},
+			},
+			c_cry_void = {
+				name = "Void",
+				text = {
+					"{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+					"{C:attention}#2#",
+					"{C:mult}+#3#{} Mult and",
+					"{C:chips}+#4#{} chip#<s>4#",
+				},
+			},
+			c_cry_asteroidbelt = {
+				name = "Asteroid Belt",
+				text = {
+					"{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+					"{C:attention}#2#",
+					"{C:mult}+#3#{} Mult and",
+					"{C:chips}+#4#{} chip#<s>4#",
+				},
+			},
+			c_cry_universe = {
+				name = Cryptid_config.family_mode and "Universe" or "The Universe In Its Fucking Entirety",
+				text = {
+					"{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
+					"{C:attention}#2#",
+					"{C:mult}+#3#{} Mult and",
+					"{C:chips}+#4#{} chip#<s>4#",
+				},
+			},
+			c_cry_sunplanet = {
+				name = "Sol",
+				text = {
+					"{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){}",
+					"Increase power of",
+					"{C:attention}Ascended{} hands by {X:gold,C:white}#2#{}",
+					"{C:inactive}(Currently {X:gold,C:white}X(#3#^asc){C:inactive})",
 				},
 			},
 		},
