@@ -145,7 +145,7 @@ function Cryptid.forcetrigger(card, context)
 						{ playing_card = G.playing_card }
 					)
 					card:start_materialize({ G.C.SECONDARY_SET.Enhanced })
-					G.play:emplace(card)
+					G.deck:emplace(card)
 					table.insert(G.playing_cards, card)
 					return true
 				end,
