@@ -9012,7 +9012,7 @@ local pity_prize = {
 	blueprint_compat = true,
 	demicoloncompat = true,
 	loc_vars = function(self, info_queue, center)
-		return { vars = {} }
+		return { key = Cryptid.gameset_loc(self, { modest = "modest" }), vars = {} }
 	end,
 	calculate = function(self, card, context)
 		if context.skipping_booster or context.forcetrigger then
