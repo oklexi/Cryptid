@@ -33,7 +33,7 @@ function Cryptid.forcetrigger(card, context)
 	G.E_MANAGER:add_event(Event({
 		trigger = "before",
 		func = function()
-			play_sound("cry_forcetrigger", 1, 1)
+			play_sound("cry_forcetrigger", 1, 0.6)
 			return true
 		end,
 	}))
