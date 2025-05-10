@@ -353,7 +353,6 @@ payload = '''
 cry_banished_keys = {},
 cry_last_used_consumeables = {},
 cry_function_stupid_workaround = {},
-cry_function_cards = {},
 '''
 match_indent = true
 
