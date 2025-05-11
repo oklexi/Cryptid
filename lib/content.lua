@@ -312,6 +312,7 @@ SMODS.ConsumableType({
 	default = "c_cry_potion",
 	can_stack = false,
 	can_divide = false,
+	no_collection = true,
 })
 -- Pool used by Food Jokers
 SMODS.ObjectType({
