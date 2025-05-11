@@ -486,3 +486,12 @@ payload = '''
 if Cryptid.forced_edition() then self:nope() end
 '''
 match_indent = true
+
+#Fix bignum select limit
+[[patches]]
+[patches.pattern]
+target = "cardarea.lua"
+pattern = "if #self.highlighted >= self.config.highlighted_limit then"
+position = "at"
+payload = "if to_big(#self.highlighted) >= to_big(self.config.highlighted_limit) then"
+match_indent = true
